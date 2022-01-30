@@ -29,6 +29,29 @@ function generate_table(group, day) {
     RASP.appendChild(div);
 }
 
+
+// Генерация шапки таблицы
+num_cls = ['1-я', '2-я', '3-я', '4-я', '5-я', '6-я', '7-я']
+time_cls = ['08:30-10:00', '10:15-11:45', '12:30-14:00', '14:15-15:45', '16:00-17:30', '18:00-19:30', '19:40-21:10']
+
+function generate_top(table) {
+
+    function div_in_td(txt1, txt2, tr, class_name) {
+        let td = document.createElement('td');
+        add_div(txt1, td, class_name + '1')
+        add_div(txt2, td, class_name + '2')
+        tr.appendChild(td)
+    }
+
+    let tr = document.createElement('tr');
+    add_td('Дата', tr)
+    for (let i = 0; i < 7; i++) {
+        div_in_td(num_cls[i], time_cls[i], tr, 'top')
+    }
+    table.appendChild(tr)
+}
+
+// Генерация строки данных
 function gen_row_data(table, day, day_info, prefix) {
     let tr = document.createElement('tr');
     add_td(day, tr)
@@ -50,33 +73,4 @@ function gen_row_data(table, day, day_info, prefix) {
     }
     //console.log(day);
     table.appendChild(tr)
-}
-
-// Генерация шапки таблицы
-function generate_top(table) {
-    // Генерация номеров пар
-    function gen_num(table) {
-        let tr = document.createElement('tr');
-        add_td('Пары', tr)
-        for (let i = 1; i < 8; i++) {
-            add_td(i + '-я', tr)
-        }
-        table.appendChild(tr)
-    }
-    // Генерация времени пар
-    function gen_time(table) {
-        let tr = document.createElement('tr');
-        add_td('Время', tr)
-        add_td('08:30-10:00', tr)
-        add_td('10:15-11:45', tr)
-        add_td('12:30-14:00', tr)
-        add_td('14:15-15:45', tr)
-        add_td('16:00-17:30', tr)
-        add_td('18:00-19:30', tr)
-        add_td('19:40-21:10', tr)
-        table.appendChild(tr)
-    }
-
-    gen_num(table)
-    gen_time(table)
 }
