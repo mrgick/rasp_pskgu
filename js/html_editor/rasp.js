@@ -1,5 +1,7 @@
 /* Работа с Group_Rasp элементом */
 
+let RASP
+
 function rasp_add_group_name(group_name) {
     let name = document.createElement('h1');
     name.innerHTML = name.innerHTML + group_name;

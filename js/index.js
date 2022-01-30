@@ -35,11 +35,10 @@ async function main(find_name, group_name) {
 
 
 window.onload = async function () {
+
     RASP = document.getElementById('Group_Rasp')
     GROUPSLIST = document.getElementById('Groups_List')
 
     const params = new URLSearchParams(window.location.search)
-    let find_name = params.get("find_group_name")
-    let group_name = params.get("group_name")
-    await main(find_name, group_name)
+    await main(params.get("find_group_name"), params.get("group_name"))
 }
