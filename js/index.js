@@ -3,15 +3,11 @@ async function main(find_name, group_name) {
     if (find_name) {
 
         //Generate groups_found
-        let groups = await get_json("https://api-rasp-pskgu.herokuapp.com/groups?list_of_names=true")
-        let list_names = groups.groups_list
-
+        let list_names = await get_list_groups()
+        console.log(await get_list_groups())
         groups_found = []
         for (let i = 0; i < list_names.length; i++) {
             if (list_names[i].toLowerCase().indexOf(find_name.toLowerCase()) != -1) {
-                if (groups_found.length > 5) {
-                    break
-                }
                 groups_found.push(list_names[i])
             }
         }
@@ -37,7 +33,7 @@ async function main(find_name, group_name) {
         }
         return
     } else if (group_name) {
-        let group = await get_json("https://api-rasp-pskgu.herokuapp.com/groups?name=" + group_name)
+        let group = await get_group_info(group_name)
         //console.log(group);
 
         let rasp = document.getElementById('Group_Rasp')
