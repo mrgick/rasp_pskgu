@@ -6,7 +6,7 @@ function add_td(name, tr) {
     tr.appendChild(td)
 }
 
-function gen_row_data(table, day, day_info) {
+function gen_row_data(table, day, day_info, prefix) {
     let tr = document.createElement('tr');
     add_td(day, tr)
     if (day_info) {

@@ -61,7 +61,7 @@ async function main(find_name, group_name) {
             generate_top(tbody)
             for (let i = 0; i < 7; i++) {
                 let day_date = get_next_day(day, i)
-                gen_row_data(tbody, day_date, group.days[day_date])
+                gen_row_data(tbody, day_date, group.days[day_date], group.prefix[0])
             }
 
             table.appendChild(tbody);
