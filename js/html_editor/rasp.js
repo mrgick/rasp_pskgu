@@ -1,52 +1,18 @@
-/* Работа с html элементами */
+/* Работа с Group_Rasp элементом */
 
-function add_td(name, tr) {
-    let td = document.createElement('td');
-    td.innerHTML += name
-    tr.appendChild(td)
-}
-
-function add_div(text, element, class_name) {
-    let div = document.createElement('div');
-    div.setAttribute('class', class_name)
-    div.innerHTML += text
-    element.appendChild(div)
-}
-
-function generate_list(groups_found, GROUPSLIST) {
-
-    function add_group_to_list(name, ul) {
-        let li = document.createElement('li');
-        li.setAttribute('class', 'item');
-        let a = document.createElement('a');
-        a.setAttribute('href', '?group_name=' + name)
-        li.appendChild(a);
-        ul.appendChild(li);
-        a.innerHTML = a.innerHTML + name;
-    }
-
-    let ul = document.createElement('ul');
-    ul.setAttribute('id', 'Groups');
-    GROUPSLIST.appendChild(ul);
-
-    for (let i = 0; i < groups_found.length; i++) {
-        add_group_to_list(groups_found[i], ul)
-    }
-}
-
-function rasp_add_group_name(group_name, RASP) {
+function rasp_add_group_name(group_name) {
     let name = document.createElement('h1');
     name.innerHTML = name.innerHTML + group_name;
     RASP.appendChild(name);
 }
 
-function rasp_add_empty(RASP) {
+function rasp_add_empty() {
     let empty = document.createElement('h2');
     empty.innerHTML = empty.innerHTML + 'Расписание пустое';
     RASP.appendChild(empty);
 }
 
-function generate_table(RASP, group, day) {
+function generate_table(group, day) {
 
     let table = document.createElement('table');
     let tbody = document.createElement('tbody');
