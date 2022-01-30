@@ -48,7 +48,7 @@ function gen_row_data(table, day, day_info) {
                 add_td('', tr)
             }
         }
-        console.log(day_info);
+        //console.log(day_info);
     }
     else {
         for (let i = 0; i < 7; i++) {
