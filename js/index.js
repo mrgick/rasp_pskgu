@@ -5,6 +5,7 @@ async function main(find_name, group_name) {
         //Generate groups_found
         let groups = await get_json("https://api-rasp-pskgu.herokuapp.com/groups?list_of_names=true")
         let list_names = groups.groups_list
+
         groups_found = []
         for (let i = 0; i < list_names.length; i++) {
             if (list_names[i].toLowerCase().indexOf(find_name.toLowerCase()) != -1) {
@@ -78,6 +79,7 @@ async function main(find_name, group_name) {
             //console.log(day);
             day = get_next_day(day, 7)
         }
+        return
     }
 }
 
