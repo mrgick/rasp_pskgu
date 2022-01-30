@@ -1,34 +1,4 @@
-// Get data from api (make request)
-async function get_json(url) {
-    let response = await fetch(url);
-    let data = await response.json();
-    return data;
-}
-
-//--------------------------
-//Working with time
-function date_to_str(date) {
-    return date.toISOString().split('T')[0];
-}
-
-function get_monday(date) {
-    date = new Date(date);
-    let day = date.getDay();
-    let diff = date.getDate() - day + (day == 0 ? -6 : 1);
-    date = new Date(date.setDate(diff))
-    return date_to_str(date);
-}
-
-function get_next_day(date, n = 1) {
-    date = new Date(date);
-    let diff = date.getDate() + n;
-    date = new Date(date.setDate(diff))
-    return date_to_str(date);
-}
-//--------------------------
-
-//--------------------------
-//Working with tables
+/* Работа с html элементами */
 
 function add_td(name, tr) {
     let td = document.createElement('td');
@@ -87,4 +57,3 @@ function generate_top(table) {
     gen_num(table)
     gen_time(table)
 }
-//--------------------------

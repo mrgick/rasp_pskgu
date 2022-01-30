@@ -4,7 +4,6 @@ async function main(find_name, group_name) {
 
         //Generate groups_found
         let list_names = await get_list_groups()
-        console.log(await get_list_groups())
         groups_found = []
         for (let i = 0; i < list_names.length; i++) {
             if (list_names[i].toLowerCase().indexOf(find_name.toLowerCase()) != -1) {
@@ -31,7 +30,6 @@ async function main(find_name, group_name) {
             a.innerHTML = a.innerHTML + element;
 
         }
-        return
     } else if (group_name) {
         let group = await get_group_info(group_name)
         //console.log(group);
@@ -75,10 +73,8 @@ async function main(find_name, group_name) {
             //console.log(day);
             day = get_next_day(day, 7)
         }
-        return
     }
 }
-
 
 
 window.onload = async function () {
