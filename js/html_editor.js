@@ -6,6 +6,63 @@ function add_td(name, tr) {
     tr.appendChild(td)
 }
 
+function add_div(text, element, class_name) {
+    let div = document.createElement('div');
+    div.setAttribute('class', class_name)
+    div.innerHTML += text
+    element.appendChild(div)
+}
+
+function generate_list(groups_found, GROUPSLIST) {
+
+    function add_group_to_list(name, ul) {
+        let li = document.createElement('li');
+        li.setAttribute('class', 'item');
+        let a = document.createElement('a');
+        a.setAttribute('href', '?group_name=' + name)
+        li.appendChild(a);
+        ul.appendChild(li);
+        a.innerHTML = a.innerHTML + name;
+    }
+
+    let ul = document.createElement('ul');
+    ul.setAttribute('id', 'Groups');
+    GROUPSLIST.appendChild(ul);
+
+    for (let i = 0; i < groups_found.length; i++) {
+        add_group_to_list(groups_found[i], ul)
+    }
+}
+
+function rasp_add_group_name(group_name, RASP) {
+    let name = document.createElement('h1');
+    name.innerHTML = name.innerHTML + group_name;
+    RASP.appendChild(name);
+}
+
+function rasp_add_empty(RASP) {
+    let empty = document.createElement('h2');
+    empty.innerHTML = empty.innerHTML + 'Расписание пустое';
+    RASP.appendChild(empty);
+}
+
+function generate_table(RASP, group, day) {
+
+    let table = document.createElement('table');
+    let tbody = document.createElement('tbody');
+
+    generate_top(tbody)
+    for (let i = 0; i < 7; i++) {
+        let day_date = get_next_day(day, i)
+        gen_row_data(tbody, day_date, group.days[day_date], group.prefix[0])
+    }
+
+    table.appendChild(tbody);
+    RASP.appendChild(table);
+    let div = document.createElement('br');
+    RASP.appendChild(div);
+}
+
 function gen_row_data(table, day, day_info, prefix) {
     let tr = document.createElement('tr');
     add_td(day, tr)
