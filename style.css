@@ -191,6 +191,63 @@ table td {
     border: 1px solid var(--color-additionaly);
 }
 
+.lesson_type-lecture {
+    background-color: rgb(184, 255, 188);
+    width: fit-content;
+    margin: auto;
+    border-radius: 5px;
+    padding: 0 3px;
+}
+.lesson_type-lab {
+    background-color: rgb(184, 241, 255);
+    width: fit-content;
+    margin: auto;
+    border-radius: 5px;
+    padding: 0 3px;
+}
+.lesson_type-practice {
+    background-color: rgb(189, 184, 255);
+    width: fit-content;
+    margin: auto;
+    border-radius: 5px;
+    padding: 0 3px;
+}
+.lesson_type-volkswagen {
+    background-color: rgb(233, 184, 255);
+    width: fit-content;
+    margin: auto;
+    border-radius: 5px;
+    padding: 0 3px;
+}
+.lesson_type-test {
+    background-color: rgb(255, 254, 184);
+    width: fit-content;
+    margin: auto;
+    border-radius: 5px;
+    padding: 0 3px;
+}
+.lesson_type-test {
+    background-color: rgb(255, 254, 184);
+    width: fit-content;
+    margin: auto;
+    border-radius: 5px;
+    padding: 0 3px;
+}
+.lesson_type-cons {
+    background-color: rgb(255, 218, 184);
+    width: fit-content;
+    margin: auto;
+    border-radius: 5px;
+    padding: 0 3px;
+}
+.lesson_type-exam {
+    background-color: rgb(255, 184, 184);
+    width: fit-content;
+    margin: auto;
+    border-radius: 5px;
+    padding: 0 3px;
+}
+
 @media (max-width: 700px) {
     .header {
         margin: 15px;
