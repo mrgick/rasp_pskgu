@@ -30,10 +30,10 @@ async function loadSearch(find_name)
 // Страница расписания
 async function loadGroup(group_name)
 {
-    generate_rasp_page();
 
     let group = await get_group_info(group_name)
 
+    generate_rasp_page(group.page_url);
     // Вставка имени группы
     rasp_add_group_name(group.name)
 

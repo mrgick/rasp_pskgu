@@ -28,14 +28,14 @@ function generate_search_page()
     `
 }
 
-function generate_rasp_page()
+function generate_rasp_page(page_url)
 {
     document.getElementById("MAIN").innerHTML=`
     <header class="header">
         <h1 class="title title--top">Расписание<br>ПсковГУ</h1>
         <div class="header-main">
             <h2 class="group_name" id="Group_Name"></h2>
-            <a class="header-main-back" href="#">Назад</a>
+            <a class="header-main-back" href="${page_url}">Показать оригинал</a>
         </div>
     </header>
     <container>
