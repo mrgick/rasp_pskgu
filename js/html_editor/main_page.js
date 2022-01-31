@@ -8,6 +8,10 @@ function generate_main_page()
             <button class="search-form-button" type="submit">Поиск</button>
         </form>
     </div>
+    <footer class="footer">
+        <a class="footer-link" href="http://rasp.pskgu.ru">Оригинал расписания</a>
+        <div class="footer-authors">© MrGick, KGlebB, WhiteRain7<br>сайт создан, используя API</div>
+    </footer>
     `
 }
 
@@ -28,14 +32,14 @@ function generate_search_page()
     `
 }
 
-function generate_rasp_page(page_url)
+function generate_rasp_page(group)
 {
     document.getElementById("MAIN").innerHTML=`
     <header class="header">
-        <h1 class="title title--top">Расписание<br>ПсковГУ</h1>
+        <h1 class="title title--top"><a href="${window.location.pathname}">Расписание<br>ПсковГУ</a></h1>
         <div class="header-main">
-            <h2 class="group_name" id="Group_Name"></h2>
-            <a class="header-main-back" href="${page_url}">Показать оригинал</a>
+            <h2 class="group_name" id="Group_Name">${group.prefix[1]=="groups" ? "Группа" : "Преподаватель"} ${group.name}</h2>
+            <a class="header-main-back" href="${group.page_url}">Оригинал</a>
         </div>
     </header>
     <container>

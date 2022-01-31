@@ -1,9 +1,5 @@
 /* Работа с Group_Rasp элементом */
 
-function rasp_add_group_name(group_name) {
-    document.getElementById("Group_Name").innerHTML = group_name;
-}
-
 function rasp_add_empty() {
     let empty = document.createElement('h2');
     empty.innerHTML = empty.innerHTML + 'Расписание пустое';
@@ -13,7 +9,7 @@ function rasp_add_empty() {
 function generate_table(group, day, week_number) {
     let rasp = document.createElement('div');
     rasp.classList.add('rasp');
-    rasp.innerHTML=`<h3 class="rasp-title">${week_number}-я неделя курса (${new Date(day).getDate()}-${new Date(get_next_day(day, 6)).getDate()} ${monthNames[new Date(get_next_day(day, 6)).getMonth()]})</h3>`;
+    rasp.innerHTML=`<h3 class="rasp-title">${week_number}-я неделя (${new Date(day).getDate()}-${new Date(get_next_day(day, 6)).getDate()} ${monthNames[new Date(get_next_day(day, 6)).getMonth()]})</h3>`;
     let table = document.createElement('table');
     table.classList.add('rasp-table');
     let tbody = document.createElement('tbody');

@@ -15,6 +15,10 @@
     margin: 0;
 }
 
+a {
+    text-decoration: none;
+}
+
 table {
     width: 100%;
     table-layout: fixed;
@@ -40,12 +44,15 @@ table td {
 
 .header-main-back {
     text-decoration: none;
-    color: var(--color-additionaly);
+    color: var(--color-secondary);
+}
+.header-main-back:hover {
+    text-decoration: underline;
 }
 
 .group_name {
     margin: 0;
-    font-size: 48px;
+    font-size: 36px;
 }
 
 .title {
@@ -206,11 +213,11 @@ table td {
     padding: 0 3px;
 }
 .lesson_type-practice {
-    background-color: rgb(189, 184, 255);
+    background-color: rgb(184, 191, 255);
     width: fit-content;
     margin: auto;
     border-radius: 5px;
-    padding: 0 3px;
+    padding: 0 3px; 
 }
 .lesson_type-volkswagen {
     background-color: rgb(233, 184, 255);
@@ -246,6 +253,35 @@ table td {
     margin: auto;
     border-radius: 5px;
     padding: 0 3px;
+}
+
+.footer {
+    position: absolute;
+    bottom: 5vh;
+    left: 5%;
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.footer-link {
+    font-weight: 500;
+    font-size: 18px;
+    color: var(--color-link);
+}
+.footer-link:hover {
+    color: var(--color-hover);
+    text-decoration: underline;
+}
+.footer-authors {
+    color: var(--color-secondary);
+    text-align: right;
+}
+
+@media (max-height: 560px) {
+    .title {
+        margin-top: 5vh;
+    }
 }
 
 @media (max-width: 700px) {

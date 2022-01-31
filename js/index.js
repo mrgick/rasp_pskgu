@@ -33,9 +33,8 @@ async function loadGroup(group_name)
 
     let group = await get_group_info(group_name)
 
-    generate_rasp_page(group.page_url);
+    generate_rasp_page(group);
     // Вставка имени группы
-    rasp_add_group_name(group.name)
 
     let days_length = Object.keys(group.days).length
 
