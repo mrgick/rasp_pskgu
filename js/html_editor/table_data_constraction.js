@@ -17,8 +17,8 @@ const group_REs =   {'lesson_type': { // type
                                       '!result| <|3':[/[А-Я] [А-Я]\.[А-Я]\./i]
                                     },
                             'room': {
-                                      'online' :[/О-нлайн[0-9]*/i, /Онлайн/i],
-                                      '!result| <':[/-[0-9]*/],
+                                      'online' :[/О-нлайн[0-9]*/i, /онлайн[0-9]*/i],
+                                      '!result| <':[/-[0-9][0-9]*/],
                                       'DLS':[/СДО ПсковГУ/i]
                                     },
 }
@@ -40,8 +40,8 @@ const teacher_REs = {'lesson_type': { // type
                                       '!pre_last':[/\(п\/г [1-2]\)/]
                                     },
                             'room': {
-                                      'online' :[/О-нлайн[0-9]*/i, /Онлайн \(Zoom[0-9]*\)/i],
-                                      '!result| <':[/-[0-9]*/],
+                                      'online' :[/О-нлайн[0-9]*/i, /онлайн[0-9]*/i, /Онлайн \(Zoom[0-9]*\)/i],
+                                      '!result| <':[/-[0-9][0-9]*/],
                                       'DLS':[/СДО ПсковГУ/i]
                                     },
 }
@@ -137,8 +137,8 @@ function divide (text, RE_list) {
                 while (matched) {
                     class_name += re_t+'-'
                     if (re_st[0] == '!') {
-                        if (re_st == '!last') class_name += matched[0][matched.length-1]
-                        else if (re_st == '!pre_last') class_name += matched[0][matched.length-2]
+                        if (re_st == '!last') class_name += matched[0][matched[0].length-1]
+                        else if (re_st == '!pre_last') class_name += matched[0][matched[0].length-2]
                         else if (re_st == '!result') class_name += matched[0]
                         else if (re_st.indexOf('!result') !== -1) {
                             let settings = re_st.split('|')
@@ -179,17 +179,12 @@ function divide (text, RE_list) {
 function gen_row_data(table, day, day_content, if_teacher) { // prefixes: ЗФО|ОФО|Преподаватель
     if_teacher = if_teacher.toLowerCase() == 'преподователь'? true : false
     let tr = document.createElement('tr');
-    add_td(
-        `<p class="rasp-table-day-date">${new Date(day).getDate()} ${monthNames[new Date(day).getMonth()]}</p>
-        <p class="rasp-table-day-weekdate">${weekNames[new Date(day).getDay()]}</p>`,
-        tr, "rasp-table-day"
-    )
+    add_td(day, tr)
 
     if (day_content) {
         for (let i = 1; i <= 7; i++) { // for each lesson
             if (day_content[i]) {
                 let td = document.createElement('td')
-                td.classList.add("rasp-table-pair");
                 tr.appendChild(td)
                 content = divide(day_content[i], if_teacher? teacher_REs : group_REs)
                 for (lesson in content) {
@@ -202,14 +197,14 @@ function gen_row_data(table, day, day_content, if_teacher) { // prefixes: ЗФО
                 }
             }
             else {
-                add_td('', tr, "rasp-table-pair")
+                add_td('', tr)
             }
         }
         //console.log(day_content);
     }
     else {
         for (let i = 0; i < 7; i++) {
-            add_td('', tr, "rasp-table-pair")
+            add_td('', tr)
         }
     }
     //console.log(day);
