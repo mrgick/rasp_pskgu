@@ -9,13 +9,19 @@
 
 * {
     font-family: 'Open Sans', sans-serif;
-    font-size: 14px;
-    font-weight: 400;
+    font-weight: inherit;
+    font-size: inherit;
     color: var(--color-primary);
+    margin: 0;
 }
 
-table, th, td {
-    border: 1px solid black;
+table {
+    width: 100%;
+    table-layout: fixed;
+}
+
+table td {
+    width: 100%;
 }
 
 .header {
@@ -127,6 +133,62 @@ table, th, td {
 .groups-list__item-link:hover {
     color: var(--color-hover);
     text-decoration: underline;
+}
+
+.rasp {
+    margin: 25px;
+}
+
+.rasp-title {
+    font-weight: 500;
+    font-size: 18px;
+    color: var(--color-primary);
+    margin: 0 0 5px;
+}
+
+.rasp-table {
+    border-collapse: collapse;
+    border-radius: 20px;
+    border-style: hidden;
+    box-shadow: 0 0 0 3px var(--color-primary);
+}
+
+.rasp-table-date {
+    text-align: center;
+    font-weight: 500;
+    font-size: 24px;
+    border: 2px solid var(--color-secondary);
+}
+
+.rasp-table-shedule {
+    text-align: center;
+    border: 1px solid var(--color-additionaly);
+    border-bottom: 2px solid var(--color-secondary);
+}
+
+.rasp-table-shedule-pair, .rasp-table-day-date {
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--color-primary);
+}
+
+.rasp-table-shedule-time, .rasp-table-day-weekdate {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-secondary);
+}
+
+.rasp-table-day {
+    text-align: center;
+    border: 1px solid var(--color-additionaly);
+    border-right: 2px solid var(--color-secondary);
+}
+
+.rasp-table-pair {
+    text-align: center;
+    font-weight: 400;
+    font-size: 8pt;
+    border: 1px solid var(--color-additionaly);
 }
 
 @media (max-width: 700px) {

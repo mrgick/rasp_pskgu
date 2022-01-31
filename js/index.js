@@ -50,9 +50,11 @@ async function loadGroup(group_name)
     let last_date = new Date(Object.keys(group.days)[days_length - 1])
     let day = get_monday(first_date)
 
+    let week = 0;
+    
     while (new Date(day) <= last_date) {
-        generate_table(group, day)
-        day = get_next_day(day, 7)
+        generate_table(group, day, ++week);
+        day = get_next_day(day, 7);
     }
 }
 

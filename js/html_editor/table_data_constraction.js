@@ -1,38 +1,48 @@
 /* Файл генерации данных таблицы*/
 
 const group_REs =   {'lesson_type': { // type
-                                      'lecture' : [/л\./], // subtype
-                                      'practice': [/пр\./],
-                                      'lab'     : [/лаб\./]
+                                      'lecture'   : [/л\./], // subtype
+                                      'practice'  : [/пр\./],
+                                      'lab'       : [/лаб\./],
+                                      'test'      : [/зач\./],
+                                      'cons'      : [/конс\./],
+                                      'exam'      : [/экз\./],
+                                      'volkswagen': [/фв/]
                                     },
                           'lesson': {'ignore': 'ignore'},
                         'subgroup': {
-                                      '!last':[/п\/г [1-2]/]
+                                      '!pre_last':[/\(п\/г [1-2]\)/]
                                     },
                          'teacher': {
                                       '!result| <|3':[/[А-Я] [А-Я]\.[А-Я]\./i]
                                     },
                             'room': {
                                       'online' :[/О-нлайн[0-9]*/i, /Онлайн/i],
-                                      '!result| <':[/-[0-9]*/]
+                                      '!result| <':[/-[0-9]*/],
+                                      'DLS':[/СДО ПсковГУ/i]
                                     },
 }
 
 const teacher_REs = {'lesson_type': { // type
-                                      'lecture' : [/л\./], // subtype
-                                      'practice': [/пр\./],
-                                      'lab'     : [/лаб\./]
+                                      'lecture'   : [/л\./], // subtype
+                                      'practice'  : [/пр\./],
+                                      'lab'       : [/лаб\./],
+                                      'test'      : [/зач\./],
+                                      'cons'      : [/конс\./],
+                                      'exam'      : [/экз\./],
+                                      'volkswagen': [/фв/]
                                     },
                           'lesson': {'ignore': 'ignore'},
                            'group': {
                                       '!result|>,':[/[0-9][0-9][0-9][0-9]-[0-9][0-9]/]
                                     },
                         'subgroup': {
-                                      '!last':[/п\/г [1-2]/]
+                                      '!pre_last':[/\(п\/г [1-2]\)/]
                                     },
                             'room': {
                                       'online' :[/О-нлайн[0-9]*/i, /Онлайн \(Zoom[0-9]*\)/i],
-                                      '!result| <':[/-[0-9]*/]
+                                      '!result| <':[/-[0-9]*/],
+                                      'DLS':[/СДО ПсковГУ/i]
                                     },
 }
 
@@ -41,7 +51,14 @@ const group_block_seps = [/лайн[0-9]*/ig, /.-[0-9][0-9]*/g]
 const convert_result = {'л.':'Лекция',
                         'пр.':'Практика',
                         'лаб.':'Лабораторная',
-                        '/О-нлайн[0-9]*/i': 'Онлайн'}
+                        '/О-нлайн[0-9]*/i': 'Онлайн',
+                        '(п/г 1)':'п/г 1',
+                        '(п/г 2)':'п/г 2',
+                        'фв':'Физвоспитание',
+                        'зач.':'Зачёт',
+                        'конс.':'Консультация',
+                        'экз.':'Экзамен',
+                        }
 function try_convert (text) {
     for (key in convert_result) {
         if (key[0] == '/') {
@@ -113,6 +130,7 @@ function divide (text, RE_list) {
                 final_index = index
                 continue
             }
+            found_smth = false
             for (re in res) { // for each RegExp in list
                 re = res[re]
                 let matched = text.match(re)
@@ -120,6 +138,7 @@ function divide (text, RE_list) {
                     class_name += re_t+'-'
                     if (re_st[0] == '!') {
                         if (re_st == '!last') class_name += matched[0][matched.length-1]
+                        else if (re_st == '!pre_last') class_name += matched[0][matched.length-2]
                         else if (re_st == '!result') class_name += matched[0]
                         else if (re_st.indexOf('!result') !== -1) {
                             let settings = re_st.split('|')
@@ -147,9 +166,10 @@ function divide (text, RE_list) {
                     class_name = ''
                     index++
                     matched = text.match(re)
+                    found_smth = true
                 }
-            //break - here we can cut off excesses
             }
+            if (found_smth) break
         }
         content[content.length-1].splice(final_index, 0, ['lesson', cut_off_excess(text)])
     }
@@ -159,12 +179,17 @@ function divide (text, RE_list) {
 function gen_row_data(table, day, day_content, if_teacher) { // prefixes: ЗФО|ОФО|Преподаватель
     if_teacher = if_teacher.toLowerCase() == 'преподователь'? true : false
     let tr = document.createElement('tr');
-    add_td(day, tr)
+    add_td(
+        `<p class="rasp-table-day-date">${new Date(day).getDate()} ${monthNames[new Date(day).getMonth()]}</p>
+        <p class="rasp-table-day-weekdate">${weekNames[new Date(day).getDay()]}</p>`,
+        tr, "rasp-table-day"
+    )
 
     if (day_content) {
         for (let i = 1; i <= 7; i++) { // for each lesson
             if (day_content[i]) {
                 let td = document.createElement('td')
+                td.classList.add("rasp-table-pair");
                 tr.appendChild(td)
                 content = divide(day_content[i], if_teacher? teacher_REs : group_REs)
                 for (lesson in content) {
@@ -177,14 +202,14 @@ function gen_row_data(table, day, day_content, if_teacher) { // prefixes: ЗФО
                 }
             }
             else {
-                add_td('', tr)
+                add_td('', tr, "rasp-table-pair")
             }
         }
         //console.log(day_content);
     }
     else {
         for (let i = 0; i < 7; i++) {
-            add_td('', tr)
+            add_td('', tr, "rasp-table-pair")
         }
     }
     //console.log(day);
