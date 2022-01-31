@@ -179,12 +179,17 @@ function divide (text, RE_list) {
 function gen_row_data(table, day, day_content, if_teacher) { // prefixes: ЗФО|ОФО|Преподаватель
     if_teacher = if_teacher.toLowerCase() == 'преподователь'? true : false
     let tr = document.createElement('tr');
-    add_td(day, tr)
+    add_td(
+        `<p class="rasp-table-day-date">${new Date(day).getDate()} ${monthNames[new Date(day).getMonth()]}</p>
+        <p class="rasp-table-day-weekdate">${weekNames[new Date(day).getDay()]}</p>`,
+        tr, "rasp-table-day"
+    )
 
     if (day_content) {
         for (let i = 1; i <= 7; i++) { // for each lesson
             if (day_content[i]) {
                 let td = document.createElement('td')
+                td.classList.add("rasp-table-pair");
                 tr.appendChild(td)
                 content = divide(day_content[i], if_teacher? teacher_REs : group_REs)
                 for (lesson in content) {
@@ -197,14 +202,14 @@ function gen_row_data(table, day, day_content, if_teacher) { // prefixes: ЗФО
                 }
             }
             else {
-                add_td('', tr)
+                add_td('', tr, "rasp-table-pair")
             }
         }
         //console.log(day_content);
     }
     else {
         for (let i = 0; i < 7; i++) {
-            add_td('', tr)
+            add_td('', tr, "rasp-table-pair")
         }
     }
     //console.log(day);
