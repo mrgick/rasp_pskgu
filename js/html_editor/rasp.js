@@ -1,17 +1,13 @@
 /* Работа с Group_Rasp элементом */
 
-let RASP
-
 function rasp_add_group_name(group_name) {
-    let name = document.createElement('h1');
-    name.innerHTML = name.innerHTML + group_name;
-    RASP.appendChild(name);
+    document.getElementById("Group_Name").innerHTML = group_name;
 }
 
 function rasp_add_empty() {
     let empty = document.createElement('h2');
     empty.innerHTML = empty.innerHTML + 'Расписание пустое';
-    RASP.appendChild(empty);
+    document.getElementById('Group_Rasp').appendChild(empty);
 }
 
 function generate_table(group, day) {
@@ -26,9 +22,9 @@ function generate_table(group, day) {
     }
 
     table.appendChild(tbody);
-    RASP.appendChild(table);
+    document.getElementById('Group_Rasp').appendChild(table);
     let div = document.createElement('br');
-    RASP.appendChild(div);
+    document.getElementById('Group_Rasp').appendChild(div);
 }
 
 
