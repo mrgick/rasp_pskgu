@@ -34,10 +34,10 @@ const group_REs =   {'lesson_type': { // type
                                       '!result'     :[/0001_преподаватель/i], // debug
                                     },
                             'room': {
-                                      'online'    :[/о-?нлайн\d*/i                   ],
-                                      '!result|< ':[/(^|[ Лс])[тКСП1238]-\d\d*[а-в]?/],
-                                      'online'    :[/\S\S?-?нлайн( ?\(.*\)|\d*)/i    ], // debug
-                                      'DLS'       :[/СДО ПсковГУ/i                   ],
+                                      'online'    :[/о-?нлайн\d*/i                     ],
+                                      '!result|< ':[/(^|[ ЛсС])[тКСПЗ1238]-\d\d*[а-в]?/],
+                                      'online'    :[/\S\S?-?нлайн( ?\(.*\)|\d*)/i      ], // debug
+                                      'DLS'       :[/СДО ПсковГУ/i                     ],
                                     },
 }
 
@@ -62,15 +62,15 @@ const teacher_REs = {'lesson_type': { // type
                                       '!pre_last':[/\(п\/г ?[1-2]\)/],
                                     },
                             'room': {
-                                      'online'    :[/о-?нлайн( \(.*\)|\d*)/i         ],
-                                      '!result|< ':[/(^|[ Лс])[тКСП1238]-\d\d*[а-в]?/],
-                                      'online'    :[/\S\S?-?нлайн( ?\(.*\)|\d*)/i    ], // debug
-                                      'DLS'       :[/СДО ПсковГУ/i                   ],
+                                      'online'    :[/о-?нлайн( \(.*\)|\d*)/i           ],
+                                      '!result|< ':[/(^|[ ЛсС])[тКСПЗ1238]-\d\d*[а-в]?/],
+                                      'online'    :[/\S\S?-?нлайн( ?\(.*\)|\d*)/i      ], // debug
+                                      'DLS'       :[/СДО ПсковГУ/i                     ],
                                     },
 }
 
 // if text contains several lessons, it will be divided by these regexps
-const group_block_seps = [/лайн\d*/ig, /(^|[ Лс])[тКСП1238]-\d\d*[а-в]?/g]
+const group_block_seps = [/лайн\d*/ig, /(^|[ ЛсС])[тКСПЗ1238]-\d\d*[а-в]?/g]
 
 // final text will be converted according to this dict
 // regexps must be in quotes as string ('cause REs can't be a key of dict)
@@ -155,7 +155,6 @@ function special_class_name (settings, matched) {
         case '!range'   : return matched[0].slice(settings[1], settings[2]).replaceAll('-','_')
 
         case '!result'  :
-            console.log(matched['input'])
             let txt = ''
             for (let i = 1; i < settings.length; i++) {
                 switch(settings[i][0]) {
