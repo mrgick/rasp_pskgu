@@ -46,6 +46,9 @@ table td {
 .mode-switcher:hover {
     cursor: pointer;
 }
+.mode-switcher:hover svg {
+    fill: var(--color-secondary);
+}
 
 .header {
     margin: 25px;
