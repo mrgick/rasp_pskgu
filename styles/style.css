@@ -1,12 +1,3 @@
-:root {
-    --color-primary: black;
-    --color-secondary: gray;
-    --color-additionaly: lightgray;
-    --color-link: darkblue;
-    --color-hover: blue;
-    --color-background: white;
-}
-
 * {
     font-family: 'Open Sans', sans-serif;
     font-weight: inherit;
@@ -33,6 +24,27 @@ table {
 
 table td {
     width: 100%;
+}
+
+:active, :hover, :focus {
+    outline: 0;
+    outline-offset: 0;
+}
+
+.body {
+    background-color: var(--color-background);
+}
+
+.mode-switcher {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+}
+.mode-switcher svg {
+    fill: var(--color-primary);
+}
+.mode-switcher:hover {
+    cursor: pointer;
 }
 
 .header {
@@ -96,6 +108,7 @@ table td {
     position: relative;
     left: 28px;
     top: 9px;
+    fill: var(--color-secondary);
 }
 .search--top .search-form-icon{
     left: -28px;
@@ -109,15 +122,15 @@ table td {
     font-size: inherit;
     height: 40px;
     border: 2px solid var(--color-primary);
+    background-color: var(--color-background);
     border-radius: 20px;
     padding-left: 30px;
 }
 .search--top .search-form-input {
     padding-left: 20px;
 }
-
 .search-form-input:hover {
-    box-shadow: 0 0 2px;
+    box-shadow: 0 0 2px var(--color-primary);
 }
 
 .search-form-button {
@@ -133,6 +146,7 @@ table td {
 .search-form-button:hover {
     cursor: pointer;
     box-shadow: 0 0 2px;
+    background-color: var(--color-secondary);
 }
 
 .groups {
@@ -219,57 +233,7 @@ table td {
     border: 1px solid var(--color-additionaly);
 }
 
-.lesson_type-lecture {
-    background-color: rgb(184, 255, 188);
-    width: fit-content;
-    margin: auto;
-    border-radius: 5px;
-    padding: 0 3px;
-}
-.lesson_type-lab {
-    background-color: rgb(184, 241, 255);
-    width: fit-content;
-    margin: auto;
-    border-radius: 5px;
-    padding: 0 3px;
-}
-.lesson_type-practice {
-    background-color: rgb(184, 191, 255);
-    width: fit-content;
-    margin: auto;
-    border-radius: 5px;
-    padding: 0 3px; 
-}
-.lesson_type-volkswagen {
-    background-color: rgb(233, 184, 255);
-    width: fit-content;
-    margin: auto;
-    border-radius: 5px;
-    padding: 0 3px;
-}
-.lesson_type-test {
-    background-color: rgb(255, 254, 184);
-    width: fit-content;
-    margin: auto;
-    border-radius: 5px;
-    padding: 0 3px;
-}
-.lesson_type-test {
-    background-color: rgb(255, 254, 184);
-    width: fit-content;
-    margin: auto;
-    border-radius: 5px;
-    padding: 0 3px;
-}
-.lesson_type-cons {
-    background-color: rgb(255, 218, 184);
-    width: fit-content;
-    margin: auto;
-    border-radius: 5px;
-    padding: 0 3px;
-}
-.lesson_type-exam {
-    background-color: rgb(255, 184, 184);
+div[class^="lesson_type"] {
     width: fit-content;
     margin: auto;
     border-radius: 5px;

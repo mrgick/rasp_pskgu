@@ -57,8 +57,37 @@ async function loadGroup(group_name)
     }
 }
 
-window.onload = async function () {
-
+var MODE;
+window.onload = async function ()
+{
+    SetTheme();
     const params = new URLSearchParams(window.location.search)
     await main(params.get("find_group_name"), params.get("group_name"))
+}
+
+function ChangeTheme()
+{
+    if (MODE == "dark")
+    {
+        MODE = "light";
+    }
+    else // if (MODE = "light")
+    {
+        MODE = "dark";
+    }
+    createCookie("mode",MODE,7);
+    SetTheme();
+    return false;
+}
+function SetTheme()
+{
+    MODE = readCookie("mode");
+    if (MODE == "dark")
+    {
+        document.getElementById("CSS-Theme").setAttribute("href", "styles/dark-style.css");
+    }
+    else // if (MODE = "light")
+    {
+        document.getElementById("CSS-Theme").setAttribute("href", "styles/light-style.css");
+    }
 }

@@ -1,0 +1,30 @@
+:root {
+    --color-primary: black;
+    --color-secondary: gray;
+    --color-additionaly: lightgray;
+    --color-link: darkblue;
+    --color-hover: blue;
+    --color-background: white;
+}
+
+.lesson_type-lecture {
+    background-color: rgb(184, 255, 188);
+}
+.lesson_type-lab {
+    background-color: rgb(184, 241, 255);
+}
+.lesson_type-practice {
+    background-color: rgb(184, 191, 255);
+}
+.lesson_type-volkswagen {
+    background-color: rgb(233, 184, 255);
+}
+.lesson_type-test {
+    background-color: rgb(255, 254, 184);
+}
+.lesson_type-cons {
+    background-color: rgb(255, 218, 184);
+}
+.lesson_type-exam {
+    background-color: rgb(255, 184, 184);
+}
