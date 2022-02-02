@@ -40,6 +40,9 @@ table td {
     top: 6px;
     right: 6px;
 }
+.header-main-right .mode-switcher {
+    position: unset;
+}
 .mode-switcher svg {
     fill: var(--color-primary);
 }
@@ -64,12 +67,28 @@ table td {
     align-items: center;
 }
 
+.header-main-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
 .header-main-back {
     text-decoration: none;
     color: var(--color-secondary);
 }
 .header-main-back:hover {
     text-decoration: underline;
+}
+
+.header--rasp {
+    background-color: var(--color-background);
+    border-bottom: 1px solid var(--color-primary);
+    top: 0;
+    position: fixed;
+    width: calc(100% - 50px);
+    padding: 0 25px;
+    margin: 0;
 }
 
 .group_name {
@@ -87,6 +106,9 @@ table td {
 .title--top {
     margin: 0;
     font-size: 24px;
+}
+.header--rasp .title {
+    font-size: 20px;
 }
 
 .search {
@@ -188,6 +210,10 @@ table td {
 
 .groups-text-error {
     color: var(--color-error);
+}
+
+#Group_Rasp {
+    margin-top: 75px;
 }
 
 .rasp {

@@ -40,12 +40,14 @@ function generate_search_page()
 function generate_rasp_page(group)
 {
     document.getElementById("MAIN").innerHTML=`
-    <a class="mode-switcher" onclick="ChangeTheme();"><svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 20 20" height="36px" viewBox="0 0 20 20" width="36px"></svg></a>
-    <header class="header">
+    <header class="header header--rasp">
         <h1 class="title title--top"><a href="${window.location.pathname}">Расписание<br>ПсковГУ</a></h1>
         <div class="header-main">
             <h2 class="group_name" id="Group_Name">${group.prefix[1]=="groups" ? "Группа" : "Преподаватель"} ${group.name}</h2>
-            <a class="header-main-back" href="${group.page_url}">Оригинал</a>
+            <div class="header-main-right">
+                <a class="mode-switcher" onclick="ChangeTheme();"><svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 20 20" height="36px" viewBox="0 0 20 20" width="36px"></svg></a>
+                <a class="header-main-back" href="${group.page_url}">Оригинал</a>
+            <div>
         </div>
     </header>
     <container>
