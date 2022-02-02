@@ -356,6 +356,9 @@ div[class^="room"] {
     .weekbar {
         display: none;
     }
+    .rasp {
+        margin: -50px 25px 0;
+    }
 }
 
 @media (max-width: 700px) {
