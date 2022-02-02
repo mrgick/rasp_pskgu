@@ -20,7 +20,7 @@ async function loadBlank()
 // Поисковая страница
 async function loadSearch(find_name)
 {
-    generate_search_page();
+    generate_search_page(find_name);
 
     let list_names = await get_list_groups();
     groups_found = find_substr_in_array_of_str(list_names, find_name);
