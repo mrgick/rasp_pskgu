@@ -32,7 +32,7 @@ function generate_search_page()
         </div>
     </header>
     <div class="groups" id="Groups_List">
-        <p class="groups-text">Поиск соответсвий...</p>
+        <p class="groups-text">Поиск соответствий...</p>
     </div>
     `
 }

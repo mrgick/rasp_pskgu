@@ -35,7 +35,7 @@ async function loadSearch(find_name)
     }
     else
     {
-        document.getElementById("Groups_List").innerHTML='<p class="groups-text groups-text-error">Соответсвий не найдено!</p>'
+        document.getElementById("Groups_List").innerHTML='<p class="groups-text groups-text-error">Соответствий не найдено!</p>'
     }
 }
 
