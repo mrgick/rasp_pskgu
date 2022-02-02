@@ -20,11 +20,22 @@ async function loadBlank()
 // Поисковая страница
 async function loadSearch(find_name)
 {
-    generate_search_page()
+    generate_search_page();
 
-    let list_names = await get_list_groups()
-    groups_found = find_substr_in_array_of_str(list_names, find_name)
-    generate_list(groups_found, document.getElementById('Groups_List'))
+    let list_names = await get_list_groups();
+    groups_found = find_substr_in_array_of_str(list_names, find_name);
+    if (groups_found.length == 1)
+    {
+        loadGroup(groups_found[0]);
+    }
+    else if (groups_found.length > 1)
+    {
+        generate_list(groups_found, document.getElementById('Groups_List'));
+    }
+    else
+    {
+        document.getElementById("Groups_List").innerHTML='<p class="groups-text groups-text-error">Соответсвий не найдено!</p>'
+    }
 }
 
 // Страница расписания

@@ -180,6 +180,16 @@ table td {
     text-decoration: underline;
 }
 
+.groups-text {
+    font-weight: 500;
+    font-size: 18px;
+    margin-left: 15px;
+}
+
+.groups-text-error {
+    color: var(--color-error);
+}
+
 .rasp {
     margin: 25px;
 }

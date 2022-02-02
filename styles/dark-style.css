@@ -5,6 +5,7 @@
     --color-link: lightgreen;
     --color-hover: green;
     --color-background: black;
+    --color-error: red;
 }
 
 .mode-switcher svg {
