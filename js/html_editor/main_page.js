@@ -50,7 +50,11 @@ function generate_rasp_page(group)
             <div>
         </div>
     </header>
-    <container>
+    <container class="rpage">
+        <aside class="weekbar">
+            <p class="weekbar-title">Список недель:</p>
+            <div class="weekbar-list" id="Weekbar_List"></div>
+        </aside>
         <div id="Group_Rasp">
         </div>
     </container>

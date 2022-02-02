@@ -212,12 +212,10 @@ table td {
     color: var(--color-error);
 }
 
-#Group_Rasp {
-    margin-top: 75px;
-}
-
 .rasp {
-    margin: 25px;
+    max-width: 1200px;
+    padding-top: 70px;
+    margin: -50px auto 0;
 }
 
 .rasp-title {
@@ -319,15 +317,54 @@ div[class^="room"] {
     text-decoration: underline;
 }
 
+.rpage {
+    margin-top: 75px;
+    display: flex;
+    justify-content: space-evenly
+}
+
+.weekbar {
+    position: fixed;
+    left: 25px;
+    height: 100%;
+}
+
+.weekbar-title {
+    font-weight: 500;
+    font-size: 16px;
+    color: var(--color-primary);
+}
+.weekbar-list__item {
+    display: block;
+    margin: 5px 10px;
+    font-weight: 400;
+    font-size: 14px;
+    color: var(--color-link);
+}
+.weekbar-list__item:hover {
+    color: var(--color-hover);
+    cursor: pointer;
+    text-decoration: underline;
+}
+
 @media (max-height: 560px) {
     .title {
         margin-top: 5vh;
+    }
+}
+@media (max-width: 1550px) {
+    .weekbar {
+        display: none;
     }
 }
 
 @media (max-width: 700px) {
     .header {
         margin: 15px;
+    }
+    .header--rasp {
+        margin: 0;
+        padding: 0 10px;
     }
     .title {
         margin-top: 30vh;
@@ -348,11 +385,19 @@ div[class^="room"] {
     .groups {
         margin-left: 120px;
     }
+
+    .group_name {
+        font-size: 24px;
+    }
 }
 
 @media (max-width: 555px) {
     .header {
         margin: 10px;
+    }
+    .header--rasp {
+        margin: 0;
+        padding: 0 5px;
     }
     .title {
         margin-top: 35vh;
@@ -372,5 +417,9 @@ div[class^="room"] {
 
     .groups {
         margin-left: 100px;
+    }
+
+    .group_name {
+        font-size: 18px;
     }
 }
