@@ -1,7 +1,7 @@
 :root {
-    --color-primary: white;
-    --color-secondary: lightgray;
-    --color-additionaly: gray;
+    --color-primary: lightgray;
+    --color-secondary: gray;
+    --color-additionaly: dimgray;
     --color-link: lightgreen;
     --color-hover: green;
     --color-background: black;
