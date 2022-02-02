@@ -237,6 +237,15 @@ table td {
 }
 
 div[class^="lesson_type"] {
+    border: 1px solid var(--color-additionaly);
+    width: fit-content;
+    margin: auto;
+    border-radius: 5px;
+    padding: 0 3px;
+}
+
+div[class^="room"] {
+    border: 1px solid var(--color-additionaly);
     width: fit-content;
     margin: auto;
     border-radius: 5px;

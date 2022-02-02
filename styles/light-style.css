@@ -24,11 +24,15 @@
     background-color: rgb(233, 184, 255);
 }
 .lesson_type-test {
-    background-color: rgb(255, 254, 184);
+    background-color: rgb(255, 184, 251);
 }
 .lesson_type-cons {
     background-color: rgb(255, 218, 184);
 }
 .lesson_type-exam {
     background-color: rgb(255, 184, 184);
+}
+
+.room-online {
+    background-color: yellow;
 }
