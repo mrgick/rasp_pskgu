@@ -30,6 +30,7 @@ async function loadSearch(find_name)
     }
     else if (groups_found.length > 1)
     {
+        document.getElementById("Groups_List").innerHTML='';
         generate_list(groups_found, document.getElementById('Groups_List'));
     }
     else
