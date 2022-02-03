@@ -1,11 +1,11 @@
 :root {
-    --color-primary: lightgray;
-    --color-secondary: gray;
-    --color-additionaly: dimgray;
-    --color-link: lightgreen;
-    --color-hover: green;
-    --color-background: black;
-    --color-error: red;
+    --color-primary: #CCCCCC;
+    --color-secondary: #999999;
+    --color-additionaly: #666666;
+    --color-link: #00CC00;
+    --color-hover: #00FF00;
+    --color-background: #000000;
+    --color-error: #CC6666;
 }
 
 .mode-switcher svg {
@@ -13,27 +13,24 @@
 }
 
 .lesson_type-lecture {
-    background-color: rgb(0, 97, 5);
+    background-color: #003300;
 }
 .lesson_type-lab {
-    background-color: rgb(0, 73, 95);
+    background-color: #003333;
 }
 .lesson_type-practice {
-    background-color: rgb(0, 7, 71);
-}
-.lesson_type-volkswagen {
-    background-color: rgb(64, 0, 94);
+    background-color: #000033;
 }
 .lesson_type-test {
-    background-color: rgb(90, 0, 78);
+    background-color: #330033;
 }
 .lesson_type-cons {
-    background-color: rgb(95, 48, 0);
+    background-color: #663300;
 }
 .lesson_type-exam {
-    background-color: rgb(104, 0, 0);
+    background-color: #330000;
 }
 
 .room-online {
-    background-color: rgb(39, 39, 0);
+    background-color: #333300;
 }
