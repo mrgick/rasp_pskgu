@@ -9,6 +9,7 @@ function generate_main_page()
             <input class="search-form-input" name="find_group_name" type="search" autocomplete="off" placeholder="группа/преподаватель" />
             <button class="search-form-button" type="submit">Поиск</button>
         </form>
+        <a class="search-showall" href="?list">Показать всё</a>
     </div>
     <footer class="footer">
         <a class="footer-link" href="http://rasp.pskgu.ru">Оригинал расписания</a>
@@ -58,5 +59,17 @@ function generate_rasp_page(group)
         <div id="Group_Rasp">
         </div>
     </container>
+    `
+}
+
+function generate_groups_list()
+{
+    document.getElementById("MAIN").innerHTML=`
+        <h1 class="title title--top"><a href="${window.location.pathname}">Расписание ПсковГУ</a></h1>
+        <a class="mode-switcher" onclick="ChangeTheme();"><svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 20 20" height="36px" viewBox="0 0 20 20" width="36px"></svg></a>
+        <div id="Lists">
+            <div class="possible_list" id="Education_Form">
+            </div>
+        </div>
     `
 }

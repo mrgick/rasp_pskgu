@@ -69,12 +69,25 @@ async function loadGroup(group_name)
     }
 }
 
+async function loadList()
+{
+    STRUCT = await get_list_groups('structure');
+    generate_groups_list();
+    genPossibilities(null, 'Education_Form');
+}
+
+var STRUCT
 var MODE;
 window.onload = async function ()
 {
     SetTheme();
-    const params = new URLSearchParams(window.location.search)
-    await main(params.get("find_group_name"), params.get("group_name"))
+    if (window.location.search == "?list")
+    {
+        await loadList();
+        return;
+    }
+    const params = new URLSearchParams(window.location.search);
+    await main(params.get("find_group_name"), params.get("group_name"));
 }
 
 function ChangeTheme()

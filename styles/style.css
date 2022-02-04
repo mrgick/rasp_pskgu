@@ -286,6 +286,20 @@ div[class^="room"] {
     padding: 0 3px;
 }
 
+.search-showall {
+    float: right;
+    display: block;
+    margin-top: 10px;
+    width: fit-content;
+    font-weight: 500;
+    font-size: 18px;
+    color: var(--color-link);
+}
+.search-showall:hover {
+    color: var(--color-hover);
+    text-decoration: underline;
+}
+
 .footer {
     position: absolute;
     bottom: 5vh;
@@ -345,6 +359,36 @@ div[class^="room"] {
     color: var(--color-hover);
     cursor: pointer;
     text-decoration: underline;
+}
+
+.possible_list {
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    max-width: 900px;
+    margin: 20px auto;
+}
+
+.possible_list__item {
+    display: block;
+    font-weight: 500;
+    font-size: 14px;
+    padding: 5px 15px;
+    margin: 5px;
+    background-color: var(--color-unchoiced);
+    border: solid 1px var(--color-additionaly);
+    border-radius: 15px;
+}
+.possible_list__item--active {
+    background-color: var(--color-link);
+    color: var(--color-background);
+}
+.possible_list__item:hover {
+    cursor: pointer;
+    background-color: var(--color-hover);
+    color: var(--color-background);
 }
 
 @media (max-height: 560px) {
