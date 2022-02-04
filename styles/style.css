@@ -382,13 +382,12 @@ div[class^="room"] {
 
 .possible_list__item {
     display: block;
-    width: 100%;
     font-weight: 500;
     font-size: 14px;
     padding: 5px 15px;
     background-color: var(--color-unchoiced);
     border: solid 1px var(--color-additionaly);
-    width: calc(100% - 30pxт);
+    width: calc(100% - 30px);
 }
 .possible_list__item--active {
     background-color: var(--color-link);
