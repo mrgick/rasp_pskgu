@@ -13,7 +13,7 @@ function generate_main_page()
     </div>
     <footer class="footer">
         <a class="footer-link" href="http://rasp.pskgu.ru">Оригинал расписания</a>
-        <div class="footer-authors">© MrGick, KGlebB, WhiteRain7<br>сайт создан используя <a class="footer-authors-link" href="github.com/mrgick/pskgu_api">API</a></div>
+        <div class="footer-authors">© MrGick, KGlebB, WhiteRain7<br>сайт создан используя <a class="footer-authors-link" href="https://github.com/mrgick/pskgu_api">API</a></div>
     </footer>
     `
 }
