@@ -361,6 +361,15 @@ div[class^="room"] {
     text-decoration: underline;
 }
 
+#Lists {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    align-items: flex-start;
+}
+
 .possible_list {
     border-radius: 15px;
     display: flex;
@@ -371,17 +380,9 @@ div[class^="room"] {
     margin: 20px 0;
 }
 
-#Lists {
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    flex-wrap: nowrap;
-    flex-direction: row;
-    align-items: flex-start;
-}
-
 .possible_list__item {
     display: block;
+    width: 100%;
     font-weight: 500;
     font-size: 14px;
     padding: 5px 15px;
