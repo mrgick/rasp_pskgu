@@ -254,7 +254,7 @@ function divide (text, RE_list) {
 }
 
 function gen_row_data(table, day, day_content, is_teacher) { // prefixes: ЗФО|ОФО|Преподаватель
-    is_teacher = is_teacher.toLowerCase() == 'преподователь'? true : false
+    is_teacher = is_teacher.toLowerCase() == 'преподаватель'? true : false
     let tr = document.createElement('tr');
     add_td(
         `<p class="rasp-table-day-date">${new Date(day).getDate()} ${monthNames[new Date(day).getMonth()]}</p>
