@@ -8,9 +8,9 @@ async function get_json(url) {
     return data;
 }
 
-async function get_list_groups() {
-    res = await get_json(API_URL + 'groups?list_of_names=true')
-    return res['groups_list']
+async function get_list_groups(type='list') {
+    res = await get_json(API_URL + 'groups?list_of_names='+type)
+    return res['list_of_names']
 }
 
 async function get_group_info(name) {
