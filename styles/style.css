@@ -387,7 +387,7 @@ div[class^="room"] {
     padding: 5px 15px;
     background-color: var(--color-unchoiced);
     border: solid 1px var(--color-additionaly);
-    width: calc(100% - 30px);
+    width: calc(100% - 30pxт);
 }
 .possible_list__item--active {
     background-color: var(--color-link);

@@ -42,7 +42,7 @@ function genPossibilities(structLink, id, cid = 0)
                 if (length == 3)
                 {
                     document.getElementById(id).insertAdjacentHTML("beforeend",`
-                        <a class="possible_list__item" href="?group_name=${struct[key]}">${struct[key]}</a>
+                        <a class="possible_list__item" href="?group_name=${struct[key]}">${struct[key].replace("_", " ")}</a>
                     `)
                 }
                 else
@@ -59,7 +59,7 @@ function genPossibilities(structLink, id, cid = 0)
                 if (length == 4)
                 {
                     document.getElementById(id).insertAdjacentHTML("beforeend",`
-                        <a class="possible_list__item" href="?group_name=${struct[key]}">${struct[key]}</a>
+                        <a class="possible_list__item" href="?group_name=${struct[key]}">${struct[key].replace("_", " ")}</a>
                     `)
                 }
                 else
