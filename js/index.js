@@ -74,6 +74,7 @@ async function loadList()
     STRUCT = await get_list_groups('structure');
     generate_groups_list();
     genPossibilities(null, 'Education_Form');
+    generate_css_classes()
 }
 
 var STRUCT
@@ -104,6 +105,7 @@ function ChangeTheme()
     SetTheme();
     return false;
 }
+
 function SetTheme()
 {
     MODE = readCookie("mode");
@@ -111,8 +113,9 @@ function SetTheme()
     {
         document.getElementById("CSS-Theme").setAttribute("href", "styles/dark-style.css");
     }
-    else // if (MODE = "light")
+    else // if (MODE = "light" or null)
     {
+        MODE = "light"
         document.getElementById("CSS-Theme").setAttribute("href", "styles/light-style.css");
     }
 }

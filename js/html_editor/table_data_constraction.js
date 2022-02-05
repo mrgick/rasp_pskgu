@@ -13,60 +13,60 @@ If there's an 'ignore' instead of list, checking will be
 skipped for current class. Should be used only for
 'lesson' class type, because it also sets index for
 uncuted part of text to be inserted in.
-*/
-const group_REs =   {'lesson_type': { // type
-                                      'lecture'   : [/л\./    ], // subtype
-                                      'practice'  : [/пр\./i  ],
-                                      'lab'       : [/лаб\./i ],
-                                      'test'      : [/зач\./i ],
-                                      'cons'      : [/конс\./i],
-                                      'exam'      : [/экз\./i ],
-                                      'volkswagen': [/фв/i    ],
-                                      'test_2'    : [/ЗаО/i   ],
-                                    },
-                          'lesson': {'ignore': 'ignore'},
-                        'subgroup': {
-                                      '!pre_last':[/\(п\/г ?[1-2]\)/],
-                                    },
-                         'teacher': {
-                                      '!result|< 32':[/[А-Я]\.\s?[А-Я]\./i],
-                                      '!result|< 32':[/[А-Я][А-Я]?\..?[А-Я][А-Я]?\./i], // debug
-                                      '!result'     :[/0001_преподаватель/i], // debug
-                                    },
-                            'room': {
-                                      'online'    :[/о-?нлайн\d*/i                        ],
-                                      '!result|< ':[/(^|[ ЛсС])[тКСПЗ1238]-\d\d*[а-в]?/   ],
-                                      'online'    :[/\S\S?-?\S?нлайн( ?\(.*\)|\d*)/i      ], // debug
-                                      'DLS'       :[/СДО ПсковГУ/i                        ],
-                                    },
+*/                                  //VVV type VVV
+const group_REs =   {'lesson_type': ['Тип занятия', {//VVV subtype VVV
+                                      'lecture'   : ['Лекция'         , [/л\./    ]],
+                                      'practice'  : ['Практика'       , [/пр\./i  ]],
+                                      'lab'       : ['Лабораторная'   , [/лаб\./i ]],
+                                      'test'      : ['Зачёт'          , [/зач\./i ]],
+                                      'cons'      : ['Консультация'   , [/конс\./i]],
+                                      'exam'      : ['Экзамен'        , [/экз\./i ]],
+                                      'volkswagen': ['Физвоспитание'  , [/фв/i    ]],
+                                      'test_2'    : ['Зачёт с оценкой', [/ЗаО/i   ]],
+                                    }],
+                          'lesson': ['Предмет', {'ignore': ['ignore', 'ignore']}],
+                        'subgroup': ['Подгруппа', {
+                                      '!pre_last':['!convert', [/\(п\/г ?[1-2]\)/]],
+                                    }],
+                         'teacher': ['Преподаватель', {
+                                      '!result|< 32':['!result', [/[А-Я]\.\s?[А-Я]\./i           ]],
+                                      '!result|< 32':['!result', [/[А-Я][А-Я]?\..?[А-Я][А-Я]?\./i]], // debug
+                                      '!result'     :['!result', [/0001_преподаватель/i          ]], // debug
+                                    }],
+                            'room': ['Место проведения', {
+                                      'online'        :['Онлайн' , [/о-?нлайн\d*/i                        ]],
+                                      '!result|< |S-1':['!Slice1', [/(^|[ ЛсС])[тКСПЗ1238]-\d\d*[а-в]?/   ]],
+                                      'online'        :['Онлайн' , [/\S\S?-?\S?нлайн( ?\(.*\)|\d*)/i      ]], // debug
+                                      'DLS'           :['СДО'    , [/СДО ПсковГУ/i                        ]],
+                                    }],
 }
-
-const teacher_REs = {'lesson_type': { // type
-                                      'lecture'   : [/л\./    ], // subtype
-                                      'practice'  : [/пр\./i  ],
-                                      'lab'       : [/лаб\./i ],
-                                      'test'      : [/зач\./i ],
-                                      'cons'      : [/конс\./i],
-                                      'exam'      : [/экз\./i ],
-                                      'volkswagen': [/фв/i    ],
-                                      'test_2'    : [/ЗаО/i   ],
-                                    },
-                          'lesson': {'ignore': 'ignore'},
-                           'group': {
-                                      '!result|C':[/\d{4}-\d{2}\S*(\s|$)/],
-                                      '!result'     :[/Иностр\.студенты\([А-Я, ]*\)/i, // debug
-                                                      /Начальный 1 к\./i             ,
-                                                      /Начальный к\./i               ],
-                                    },
-                        'subgroup': {
-                                      '!pre_last':[/\(п\/г ?[1-2]\)/],
-                                    },
-                            'room': {
-                                      'online'    :[/о-?нлайн( \(.*\)|\d*)/i              ],
-                                      '!result|< ':[/(^|[ ЛсС])[тКСПЗ1238]-\d\d*[а-в]?/   ],
-                                      'online'    :[/\S\S?-?\S?нлайн( ?\(.*\)|\d*)/i      ], // debug
-                                      'DLS'       :[/СДО ПсковГУ/i                        ],
-                                    },
+                                    //VVV type VVV
+const teacher_REs = {'lesson_type': ['Тип занятия', {//VVV subtype VVV
+                                      'lecture'   : ['Лекция'         , [/л\./    ]],
+                                      'practice'  : ['Практика'       , [/пр\./i  ]],
+                                      'lab'       : ['Лабораторная'   , [/лаб\./i ]],
+                                      'test'      : ['Зачёт'          , [/зач\./i ]],
+                                      'cons'      : ['Консультация'   , [/конс\./i]],
+                                      'exam'      : ['Экзамен'        , [/экз\./i ]],
+                                      'volkswagen': ['Физвоспитание'  , [/фв/i    ]],
+                                      'test_2'    : ['Зачёт с оценкой', [/ЗаО/i   ]],
+                                    }],
+                          'lesson': ['Предмет', {'ignore': ['ignore', 'ignore']}],
+                           'group': ['Группа', {
+                                      '!result|C':['!result', [/\d{4}-\d{2}\S*(\s|$)/]],
+                                      '!result'  :['!result', [/Иностр\.студенты\([А-Я, ]*\)/i, // debug
+                                                               /Начальный 1 к\./i             ,
+                                                               /Начальный к\./i               ]],
+                                    }],
+                        'subgroup': ['Подгруппа', {
+                                      '!pre_last':['!convert', [/\(п\/г ?[1-2]\)/]],
+                                    }],
+                            'room': ['Место проведения', {
+                                      'online'        :['Онлайн' , [/о-?нлайн( \(.*\)|\d*)/i              ]],
+                                      '!result|< |S-1':['!Slice1', [/(^|[ ЛсС])[тКСПЗ1238]-\d\d*[а-в]?/   ]],
+                                      'online'        :['Онлайн' , [/\S\S?-?\S?нлайн( ?\(.*\)|\d*)/i      ]], // debug
+                                      'DLS'           :['СДО'    , [/СДО ПсковГУ/i                        ]],
+                                    }],
 }
 
 // if text contains several lessons, it will be divided by these regexps
@@ -74,25 +74,36 @@ const group_block_seps = [/лайн\d*/ig, /(^|[ ЛсС])[тКСПЗ1238]-\d\d*[
 
 // final text will be converted according to this dict
 // regexps must be in quotes as string ('cause REs can't be a key of dict)
-const convert_result = {'л.':'Лекция',
-                        'пр.':'Практика',
-                        'лаб.':'Лабораторная',
-                        '/О-?нлайн[0-9]*/i': 'Онлайн',
+const convert_result = {'/О-?нлайн[0-9]*/i': 'Онлайн',
                         '(п/г 1)':'п/г 1',
                         '(п/г 2)':'п/г 2',
-                        'фв':'Физвоспитание',
-                        'зач.':'Зачёт',
-                        'конс.':'Консультация',
-                        'экз.':'Экзамен',
                         }
 function try_convert (text) {
     for (key in convert_result) {
         if (key[0] == '/') { // if regexp
-            if (text.match( RegExp(...key.replace('/','').split('/'))) ) return convert_result[key]
+            if (text.match( RegExp(...key.replace('/','').split('/')) )) return convert_result[key]
         }
         else if (convert_result[text.toLowerCase()]) return convert_result[text.toLowerCase()]
     }
     return text // if failed to convert
+}
+
+let used_class_names = {}
+//function renew_used_class_names () {
+//    for (key in used_class_names) delete used_class_names[key]
+for (class_name in group_REs  ) used_class_names[group_REs  [class_name][0]] = {}
+for (class_name in teacher_REs) used_class_names[teacher_REs[class_name][0]] = {}
+//}
+
+function try_push (class_name, subclass_name, matched) {
+    if (group_REs[class_name]) {
+        if (!used_class_names[group_REs[class_name][0]][matched]) {
+             used_class_names[group_REs[class_name][0]][matched] = class_name+'-'+subclass_name
+    }}
+    else if (teacher_REs[class_name]) {
+        if (!used_class_names[teacher_REs[class_name][0]][matched]) {
+             used_class_names[teacher_REs[class_name][0]][matched] = class_name+'-'+subclass_name
+    }}
 }
 
 // function returns index of 'nearest' word separator (see list) in text
@@ -128,6 +139,18 @@ function cut_off_excess (text, excesses = base_excesses) {
     return text.slice(num1, num2+1)
 }
 
+function special_text (pattern, matched) {
+    switch (pattern) {
+    case '!result': return matched[0]
+    case '!convert': return try_convert(matched[0])
+    case '!Slice1': return [matched[0].split('-').slice(0, -1).join('-'), matched[0]]
+    }
+}
+
+function adapt_for_html (text) {
+    return text.replaceAll(/[ ,-]/g, '_').replaceAll(/[.]/g, '．') // ⋅．•
+}
+
 /* 
 If sub-class contains '!' at the beginning, it's name will
 will depend on the result. For now, here're these settings:
@@ -152,7 +175,7 @@ function special_class_name (settings, matched) {
 
         case '!pre_last': return matched[0][matched[0].length-2]
 
-        case '!range'   : return matched[0].slice(settings[1], settings[2]).replaceAll('-','_')
+        case '!range'   : return adapt_for_html(matched[0].slice(settings[1], settings[2]))
 
         case '!result'  :
             let txt = ''
@@ -177,9 +200,12 @@ function special_class_name (settings, matched) {
                     case 'C':
                         matched[0] = cut_off_excess(matched[0], [' ', '.', ','])
                         break
+
+                    case 'S':
+                      return matched[0].split(settings[i][1]).slice(0, -settings[i][2]).join(settings[i][1])
                 }
             }
-            return matched[0].replaceAll('-','_')
+            return adapt_for_html(matched[0])
     }
 }
 
@@ -222,8 +248,8 @@ function divide (text, RE_list) {
         text = texts[ti]
         content.push([]) // create new block
         index = 0
-        for (re_t in RE_list) for (re_st in RE_list[re_t]) { // re_st - RegExp SubTypes
-            res = RE_list[re_t][re_st] // res - list of regexps
+        for (re_t in RE_list) for (re_st in RE_list[re_t][1]) { // re_st - RegExp SubTypes
+            res = RE_list[re_t][1][re_st][1] // res - list of regexps
             if (res == 'ignore') {
                 final_index = index // program will insert uncuted part (lesson) by final_index
                 continue
@@ -234,10 +260,26 @@ function divide (text, RE_list) {
                 let matched = text.match(re)
                 while (matched) {
                     class_name += re_t+'-'
-                    class_name += re_st[0] == '!'? special_class_name(re_st, matched) : re_st
+                    let subclass_name = re_st[0] == '!'? special_class_name(re_st, matched) : re_st
+                    class_name += subclass_name
 
                     text = text.replace(matched[0], '') // deleting finded part
+
+                    let res_123 = (RE_list[re_t][1][re_st][0][0] == '!'? 
+                                    special_text(RE_list[re_t][1][re_st][0], matched) 
+                                    : 
+                                    RE_list[re_t][1][re_st][0])
+                    
+                    if (typeof res_123 == 'string') {
+                        matched[0] = res_123
+                        try_push(re_t, subclass_name, matched[0])
+                    }
+                    else {
+                        matched[0] = res_123[1]
+                        try_push(re_t, subclass_name, res_123[0])
+                    }
                     content[content.length-1].push([class_name, matched[0]]) // future div
+
                     class_name = ''
                     index++
                     matched = text.match(re)
@@ -247,20 +289,25 @@ function divide (text, RE_list) {
             if (found_smth) break // e.g. if found lesson type 'lecture', it's
                                   // unnecessary to check for another (exam, lab, etc)
         }
-        content[content.length-1].splice(final_index, 0, ['lesson', cut_off_excess(text)])
+        let lesson_text = cut_off_excess(text)
+        content[content.length-1].splice(final_index, 0, ['lesson-'+adapt_for_html(lesson_text), lesson_text])
+        try_push('lesson', adapt_for_html(lesson_text), lesson_text)
         // uncuted part of text is recognizing as lesson
     }
     return content
 }
 
-function gen_row_data(table, day, day_content, is_teacher) { // prefixes: ЗФО|ОФО|Преподаватель
-    is_teacher = is_teacher.toLowerCase() == 'преподаватель'? true : false
+function gen_row_data(table, day, day_content, prefix) { // prefixes: ЗФО|ОФО|Преподаватель
+    let required_REs = prefix.toLowerCase() == 'преподаватель'? teacher_REs : group_REs
+
     let tr = document.createElement('tr');
     add_td(
         `<p class="rasp-table-day-date">${new Date(day).getDate()} ${monthNames[new Date(day).getMonth()]}</p>
         <p class="rasp-table-day-weekdate">${weekNames[new Date(day).getDay()]}</p>`,
         tr, "rasp-table-day"
     )
+ 
+    //renew_used_class_names() doesn't work
   
     if (day_content) {
         for (let i = 1; i <= 7; i++) { // for each 'пара'
@@ -269,7 +316,7 @@ function gen_row_data(table, day, day_content, is_teacher) { // prefixes: ЗФО
                 td.classList.add("rasp-table-pair");
                 tr.appendChild(td)
 
-                content = divide(day_content[i], is_teacher? teacher_REs : group_REs)
+                content = divide(day_content[i], required_REs)
 
                 for (lesson in content) { // for each block (lesson)
                     let div = document.createElement('div')
