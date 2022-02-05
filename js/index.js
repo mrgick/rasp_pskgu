@@ -67,6 +67,8 @@ async function loadGroup(group_name)
         generate_table(group, day, ++week);
         day = get_next_day(day, 7);
     }
+    
+    generate_css_classes()
 }
 
 async function loadList()
@@ -74,7 +76,6 @@ async function loadList()
     STRUCT = await get_list_groups('structure');
     generate_groups_list();
     genPossibilities(null, 'Education_Form');
-    generate_css_classes()
 }
 
 var STRUCT
