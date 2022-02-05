@@ -2,9 +2,12 @@
 
 function get_css_attribute (attrib, style_class = null) {
 	if (!style_class) style_class = get_current_css_class()
-	let matched = style_class.innerText.match(RegExp(` ${attrib}: [a-z0-9# -]*;`,'i'))
-	if (matched) return matched[0].replace(' '+attrib+': ', '').replace(';', '')
-	else return ''
+	else if (typeof style_class == 'string') style_class = document.getElementById('style_'+style_class)
+	if (style_class) {
+		let matched = style_class.innerText.match(RegExp(` ${attrib}: [a-z0-9# -]*;`,'i'))
+		if (matched) return matched[0].replace(' '+attrib+': ', '').replace(';', '')
+		else return ''
+	}
 }
 
 function set_css_attribute (attrib, value, style_class = null) {
