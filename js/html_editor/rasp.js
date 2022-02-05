@@ -10,12 +10,12 @@ function generate_table(group, day, week_number) {
     let rasp = document.createElement('div');
     rasp.classList.add('rasp');
     rasp.id = `Week_${week_number}`
-    rasp.innerHTML=`<h3 class="rasp-title">${week_number}-я неделя (${new Date(day).getDate()}-${new Date(get_next_day(day, 6)).getDate()} ${monthNames[new Date(get_next_day(day, 6)).getMonth()]})</h3>`;
+    rasp.innerHTML=`<h3 class="rasp-title">${week_number}-я неделя (${new Date(day).getDate()} ${monthNames[new Date(day).getMonth()]} - ${new Date(get_next_day(day, 6)).getDate()} ${monthNames[new Date(get_next_day(day, 6)).getMonth()]})</h3>`;
     let table = document.createElement('table');
     table.classList.add('rasp-table');
     let tbody = document.createElement('tbody');
 
-    document.getElementById("Weekbar_List").insertAdjacentHTML("beforeend",`<a class="weekbar-list__item" href="#Week_${week_number}"> ${week_number}. ${new Date(day).getDate()}-${new Date(get_next_day(day, 6)).getDate()} ${monthNames[new Date(get_next_day(day, 6)).getMonth()]}</a>`)
+    document.getElementById("Weekbar_List").insertAdjacentHTML("beforeend",`<a class="weekbar-list__item" href="#Week_${week_number}" onclick="weekbarSwitch();"> ${week_number}. ${new Date(day).getDate()} ${monthNames[new Date(day).getMonth()]} - ${new Date(get_next_day(day, 6)).getDate()} ${monthNames[new Date(get_next_day(day, 6)).getMonth()]}</a>`)
 
     generate_top(tbody)
     for (let i = 0; i < 7; i++) {

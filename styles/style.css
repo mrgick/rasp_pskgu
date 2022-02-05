@@ -343,10 +343,29 @@ div[class^="room"] {
     height: 100%;
 }
 
+.weekbar-switcher {
+    position: fixed;
+    background-color: var(--color-background);
+    left: 0px;
+    top: 61px;
+    border-radius: 10px;
+}
+.weekbar-switcher:hover {
+    cursor: pointer;
+}
+
 .weekbar {
     position: fixed;
-    left: 25px;
-    height: 100%;
+    top: 105px;
+    left: 15px;
+    height: fit-content;
+    background-color: var(--color-background);
+    border: 1px solid var(--color-primary);
+    border-radius: 15px;
+    padding: 0 5px;
+}
+.weekbar--hidden {
+    display: none;
 }
 
 .weekbar-title {
@@ -411,9 +430,9 @@ div[class^="room"] {
     }
 }
 @media (max-width: 1550px) {
-    .weekbar {
+    /*.weekbar {
         display: none;
-    }
+    }*/
     .editbar {
         display: none;
     }
