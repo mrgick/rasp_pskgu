@@ -337,6 +337,12 @@ div[class^="room"] {
     justify-content: space-evenly
 }
 
+.editbar {
+    position: fixed;
+    right: 25px;
+    height: 100%;
+}
+
 .weekbar {
     position: fixed;
     left: 25px;

@@ -52,11 +52,13 @@ function generate_rasp_page(group)
         </div>
     </header>
     <container class="rpage">
-        <button onclick='change_editor_status()'>edit</button>
-        <div id='editor'></div>
         <aside class="weekbar">
             <p class="weekbar-title">Список недель:</p>
             <div class="weekbar-list" id="Weekbar_List"></div>
+        </aside>
+        <aside class="editbar">
+            <button onclick='change_editor_status()'>edit</button>
+            <div id='editor'></div>
         </aside>
         <div id="Group_Rasp">
         </div>
