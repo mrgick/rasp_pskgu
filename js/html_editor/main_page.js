@@ -55,7 +55,7 @@ function generate_rasp_page(group)
         <div class="weekbar-switcher" onclick="weekbarSwitch();">
             <svg xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 0 24 24" width="36px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none"/></svg>
         </div>
-        <aside class="weekbar" id="Weekbar">
+        <aside class="weekbar weekbar--hidden" id="Weekbar">
             <p class="weekbar-title">Список недель:</p>
             <div class="weekbar-list" id="Weekbar_List"></div>
         </aside>

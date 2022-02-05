@@ -46,7 +46,7 @@ function generate_top(table) {
     }
 
     let tr = document.createElement('tr');
-    add_td('Дата', tr, 'rasp-table-date')
+    add_td('<p>Дата</p>', tr, 'rasp-table-date')
     for (let i = 0; i < 7; i++) {
         div_in_td(num_cls[i], time_cls[i], tr, 'rasp-table-shedule')
     }

@@ -179,17 +179,22 @@ table td {
 }
 
 .groups-list {
+	list-style: disc;
     font-weight: 500;
     font-size: 18px;
 }
 
 .groups-list__item {
+    margin-left: 40px;
+    margin-bottom: 10px;
     font-weight: inherit;
     font-size: inherit;
     margin-top: 5px;
     color: var(--color-primary);
 }
-
+.groups-list__item::marker {
+    color: var(--color-link);
+}
 .groups-list__item-link {
     font-weight: inherit;
     font-size: inherit;
@@ -237,9 +242,11 @@ table td {
     font-weight: 500;
     font-size: 24px;
     border: 2px solid var(--color-secondary);
+    vertical-align: middle;
 }
 
 .rasp-table-shedule {
+    padding: 5px 0;
     text-align: center;
     border: 1px solid var(--color-additionaly);
     border-bottom: 2px solid var(--color-secondary);
@@ -258,6 +265,7 @@ table td {
 }
 
 .rasp-table-day {
+    padding: 5px 0;
     text-align: center;
     border: 1px solid var(--color-additionaly);
     border-right: 2px solid var(--color-secondary);
@@ -267,7 +275,9 @@ table td {
     text-align: center;
     font-weight: 400;
     font-size: 8pt;
+    line-height: 140%;
     border: 1px solid var(--color-additionaly);
+    vertical-align: middle;
 }
 
 .search-showall {
@@ -330,8 +340,8 @@ table td {
 .weekbar-switcher {
     position: fixed;
     background-color: var(--color-background);
-    left: 0px;
-    top: 61px;
+    left: 5px;
+    top: 60px;
     border-radius: 10px;
 }
 .weekbar-switcher:hover {
@@ -346,7 +356,7 @@ table td {
     background-color: var(--color-background);
     border: 1px solid var(--color-primary);
     border-radius: 15px;
-    padding: 0 5px;
+    padding: 5px;
 }
 .weekbar--hidden {
     display: none;
@@ -355,6 +365,7 @@ table td {
 .weekbar-title {
     font-weight: 500;
     font-size: 16px;
+    line-height: 140%;
     color: var(--color-primary);
 }
 .weekbar-list__item {
@@ -362,6 +373,7 @@ table td {
     margin: 5px 10px;
     font-weight: 400;
     font-size: 14px;
+    line-height: 120%;
     color: var(--color-link);
 }
 .weekbar-list__item:hover {
