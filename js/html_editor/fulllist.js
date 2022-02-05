@@ -17,11 +17,12 @@ function genPossibilities(structLink, id, cid = 0)
         lastActive[length] = cid;
         document.getElementById(`button${cid}`).classList.add('possible_list__item--active');
     }
-    if (document.getElementById(id)) document.getElementById(id).remove();
-    if (document.getElementById(id+'_')) document.getElementById(id+'_').remove();
-    if (document.getElementById(id+'__')) document.getElementById(id+'__').remove();
-    if (document.getElementById(id+'___')) document.getElementById(id+'___').remove();
-    if (document.getElementById(id+'____')) document.getElementById(id+'____').remove();
+    let s = '';
+    for (let i = 0; i < 5; i++)
+    {
+        if (document.getElementById(id+s)) document.getElementById(id+s).remove();
+        s += '_';
+    }
     document.getElementById('Lists').insertAdjacentHTML("beforeend",`
             <div class="possible_list" id="${id}"></div>
         `)
