@@ -277,7 +277,7 @@ table td {
     font-size: 8pt;
     line-height: 140%;
     border: 1px solid var(--color-additionaly);
-    vertical-align: middle;
+    vertical-align: top;
 }
 
 .search-showall {
