@@ -414,6 +414,9 @@ div[class^="room"] {
     .weekbar {
         display: none;
     }
+    .editbar {
+        display: none;
+    }
     .rasp {
         margin: -50px 25px 0;
     }
