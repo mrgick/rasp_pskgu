@@ -75,6 +75,7 @@ function renew_class_list () {
 	class_selector.innerHTML = ''
 
 	for (class_name in used_class_names) {
+		if (Object.keys(used_class_names[class_name]).length == 0) continue
 		option = document.createElement('option');
 		option.innerText += class_name
 		if (class_name == selected) option.setAttribute('selected', '')

@@ -8,6 +8,7 @@ function create_class (class_name, ...style_content) {
 	else style.innerHTML = `.${class_name} { ${style_content.join('; ')}; }`
 	document.getElementsByTagName('head')[0].appendChild(style)
 }
+
 function generate_css_classes () {
 	for (class_text in used_class_names) {
 		for (subclass_text in used_class_names[class_text]) {
@@ -15,10 +16,16 @@ function generate_css_classes () {
 			for (attrib in base_styles[MODE]) style_content.push(attrib + ': ' + base_styles[MODE][attrib])
 			create_class(used_class_names[class_text][subclass_text],
 						 ...style_content)
-
 		}
-	load_settings()
 	}
+	for (cl_name in base_text_styles) {
+		for (scl_name in base_text_styles[cl_name]) {
+			for (attrib in base_text_styles[cl_name][scl_name]) {
+				set_css_attribute(attrib, base_text_styles[cl_name][scl_name][attrib], cl_name+'-'+scl_name)
+			}
+		}
+	}
+	load_settings()
 }
 
 const base_styles = {'light':{
@@ -49,6 +56,15 @@ for (base_style in base_styles) {
 	base_style_classes[base_style].innerText = `.base_style_class_${base_style} { ${style_content.join('; ')};}`
 	base_style_classes[base_style].setAttribute('id', 'base_style_class_'+base_style)
 }
+
+const base_text_styles = {'lesson_type': {
+					'test'    : {'background-color': '#FFCCFF', 'border':'1px solid #000000'},
+					'test_2'  : {'background-color': '#FFCCFF', 'border':'1px solid #000000'},
+					'cons'    : {'background-color': '#FFCC99', 'border':'1px solid #000000'},
+					'practice': {'background-color': '#CCCCFF', 'border':'1px solid #000000'},
+					'lab'     : {'background-color': '#CCFFFF', 'border':'1px solid #000000'},
+					'lecture' : {'background-color': '#CCFFCC', 'border':'1px solid #000000'},
+}}
 
 function check_is_base (style_tag, mode = null) {
 	if (!mode) mode = MODE

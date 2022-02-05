@@ -26,6 +26,7 @@ async function loadSearch(find_name)
     groups_found = find_substr_in_array_of_str(list_names, find_name);
     if (groups_found.length == 1)
     {
+        window.history.pushState({'find_group_name': '12'}, document.title, "/?group_name=" + groups_found[0]);
         loadGroup(groups_found[0]);
     }
     else if (groups_found.length > 1)
