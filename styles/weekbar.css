@@ -1,0 +1,44 @@
+.weekbar-switcher {
+    position: fixed;
+    background-color: var(--color-background);
+    left: 5px;
+    top: 60px;
+    border-radius: 10px;
+}
+.weekbar-switcher:hover {
+    cursor: pointer;
+}
+
+.weekbar {
+    position: fixed;
+    top: 105px;
+    left: 15px;
+    height: fit-content;
+    background-color: var(--color-background);
+    border: 1px solid var(--color-primary);
+    border-radius: 15px;
+    padding: 5px;
+}
+.weekbar--hidden {
+    display: none;
+}
+
+.weekbar-title {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 140%;
+    color: var(--color-primary);
+}
+.weekbar-list__item {
+    display: block;
+    margin: 5px 10px;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 120%;
+    color: var(--color-link);
+}
+.weekbar-list__item:hover {
+    color: var(--color-hover);
+    cursor: pointer;
+    text-decoration: underline;
+}

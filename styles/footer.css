@@ -1,0 +1,30 @@
+.footer {
+    position: absolute;
+    bottom: 5vh;
+    left: 5%;
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.footer-link {
+    font-weight: 500;
+    font-size: 18px;
+    color: var(--color-link);
+}
+.footer-link:hover {
+    color: var(--color-hover);
+    text-decoration: underline;
+}
+.footer-authors {
+    color: var(--color-secondary);
+    text-align: right;
+}
+.footer-authors-link {
+    color: inherit;
+}
+.footer-authors-link:hover {
+    color: var(--color-additionaly);
+    cursor: pointer;
+    text-decoration: underline;
+}
