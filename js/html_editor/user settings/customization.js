@@ -22,21 +22,21 @@ function set_css_attribute (attrib, value, style_class = null) {
 	}
 }
 
-function set_new_bgr_colour () {
-	set_css_attribute('background-color', bgr_clr_changer.value)
+function set_new_bgr_colour (id = bgr_clr_changer, style_class = null) {
+	set_css_attribute('background-color', document.getElementById(id).value, style_class)
 }
-function set_new_txt_colour () {
-	set_css_attribute('color', txt_clr_changer.value)
+function set_new_txt_colour (id = txt_clr_changer, style_class = null) {
+	set_css_attribute('color', document.getElementById(id).value, style_class)
 }
-function set_new_brd_colour () {
-	set_border()
+function set_new_brd_colour (id1 = bw_checker, id2 = brd_clr_changer, style_class = null) {
+	set_border(id1.checked, id2.value, style_class)
 }
-function set_border () {
-	set_css_attribute('border', `${bw_checker.checked? '1' : '0'}px solid ${brd_clr_changer.value}`)
+function set_border (id1 = bw_checker, id2 = brd_clr_changer, style_class = null) {
+	set_css_attribute('border', `${document.getElementById(id1).checked ? '1' : '0'}px solid ${document.getElementById(id2).value}`, style_class)
 }
-function set_italic () {
-	set_css_attribute('font-style', italic_checker.checked? 'italic' : 'normal')
+function set_italic (id = italic_checker, style_class = null) {
+	set_css_attribute('font-style', document.getElementById(id).checked ? 'italic' : 'normal', style_class)
 }
-function set_bold () {
-	set_css_attribute('font-weight', bold_checker.checked? 'bold' : 'normal')
+function set_bold (id = bold_checker, style_class = null) {
+	set_css_attribute('font-weight', document.getElementById(id).checked  ? 'bold' : 'normal', style_class)
 }

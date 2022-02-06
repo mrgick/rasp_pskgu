@@ -58,12 +58,13 @@ for (base_style in base_styles) {
 }
 
 const base_text_styles = {'lesson_type': {
-					'test'    : {'background-color': '#FFCCFF', 'border':'1px solid #000000'},
-					'test_2'  : {'background-color': '#FFCCFF', 'border':'1px solid #000000'},
-					'cons'    : {'background-color': '#FFCC99', 'border':'1px solid #000000'},
-					'practice': {'background-color': '#CCCCFF', 'border':'1px solid #000000'},
-					'lab'     : {'background-color': '#CCFFFF', 'border':'1px solid #000000'},
-					'lecture' : {'background-color': '#CCFFCC', 'border':'1px solid #000000'},
+					'test'    : {'background-color': '#FFCCFF', 'border':'0px solid #CCCCCC'},
+					'test_2'  : {'background-color': '#FFCCFF', 'border':'0px solid #CCCCCC'},
+					'cons'    : {'background-color': '#FFCC99', 'border':'0px solid #CCCCCC'},
+					'exam'    : {'background-color': '#FFCCCC', 'border':'0px solid #CCCCCC'},
+					'practice': {'background-color': '#CCCCFF', 'border':'0px solid #CCCCCC'},
+					'lab'     : {'background-color': '#CCFFFF', 'border':'0px solid #CCCCCC'},
+					'lecture' : {'background-color': '#CCFFCC', 'border':'0px solid #CCCCCC'},
 }}
 
 function check_is_base (style_tag, mode = null) {

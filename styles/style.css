@@ -35,6 +35,14 @@ table td {
     background-color: var(--color-background);
 }
 
+.switchers {
+    display: flex;
+}
+
+.editbar-switcher:hover {
+    cursor: pointer;
+}
+
 .mode-switcher {
     position: absolute;
     top: 6px;
@@ -263,11 +271,13 @@ table td {
     font-size: 14px;
     font-weight: 500;
     color: var(--color-secondary);
+    margin-top: 5px;
 }
 
 .rasp-table-day {
     padding: 5px 0;
     text-align: center;
+    vertical-align: middle;
     border: 1px solid var(--color-additionaly);
     border-right: 2px solid var(--color-secondary);
 }
@@ -334,8 +344,122 @@ table td {
 
 .editbar {
     position: fixed;
+    top: 75px;
+    right: 15px;
+    height: fit-content;
+    background-color: var(--color-background);
+    border: 1px solid var(--color-primary);
+    border-radius: 15px;
+    padding: 5px;
+}
+.editbar--hidden {
+    display: none;
+}
+
+.editbar-close {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+}
+.editbar-close:hover {
+    cursor: pointer;
+}
+
+.editbar-title {
+    font-size: 16px;
+    color: var(--color-primary);
+    font-weight: 500;
+    margin: 5px;
+}
+
+.editbar-main {
+    display: flex;
+    justify-content: space-between;
+    padding-right: 20px;
+}
+
+.editbar-main-menu {
+    display: flex;
+    flex-direction: column;
+}
+
+.editbar-main-menu__button {
+    width: 100%;
+    border: 1px solid var(--color-additionaly);
+    background-color: var(--color-background);
+    border-radius: 10px;
+    padding: 5px;
+    margin: 5px;
+    text-align: center;
+    font-weight: 500;
+}
+.editbar-main-menu__button:hover {
+    cursor: pointer;
+    box-shadow: 0 0 2px;
+}
+
+.editbar-main-choice__item {
+    display: flex;
+    padding: 0px;
+    margin: 5px;
+    text-align: center;
+    vertical-align: middle;
+    justify-content: space-between;
+    border: 1px solid var(--color-secondary);
+    background-color: var(--color-additionaly);
+}
+.editbar-main-choice__item:hover {
+    cursor: pointer;
+    box-shadow: 0 0 2px;
+}
+
+.editbar-main-choice__item-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-primary);
+    padding: 5px;
+}
+
+.editbar_outdated {
+    position: fixed;
     right: 25px;
     height: 100%;
+}
+
+.filterbar {
+    position: fixed;
+    top: 75px;
+    right: 380px;
+    height: fit-content;
+    background-color: var(--color-background);
+    border: 1px solid var(--color-primary);
+    border-radius: 15px;
+    padding: 5px;
+}
+.filterbar--hidden {
+    display: none;
+}
+
+.filterbar-close {
+    position: absolute;
+    right: 5px;
+    top: 5p
+}
+.filterbar-close:hover {
+    cursor: pointer;
+}
+
+.filterbar-title {
+    font-size: 16px;
+    color: var(--color-primary);
+    font-weight: 500;
+    margin: 5px;
+}
+
+.filterbar-main-choice__item {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
 }
 
 .weekbar-switcher {
@@ -427,12 +551,6 @@ table td {
     }
 }
 @media (max-width: 1550px) {
-    /*.weekbar {
-        display: none;
-    }*/
-    .editbar {
-        display: none;
-    }
     .rasp {
         margin: -50px 25px 0;
     }
