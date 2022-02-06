@@ -1,83 +1,38 @@
 /* Файл генерации данных таблицы*/
-/* 
-Here's a dict of classes that contains dicts of sub-classes 
-that (finally) contains list of regexps to recognize that 
-some part of text belongs to definite class and sub-class.
 
-If sub-class name includes '!' at the begining, than
-name will not be const like the others. So, it will
-depend of result. 
-See 'special_class_name' function for more information.
+let group_REs   = {}
+let teacher_REs = {}
 
-If there's an 'ignore' instead of list, checking will be 
-skipped for current class. Should be used only for
-'lesson' class type, because it also sets index for
-uncuted part of text to be inserted in.
-*/                                  //VVV type VVV
-const group_REs =   {'lesson_type': ['Тип занятия', {//VVV subtype VVV
-                                      'lecture'   : ['Лекция'         , [/л\./    ]],
-                                      'practice'  : ['Практика'       , [/пр\./i  ]],
-                                      'lab'       : ['Лабораторная'   , [/лаб\./i ]],
-                                      'test'      : ['Зачёт'          , [/зач\./i ]],
-                                      'cons'      : ['Консультация'   , [/конс\./i]],
-                                      'exam'      : ['Экзамен'        , [/экз\./i ]],
-                                      'volkswagen': ['Физвоспитание'  , [/фв/i    ]],
-                                      'test_2'    : ['Зачёт с оценкой', [/ЗаО/i   ]],
-                                    }],
-                          'lesson': ['Предмет', {'ignore': ['ignore', 'ignore']}],
-                        'subgroup': ['Подгруппа', {
-                                      '!pre_last':['!convert', [/\(п\/г ?[1-2]\)/]],
-                                    }],
-                         'teacher': ['Преподаватель', {
-                                      '!result|< 32':['!result', [/[А-Я]\.\s?[А-Я]\./i           ]],
-                                      '!result|< 32':['!result', [/[А-Я][А-Я]?\..?[А-Я][А-Я]?\./i]], // debug
-                                      '!result'     :['!result', [/0001_преподаватель/i          ]], // debug
-                                    }],
-                            'room': ['Место проведения', {
-                                      'online'        :['Онлайн' , [/о-?нлайн\d*/i                        ]],
-                                      '!result|< |S-1':['!Slice1', [/(^|[ ЛсС])[тКСПЗ1238]-\d\d*[а-в]?/   ]],
-                                      'online'        :['Онлайн' , [/\S\S?-?\S?нлайн( ?\(.*\)|\d*)/i      ]], // debug
-                                      'DLS'           :['СДО'    , [/СДО ПсковГУ/i                        ]],
-                                    }],
+// renews REs_lists according to customized sequences
+function renew_REs_list (which_one = 'both') { // which_one values: 'group', 'teacher', 'both'
+    if (which_one == 'group' || which_one == 'both') {
+        group_REs = {}
+        for (let i = 0; i < group_sequence.length; i++) {
+            group_REs[group_sequence[i]] = all_REs[group_sequence[i]]
+        }
+    }
+    if (which_one == 'teacher' || which_one == 'both') {
+        teacher_REs = {}
+        for (let i = 0; i < teacher_sequence.length; i++) {
+            teacher_REs[teacher_sequence[i]] = all_REs[teacher_sequence[i]]
+        }
+    }
+    return group_REs, teacher_REs
 }
-                                    //VVV type VVV
-const teacher_REs = {'lesson_type': ['Тип занятия', {//VVV subtype VVV
-                                      'lecture'   : ['Лекция'         , [/л\./    ]],
-                                      'practice'  : ['Практика'       , [/пр\./i  ]],
-                                      'lab'       : ['Лабораторная'   , [/лаб\./i ]],
-                                      'test'      : ['Зачёт'          , [/зач\./i ]],
-                                      'cons'      : ['Консультация'   , [/конс\./i]],
-                                      'exam'      : ['Экзамен'        , [/экз\./i ]],
-                                      'volkswagen': ['Физвоспитание'  , [/фв/i    ]],
-                                      'test_2'    : ['Зачёт с оценкой', [/ЗаО/i   ]],
-                                    }],
-                          'lesson': ['Предмет', {'ignore': ['ignore', 'ignore']}],
-                           'group': ['Группа', {
-                                      '!result|C':['!result', [/\d{4}-\d{2}\S*(\s|$)/]],
-                                      '!result'  :['!result', [/Иностр\.студенты\([А-Я, ]*\)/i, // debug
-                                                               /Начальный 1 к\./i             ,
-                                                               /Начальный к\./i               ]],
-                                    }],
-                        'subgroup': ['Подгруппа', {
-                                      '!pre_last':['!convert', [/\(п\/г ?[1-2]\)/]],
-                                    }],
-                            'room': ['Место проведения', {
-                                      'online'        :['Онлайн' , [/о-?нлайн( \(.*\)|\d*)/i              ]],
-                                      '!result|< |S-1':['!Slice1', [/(^|[ ЛсС])[тКСПЗ1238]-\d\d*[а-в]?/   ]],
-                                      'online'        :['Онлайн' , [/\S\S?-?\S?нлайн( ?\(.*\)|\d*)/i      ]], // debug
-                                      'DLS'           :['СДО'    , [/СДО ПсковГУ/i                        ]],
-                                    }],
+group_REs, teacher_REs = renew_REs_list()
+
+// See 'delete_from_lesson' list
+function adapt_lesson_text (text) {
+    let matched = []
+    for (let i = 0; i < delete_from_lesson.length; i++) { //
+        let finded = text.match(delete_from_lesson[i])    // finding excess text
+        if (finded) matched = [...matched, ...finded]     //
+    }
+    for (let i = 0; i < matched.length; i++) text = text.replace(matched[i], '')
+    return cut_off_excess(text)
 }
 
-// if text contains several lessons, it will be divided by these regexps
-const group_block_seps = [/лайн\d*/ig, /(^|[ ЛсС])[тКСПЗ1238]-\d\d*[а-в]?/g]
-
-// final text will be converted according to this dict
-// regexps must be in quotes as string ('cause REs can't be a key of dict)
-const convert_result = {'/О-?нлайн[0-9]*/i': 'Онлайн',
-                        '(п/г 1)':'п/г 1',
-                        '(п/г 2)':'п/г 2',
-                        }
+// See 'convert_result' list
 function try_convert (text) {
     for (key in convert_result) {
         if (key[0] == '/') { // if regexp
@@ -106,22 +61,21 @@ function try_push (class_name, subclass_name, matched) {
     }}
 }
 
-// function returns index of 'nearest' word separator (see list) in text
+// function returns index of 'nearest' word separator (see 'word_seps' list) in text
 // "direction" sets the direction of search
 // "exceptions" sets the amount of separators to be skipped
-const word_seps = [' ', '.', ',', '_']
-function nearest_word_sep (text, direction = 'right', exceptions = 0) {
+function nearest_word_sep (text, direction = 'right', offset = 0, exceptions = 0) {
     if (!exceptions) exceptions = 0 // if Null is received
 
     if (direction == 'right') { // begin >>> end
-        for (let i = 0; i < text.length; i++) if(word_seps.indexOf(text[i]) !== -1) {
+        for (let i = offset; i < text.length; i++) if(word_seps.indexOf(text[i]) !== -1) {
             if (exceptions == 0) return i
             else exceptions--
         }
         return text.length
     }
     else if (direction == 'left') { // begin <<< end
-        for (let i = text.length-1; i > -1; i--) if(word_seps.indexOf(text[i]) !== -1) {
+        for (let i = text.length-1-offset; i > -1; i--) if(word_seps.indexOf(text[i]) !== -1) {
             if (exceptions == 0) return i
             else exceptions--
         }
@@ -129,8 +83,7 @@ function nearest_word_sep (text, direction = 'right', exceptions = 0) {
     }
 }
 
-// Returns text without 'excesses' (see list) at the sides
-const base_excesses = [' ', '.', ',', '_']
+// Returns text without 'excesses' (see 'base_excesses' list) at the sides
 function cut_off_excess (text, excesses = base_excesses) {
     let num1 = 0
     let num2 = text.length-1
@@ -144,6 +97,7 @@ function special_text (pattern, matched) {
     case '!result': return matched[0]
     case '!convert': return try_convert(matched[0])
     case '!Slice1': return [matched[0].split('-').slice(0, -1).join('-'), matched[0]]
+    case '!Slice2': return [cut_off_excess(matched[0].split('(')[0]), matched[0]]
     }
 }
 
@@ -161,6 +115,8 @@ will depend on the result. For now, here're these settings:
 
 !range|x|y - returns slice of text from x to y (including both of indexes)
 
+!R|name - just returns name (dict cannot consist of similar keys, !R allows to do so) 
+
 !result|... - returns result with some settings (unlimited). 
 Currently available:
 |>cx| - 'extends' matched to nearest char 'c' (not included)
@@ -177,16 +133,20 @@ function special_class_name (settings, matched) {
 
         case '!range'   : return adapt_for_html(matched[0].slice(settings[1], settings[2]))
 
+        case '!R'       : return settings[1]
+
         case '!result'  :
             let txt = ''
             for (let i = 1; i < settings.length; i++) {
                 switch(settings[i][0]) {
+                    case 'i': break
+
                     case '>':
                         let second_index = matched['input'].indexOf(settings[i][1], matched['index']+matched[0].length)
                         if (second_index == -1) second_index = matched['index']+matched[0].length
 
                         txt = matched['input'].slice(matched['index'], second_index)
-                        matched[0] = txt.slice(0, nearest_word_sep(txt, 'right', settings[i][2]))
+                        matched[0] = txt.slice(0, nearest_word_sep(txt, 'right', matched[0].length, settings[i][2]))
                         break
                     
                     case '<':
@@ -194,7 +154,7 @@ function special_class_name (settings, matched) {
                         if (first_index == -1) first_index = matched['index']
 
                         txt = matched['input'].slice(first_index, matched['index']+matched[0].length)
-                        matched[0] = txt.slice(nearest_word_sep(txt, 'left', settings[i][2])+1, txt.length)
+                        matched[0] = txt.slice(nearest_word_sep(txt, 'left', matched[0].length, settings[i][2])+1, txt.length)
                         break
 
                     case 'C':
@@ -234,11 +194,14 @@ function divide (text, RE_list) {
             let finded = text.match(group_block_seps[re]) // finding blocks
             if (finded) matched = [...matched, ...finded] //
         }
-        for (let i = 0; i < matched.length; i++) {          //
-            text = text.replace(matched[i], matched[i]+'☺') // adding separators
-        }
-        texts = text.split('☺')
-        texts.pop() // deleting empty block
+        if (matched.length != 0) { // if found something to separate
+            for (let i = 0; i < matched.length; i++) {          //
+                text = text.replace(matched[i], matched[i]+'☺') // adding separators
+            }
+            texts = text.split('☺')
+            texts.pop() // deleting empty block
+        } 
+        else texts = [text] // if there's no any separators are found
     }
     else texts = [text] // if timetable for teacher
 
@@ -289,7 +252,7 @@ function divide (text, RE_list) {
             if (found_smth) break // e.g. if found lesson type 'lecture', it's
                                   // unnecessary to check for another (exam, lab, etc)
         }
-        let lesson_text = cut_off_excess(text)
+        let lesson_text = adapt_lesson_text(text)
         content[content.length-1].splice(final_index, 0, ['lesson-'+adapt_for_html(lesson_text), lesson_text])
         try_push('lesson', adapt_for_html(lesson_text), lesson_text)
         // uncuted part of text is recognizing as lesson
@@ -324,7 +287,7 @@ function gen_row_data(table, day, day_content, prefix) { // prefixes: ЗФО|О�
                     td.appendChild(div)
 
                     for (d in content[lesson]) { // for each div in block
-                        add_div(try_convert(content[lesson][d][1]), div, content[lesson][d][0])
+                        add_div(content[lesson][d][1], div, content[lesson][d][0])
                     }
                 }
             }
