@@ -35,8 +35,14 @@ function adapt_lesson_text (text) {
 // See 'convert_result' list
 function try_convert (text) {
     for (key in convert_result) {
-        if (key[0] == '/') { // if regexp
-            if (text.match( RegExp(...key.replace('/','').split('/')) )) return convert_result[key]
+        if (key[0] == '!') {
+            let kcontent = key.split('|')
+            if (text.match(RegExp(kcontent[1], kcontent[2]))) switch(kcontent[0]) {
+                case '!get_digit': return convert_result[key].replace('D', text.match(/\d/))
+            }
+        }
+        if (key[0] == '|') { // if regexp
+            if (text.match( RegExp(...key.replace('|','').split('|')) )) return convert_result[key]
         }
         else if (convert_result[text.toLowerCase()]) return convert_result[text.toLowerCase()]
     }
@@ -102,7 +108,7 @@ function special_text (pattern, matched) {
 }
 
 function adapt_for_html (text) {
-    return text.replaceAll(/[ ,-]/g, '_').replaceAll(/[.]/g, '．') // ⋅．•
+    return text.replaceAll(/([ ,-]|\(|\))/g, '_').replaceAll(/[.]/g, '．') // ⋅．•
 }
 
 /* 
@@ -134,6 +140,8 @@ function special_class_name (settings, matched) {
         case '!range'   : return adapt_for_html(matched[0].slice(settings[1], settings[2]))
 
         case '!R'       : return settings[1]
+
+        case '!get_digit': return matched[0].match(/\d/)[0]
 
         case '!result'  :
             let txt = ''
@@ -195,8 +203,16 @@ function divide (text, RE_list) {
             if (finded) matched = [...matched, ...finded] //
         }
         if (matched.length != 0) { // if found something to separate
-            for (let i = 0; i < matched.length; i++) {          //
-                text = text.replace(matched[i], matched[i]+'☺') // adding separators
+
+            let all_the_same = true
+            for (let i = 0; i < matched.length; i++) if (matched[0] !== matched[i]) {
+                all_the_same = false
+                break
+            }
+
+            if (all_the_same) text = text.replaceAll(matched[0], matched[0]+'☺') // adding separators if all the same
+            else for (let i = 0; i < matched.length; i++) {
+                text = text.replace(matched[i], matched[i]+'☺') // adding separators if difference
             }
             texts = text.split('☺')
             texts.pop() // deleting empty block
