@@ -156,8 +156,7 @@ function encode_style (style_tag) {
 	result += compact_colour(value)
 	value = get_css_attribute('color'           , style_tag)
 	result += compact_colour(value)
-	value = get_css_attribute('border-color'    , style_tag)
-	result += compact_colour(value)
+	result += compact_colour(get_css_attribute('border', style_tag).split(' ')[2])
 
 	value = ''
 	value += get_css_attribute('font-style' , style_tag) == 'italic'? 'T' : 'F'
@@ -181,9 +180,9 @@ function encode_style (style_tag) {
 			value += 'TT'
 			break
 	}
-	value += (get_css_attribute('border-width', style_tag) == '1px'? 'T' : 'F')
+	value += (get_css_attribute('border', style_tag).split(' ')[0] == '1px'? 'T' : 'F')
 	value = convert_sys_to_10(value.replaceAll('T', '1').replaceAll('F', '0'), 2)
-	result += convert_10_to_sys(value+1)
+	result += convert_10_to_sys(value)
 
 	return result
 }
@@ -235,17 +234,18 @@ function decode_style (str) {
 	style_content.push('background-color: '+unpack_colour(str[0]))
 	style_content.push('color: '           +unpack_colour(str[1]))
 
-	let value = convert_10_to_sys(convert_sys_to_10(str[3])-1, 2)
+	let value = convert_10_to_sys(convert_sys_to_10(str[3]), 2).padStart(5, '0')
 
 	style_content.push(`border: ${value[4] == '1'? '1' : '0'}px solid ${unpack_colour(str[2])}`)
 
 	style_content.push('font-style: '      + (value[0] == '1'? 'italic'      : 'normal'))
 	style_content.push('font-weight: '     + (value[1] == '1'? 'bold'        : 'normal')) 
 	style_content.push('text-decoration: ' + (value[2] == '1'? 'underline '  : ''      )
-			                       + (value[3] == '1'? 'line-through': ''      ))
+					       + (value[3] == '1'? 'line-through': ''      ))
 
 	if (style_content[style_content.length-1] == 'text-decoration: ') {
 		style_content[style_content.length-1] += 'none'
+	}
 
 	//console.log(`{ ${style_content.join('; ')}; }`)
 	return `{ ${style_content.join('; ')}; }`
