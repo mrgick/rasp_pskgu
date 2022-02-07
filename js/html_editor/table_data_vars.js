@@ -16,18 +16,17 @@ skipped for current class. Should be used only for
 uncuted part of text to be inserted in.
 */                                  //VVV type VVV
 const all_REs =     {'lesson_type': ['Тип занятия', {//VVV subtype VVV
-                                      'lecture'   :['Лекция'         , [/л\./,     ]],
-                                      'practice'  :['Практика'       , [/пр\. /i   ]],
-                                      'lab'       :['Лабораторная'   , [/лаб\./i   ]],
-                                      'test'      :['Зачёт'          , [/зач\./i   ]],
-                                      'cons'      :['Консультация'   , [/конс\./i  ]],
-                                      'exam'      :['Экзамен'        , [/экз\./i   ]],
-                                      'volkswagen':['Физвоспитание'  , [/фв/i      ]],
-                                      'test_2'    :['Зачёт с оценкой', [/ЗаО/i     ]],
-                                      '!R|lecture':['Лекция'         , [/( |^)Л\. /]],
+                                      'lecture'   :['Лекция'         , [/( |^)л\. /i,   ]],
+                                      'practice'  :['Практика'       , [/пр\. /i        ]],
+                                      'lab'       :['Лабораторная'   , [/лаб\.? /i      ]],
+                                      'test'      :['Зачёт'          , [/зач\.? /i      ]],
+                                      'cons'      :['Консультация'   , [/конс\.? /i     ]],
+                                      'exam'      :['Экзамен'        , [/экз\. /i       ]],
+                                      'volkswagen':['Физвоспитание'  , [/фв/i           ]],
+                                      'test_2'    :['Зачёт с оценкой', [/Зач?О/i, /ЗчО/i]],
                                     }],
                         'subgroup': ['Подгруппа', {
-                                      '!pre_last':['!convert', [/\(п\/г ?[1-4]\)/]],
+                                      '!get_digit':['!convert', [/\(?\d* ?п\/г\S* ?\d*\)?/i]],
                                     }],
                             'room': ['Место проведения', {
                                       '!R|online'        :['!Slice2', [/о-?нлайн ?\([a-z0-9 ил]*\)/i                  ]],
@@ -51,7 +50,9 @@ const all_REs =     {'lesson_type': ['Тип занятия', {//VVV subtype VVV
                                                                        /ЦЛП,Бастионная,\d/i           ,
                                                                        /Балтийская,\d/i               ,
                                                                        /Райниса,58/i                  ,
-                                                                       /Корр ОУ/i                     ]],
+                                                                       /Экскурсия в архив/i           ,
+                                                                       /Корр ОУ/i                     ,
+                                                                       /Медико-реабилитационный центр ПсковГУ, ул. Розы Люксембург, д.6б/i]],
                                     }],
                            'group': ['Группа', {
                                       '!result|C':['!result', [/\d{4}-\d{2}\S*(\s|,|$)/]],
@@ -94,14 +95,21 @@ let teacher_sequence = ['lesson_type', 'lesson', 'group'  , 'subgroup', 'room']
 const delete_from_lesson = [/п\/гр? ?[1-4]/ig]
 
 // If text contains several lessons, it will be divided by these regexps
-const group_block_seps = [/лайн\d*/ig, /(^|[ ЛсС])[тКСПЗ12348]-(СЗ|\d\d*[а-в]?)/g, /event\d*@pskgu\.ru/ig]
+const group_block_seps = [/лайн\d* /ig, 
+                          /(^|[ ЛсС])[тКСПЗ12348]-(СЗ|\d\d*(["']?[а-в]?["']?| ?\(\d\)))/ig, 
+                          /event\d*@pskgu\.ru/ig, 
+                          /СДО\d? ПсковГУ/ig,
+                          /ПОКБ\d?/ig,
+                          /Корр ОУ/ig,
+                          /лаборатория\d?/ig,
+                          /Мастерские\d?/ig,
+                          /Сим\.центр\d?/ig ]
 
 // final text will be converted according to this dict
 // regexps must be in quotes as string ('cause REs can't be a key of dict)
 // see 'try_convert' function
-const convert_result = {'/О-?нлайн\d\d*/i': 'Онлайн',
-                        '(п/г 1)':'п/г 1',
-                        '(п/г 2)':'п/г 2',
+const convert_result = {'|О-?нлайн\\d\\d*|i': 'Онлайн',
+                        '!get_digit|\\(?\\d* ?п\\/г\\S* ?\\d*\\)?|i':'п/г D',
                         }
 
 // see 'nearest_word_sep' function
