@@ -75,10 +75,10 @@ function generate_rasp_page(group)
                 <div class="editbar-main-choice" id="EditOrder">
                 </div>
                 <div class="editbar-main-menu">
-                    <a class="editbar-main-menu__button editbar-main-menu__button--accept">Применить</a>
+                    <a class="editbar-main-menu__button editbar-main-menu__button--accept" onclick="save_settings();">Применить</a>
                     <a class="editbar-main-menu__button editbar-main-menu__button--import">Импортировать</a>
                     <a class="editbar-main-menu__button editbar-main-menu__button--export">Экспортировать</a>
-                    <a class="editbar-main-menu__button editbar-main-menu__button--cancel">Отменить</a>
+                    <a class="editbar-main-menu__button editbar-main-menu__button--cancel" onclick="load_settings();">Отменить</a>
                     <a class="editbar-main-menu__button editbar-main-menu__button--default">По умолчанию</a>
                 </div>
             </div>
