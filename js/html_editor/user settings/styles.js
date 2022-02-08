@@ -58,13 +58,14 @@ for (base_style in base_styles) {
 }
 
 const base_text_styles = {'lesson_type': {
-					'test'    : {'background-color': '#FFCCFF', 'border':'0px solid #CCCCCC'},
-					'test_2'  : {'background-color': '#FFCCFF', 'border':'0px solid #CCCCCC'},
-					'cons'    : {'background-color': '#FFCC99', 'border':'0px solid #CCCCCC'},
-					'exam'    : {'background-color': '#FFCCCC', 'border':'0px solid #CCCCCC'},
-					'practice': {'background-color': '#CCCCFF', 'border':'0px solid #CCCCCC'},
-					'lab'     : {'background-color': '#CCFFFF', 'border':'0px solid #CCCCCC'},
-					'lecture' : {'background-color': '#CCFFCC', 'border':'0px solid #CCCCCC'},
+					'test'      : {'background-color': '#FFCCFF', 'border':'0px solid #CCCCCC'},
+					'test_2'    : {'background-color': '#FFCCFF', 'border':'0px solid #CCCCCC'},
+					'cons'      : {'background-color': '#FFCC99', 'border':'0px solid #CCCCCC'},
+					'exam'      : {'background-color': '#FFCCCC', 'border':'0px solid #CCCCCC'},
+					'practice'  : {'background-color': '#CCCCFF', 'border':'0px solid #CCCCCC'},
+					'lab'       : {'background-color': '#CCFFFF', 'border':'0px solid #CCCCCC'},
+					'lecture'   : {'background-color': '#CCFFCC', 'border':'0px solid #CCCCCC'},
+					'volkswagen': {'background-color': '#99CC99', 'border':'0px solid #CCCCCC'},
 }}
 
 function check_is_base (style_tag, mode = null) {
