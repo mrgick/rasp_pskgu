@@ -186,7 +186,7 @@ to
 */
 group_content   = {'0': 'lesson_type, lesson'       , '-3': 'subgroup', '-2': 'teacher', '-1': 'room'}
 teacher_content = {'0': 'group, lesson_type, lesson', '-2': 'subgroup', '-1': 'room'}
-function divide_2 (input, RE_list) {
+function divide (input, RE_list) {
     let content = []    // here will be divs
     let output = []     // here will be blocks with sorted divs
     let class_name = '' // name of class of each div in future
@@ -267,7 +267,8 @@ function divide_2 (input, RE_list) {
             }
         }
         if (cut_off_excess(uncuted) != '') {
-            console.log(uncuted)
+            //console.log(uncuted)
+            content.conact(divide_old(uncuted, RE_list)[0])
         }
 
         for (type of Object.values(RE_list == group_REs? group_sequence : teacher_sequence)) {
