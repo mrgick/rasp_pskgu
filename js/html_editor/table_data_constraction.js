@@ -148,21 +148,17 @@ function special_class_name (settings, matched) {
             for (let i = 1; i < settings.length; i++) {
                 switch(settings[i][0]) {
                     case 'i': break
-
+                        
                     case '>':
-                        let second_index = matched['input'].indexOf(settings[i][1], matched['index']+matched[0].length)
-                        if (second_index == -1) second_index = matched['index']+matched[0].length
-
-                        txt = matched['input'].slice(matched['index'], second_index)
-                        matched[0] = txt.slice(0, nearest_word_sep(txt, 'right', matched[0].length, settings[i][2]))
-                        break
+                        num = matched['index']+matched[0].length + (settings[i][3]? settings[i][3] : 0)
+                        while (num < matched['input'].length && matched['input'][num] != settings[i][1]) num++
+                        matched[0] = matched['input'].slice(matched['index'], num)
+                       break
                     
                     case '<':
-                        let first_index = matched['input'].lastIndexOf(settings[i][1], matched['index']-(settings[i][3]? settings[i][3] : 0))
-                        if (first_index == -1) first_index = matched['index']
-
-                        txt = matched['input'].slice(first_index, matched['index']+matched[0].length)
-                        matched[0] = txt.slice(nearest_word_sep(txt, 'left', matched[0].length, settings[i][2])+1, txt.length)
+                        num = matched['index'] - (settings[i][3]? settings[i][3] : 0)
+                        while (num > -1 && matched['input'][num] != settings[i][1]) num--
+                        matched[0] = matched['input'].slice(num+1, matched['index']+matched[0].length)
                         break
 
                     case 'C':
@@ -188,7 +184,97 @@ to
   ['lesson', 'Math'], 
   ['group', '0123-45']]]
 */
-function divide (text, RE_list) {
+group_content   = {'0': 'lesson_type, lesson'       , '-3': 'subgroup', '-2': 'teacher', '-1': 'room'}
+teacher_content = {'0': 'group, lesson_type, lesson', '-2': 'subgroup', '-1': 'room'}
+function divide_2 (input, RE_list) {
+    let content = []    // here will be divs
+    let output = []     // here will be blocks with sorted divs
+    let class_name = '' // name of class of each div in future
+    let check_for = (RE_list == group_REs? group_content : teacher_content)
+
+    //===========================================================================================
+
+    for (block in input) {
+        output.push([])
+        content = []
+        let uncuted = ''
+        let lesson = input[block]
+        for (let i = 0; i < lesson.length; i++) {
+            let text = lesson[i]
+            let index = -1
+
+            index = Object.keys(check_for).indexOf(i.toString())
+            if (index == -1) index = Object.keys(check_for).indexOf((i-lesson.length).toString())
+
+            if (index !== -1) {
+                index = Object.keys(check_for)[index]
+                let other_as_lesson = false
+
+                for (type of Object.values(check_for[index].split(', '))) {
+                    if (type == 'lesson') {
+                        other_as_lesson = true
+                        continue
+                    }
+                    else {
+                        let found_smth = false
+                        for (subtype in RE_list[type][1]) {
+                            for (re of Object.values(RE_list[type][1][subtype][1])) {
+                                let matched = text.match(re)
+                                while (matched) {
+                                    class_name = type+'-'
+                                    let subclass_name = subtype[0] == '!'? special_class_name(subtype, matched) : subtype
+                                    class_name += subclass_name
+
+                                    text = text.replace(matched[0], '') // deleting finded part
+
+                                    let res_123 = (RE_list[type][1][subtype][0][0] == '!'? 
+                                                    special_text(RE_list[type][1][subtype][0], matched) 
+                                                    : 
+                                                    RE_list[type][1][subtype][0])
+                                    
+                                    if (typeof res_123 == 'string') {
+                                        matched[0] = res_123
+                                        try_push(type, subclass_name, matched[0])
+                                    }
+                                    else {
+                                        matched[0] = res_123[1]
+                                        try_push(type, subclass_name, res_123[0])
+                                    }
+                                    content.push([class_name, matched[0]]) // future div
+
+                                    class_name = ''
+                                    //index++
+                                    matched = text.match(re)
+                                    found_smth = true
+                                }
+                            }
+                            if (found_smth) break
+                        }
+                    }
+                }
+                if (other_as_lesson) {
+                    let lesson_text = adapt_lesson_text(text)
+                    content.push(['lesson-'+adapt_for_html(lesson_text), lesson_text])
+                    try_push('lesson', adapt_for_html(lesson_text), lesson_text)
+                }
+                else uncuted += text
+            }
+        }
+        if (cut_off_excess(uncuted) != '') {
+            console.log(uncuted)
+        }
+
+        for (type of Object.values(RE_list == group_REs? group_sequence : teacher_sequence)) {
+            for (let i = 0; i < content.length; i++) {
+                if (content[i][0].split('-')[0] == type) output[block].push(content[i])
+            }
+        }
+    }
+
+    return output
+}
+
+function divide_old (text, RE_list) {
     let content = []    // here will be blocks and divs
     let class_name = '' // name of class of each div in future
     let texts = []      // if text contains several lessons, it will be divided and stored here
