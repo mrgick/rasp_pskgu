@@ -199,6 +199,12 @@ function divide_2 (input, RE_list) {
         content = []
         let uncuted = ''
         let lesson = input[block]
+        
+        if (lesson.length == 1) {
+            output[block] = divide_old(lesson[0], RE_list)[0]
+            continue
+        }
+        
         for (let i = 0; i < lesson.length; i++) {
             let text = lesson[i]
             let index = -1
