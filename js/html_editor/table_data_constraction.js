@@ -268,7 +268,7 @@ function divide (input, RE_list) {
         }
         if (cut_off_excess(uncuted) != '') {
             //console.log(uncuted)
-            content.conact(divide_old(uncuted, RE_list)[0])
+            content.concat(divide_old(uncuted, RE_list)[0])
         }
 
         for (type of Object.values(RE_list == group_REs? group_sequence : teacher_sequence)) {
