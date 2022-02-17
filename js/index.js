@@ -70,6 +70,8 @@ async function loadGroup(group_name)
     }
     
     generate_css_classes()
+
+    document.getElementById(document.URL.split("#")[1]).scrollIntoView();
 }
 
 async function loadList()
