@@ -1,0 +1,63 @@
+* {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: inherit;
+    font-size: inherit;
+    color: var(--color-primary);
+    margin: 0;
+}
+
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+    display: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+table {
+    width: 100%;
+    table-layout: fixed;
+}
+
+table td {
+    width: 100%;
+}
+
+:active, :hover, :focus {
+    outline: 0;
+    outline-offset: 0;
+}
+
+.body {
+    background-color: var(--color-background);
+}
+
+.switchers {
+    display: flex;
+}
+
+.editbar-switcher:hover {
+    cursor: pointer;
+}
+
+.mode-switcher {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+}
+.header-main-right .mode-switcher {
+    position: unset;
+}
+.mode-switcher svg {
+    fill: var(--color-primary);
+}
+.mode-switcher:hover {
+    cursor: pointer;
+}
+.mode-switcher:hover svg {
+    fill: var(--color-secondary);
+}
+

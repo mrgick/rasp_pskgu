@@ -26,6 +26,7 @@ async function loadSearch(find_name)
     groups_found = find_substr_in_array_of_str(list_names, find_name);
     if (groups_found.length == 1)
     {
+        window.history.pushState({'find_group_name': '12'}, document.title, "/?group_name=" + groups_found[0]);
         loadGroup(groups_found[0]);
     }
     else if (groups_found.length > 1)
@@ -67,6 +68,8 @@ async function loadGroup(group_name)
         generate_table(group, day, ++week);
         day = get_next_day(day, 7);
     }
+    
+    generate_css_classes()
 }
 
 async function loadList()
@@ -104,6 +107,7 @@ function ChangeTheme()
     SetTheme();
     return false;
 }
+
 function SetTheme()
 {
     MODE = readCookie("mode");
@@ -111,8 +115,9 @@ function SetTheme()
     {
         document.getElementById("CSS-Theme").setAttribute("href", "styles/dark-style.css");
     }
-    else // if (MODE = "light")
+    else // if (MODE = "light" or null)
     {
+        MODE = "light"
         document.getElementById("CSS-Theme").setAttribute("href", "styles/light-style.css");
     }
 }
