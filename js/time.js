@@ -39,5 +39,5 @@ function getCurrentWeek(first_date)
 {
     let mondate = getYearWeek(new Date(get_monday(first_date)));
     let todate = getYearWeek(new Date(get_monday(new Date())));
-    return todate - mondate;
+    return todate - mondate + 1;
 }
