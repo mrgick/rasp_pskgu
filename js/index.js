@@ -70,8 +70,15 @@ async function loadGroup(group_name)
     }
     
     generate_css_classes()
-
-    document.getElementById(document.URL.split("#")[1]).scrollIntoView();
+    
+    if (document.URL.split("#")[1] != undefined)
+    {
+        document.getElementById(document.URL.split("#")[1]).scrollIntoView();
+    }
+    else
+    {
+        document.getElementById(`Week_${getCurrentWeek(first_date)}`).scrollIntoView();
+    }
 }
 
 async function loadList()

@@ -28,3 +28,16 @@ const weekNames = [
     "Воскресенье", "Понедельник", "Вторник",
     "Среда", "Четверг", "Пятница", "Суббота"
 ];
+
+function getYearWeek(now)
+{
+    let onejan = new Date(now.getFullYear(), 0, 1);
+    return week = Math.ceil((((now.getTime() - onejan.getTime()) / 86400000) + onejan.getDay() + 1) / 7);
+}
+
+function getCurrentWeek(first_date)
+{
+    let mondate = getYearWeek(new Date(get_monday(first_date)));
+    let todate = getYearWeek(new Date(get_monday(new Date())));
+    return todate - mondate;
+}
