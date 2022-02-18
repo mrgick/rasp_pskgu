@@ -77,10 +77,10 @@ function generate_rasp_page(group)
                 </div>
                 <div class="editbar-main-menu">
                     <a class="editbar-main-menu__button editbar-main-menu__button--accept" onclick="save_settings();">Применить</a>
-                    <a class="editbar-main-menu__button editbar-main-menu__button--import">Импортировать</a>
-                    <a class="editbar-main-menu__button editbar-main-menu__button--export">Экспортировать</a>
+                    <a class="editbar-main-menu__button editbar-main-menu__button--import" style="color: #CCCCCC">Импортировать</a>
+                    <a class="editbar-main-menu__button editbar-main-menu__button--export" style="color: #CCCCCC">Экспортировать</a>
                     <a class="editbar-main-menu__button editbar-main-menu__button--cancel" onclick="load_settings();">Отменить</a>
-                    <a class="editbar-main-menu__button editbar-main-menu__button--default">По умолчанию</a>
+                    <a class="editbar-main-menu__button editbar-main-menu__button--default" onclick="set_default_styles()">По умолчанию</a>
                 </div>
             </div>
         </aside>
