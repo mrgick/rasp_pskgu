@@ -108,10 +108,12 @@ function ChangeTheme()
     if (MODE == "dark")
     {
         MODE = "light";
+        update_base_styles("dark", "light")
     }
     else // if (MODE = "light")
     {
         MODE = "dark";
+        update_base_styles("light", "dark")
     }
     createCookie("mode", MODE+'|'+tracking_status.toString(), 30);
     SetTheme();
