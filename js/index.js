@@ -90,6 +90,7 @@ async function loadList()
 
 var STRUCT
 var MODE;
+var tracking_status;
 window.onload = async function ()
 {
     SetTheme();
@@ -112,14 +113,23 @@ function ChangeTheme()
     {
         MODE = "dark";
     }
-    createCookie("mode",MODE,7);
+    createCookie("mode", MODE+'|'+tracking_status.toString(), 30);
     SetTheme();
     return false;
 }
 
+function change_tracking_status () {
+    tracking_status = !tracking_status
+    createCookie("mode", MODE+'|'+tracking_status.toString(), 30);
+    renew_table_time_status()
+}
+
 function SetTheme()
 {
-    MODE = readCookie("mode");
+    [MODE, tracking_status] = readCookie("mode").split('|');
+    if (tracking_status == 'false') tracking_status = false
+    else tracking_status = true
+    
     if (MODE == "dark")
     {
         document.getElementById("CSS-Theme").setAttribute("href", "styles/dark-style.css");
