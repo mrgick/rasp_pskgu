@@ -41,7 +41,7 @@ function generate_search_page(text)
 function generate_rasp_page(group)
 {
     document.getElementById("MAIN").innerHTML=`
-    <header class="header header--rasp">
+    <header class="header header--rasp" style="z-index: 3">
         <h1 class="title title--top"><a href="${window.location.pathname}">Расписание<br>ПсковГУ</a></h1>
         <div class="header-main">
             <h2 class="group_name" id="Group_Name">${group.prefix[0]=="преподаватель" ? "Преподаватель" : "Группа"} ${group.name.replace("_", " ")}</h2>
