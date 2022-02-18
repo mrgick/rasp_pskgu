@@ -126,7 +126,9 @@ function change_tracking_status () {
 
 function SetTheme()
 {
-    [MODE, tracking_status] = readCookie("mode").split('|');
+    let settings = readCookie("mode")
+    if (settings) [MODE, tracking_status] = settings.split('|');
+    else [MODE, tracking_status] = ['light', 'false']
     if (tracking_status == 'false') tracking_status = false
     else tracking_status = true
     
