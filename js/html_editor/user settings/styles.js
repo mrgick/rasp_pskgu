@@ -207,19 +207,22 @@ function save_settings () {
 			else to_remove.push(encode_subclass_name(subclass_name))
 		}
 		
-		let loaded_cookie = readCookie(class_name).split('|')
+		let loaded_cookie = readCookie(class_name)
 		let result_cookie = [...encoded_str]
 
-		if (loaded_cookie[0] !== '') for (code of loaded_cookie) {
-			if (code.length != 7) code = try_debug(code)
-			if (to_remove.indexOf(code.slice(0, 3)) !== -1) continue
-			else {
-				let push_old = true
-				for (str of encoded_str) if (str.slice(0, 3) == code.slice(0, 3)) {
-					push_old = false
-					break
+		if (loaded_cookie) {
+			loaded_cookie = loaded_cookie.split('|')
+			for (code of loaded_cookie) {
+				if (code.length != 7) code = try_debug(code)
+				if (to_remove.indexOf(code.slice(0, 3)) !== -1) continue
+				else {
+					let push_old = true
+					for (str of encoded_str) if (str.slice(0, 3) == code.slice(0, 3)) {
+						push_old = false
+						break
+					}
+					if (push_old) result_cookie.push(code)
 				}
-				if (push_old) result_cookie.push(code)
 			}
 		}
 
