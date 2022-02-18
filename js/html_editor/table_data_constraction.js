@@ -145,20 +145,35 @@ function special_class_name (settings, matched) {
 
         case '!result'  :
             let txt = ''
+            let num = 0
             for (let i = 1; i < settings.length; i++) {
                 switch(settings[i][0]) {
                     case 'i': break
-                        
+
                     case '>':
                         num = matched['index']+matched[0].length + (settings[i][3]? settings[i][3] : 0)
                         while (num < matched['input'].length && matched['input'][num] != settings[i][1]) num++
                         matched[0] = matched['input'].slice(matched['index'], num)
+                        /*
+                        let second_index = matched['input'].indexOf(settings[i][1], matched['index']+matched[0].length)
+                        if (second_index == -1) second_index = matched['index']+matched[0].length
+
+                        txt = matched['input'].slice(matched['index'], second_index)
+                        matched[0] = txt.slice(0, nearest_word_sep(txt, 'right', matched[0].length, settings[i][2]))
+                        */
                        break
                     
                     case '<':
                         num = matched['index'] - (settings[i][3]? settings[i][3] : 0)
                         while (num > -1 && matched['input'][num] != settings[i][1]) num--
                         matched[0] = matched['input'].slice(num+1, matched['index']+matched[0].length)
+                        /*
+                        let first_index = matched['input'].lastIndexOf(settings[i][1], matched['index']-(settings[i][3]? settings[i][3] : 0))
+                        if (first_index == -1) first_index = matched['index']-(settings[i][3]? settings[i][3] : 0)
+
+                        txt = matched['input'].slice(first_index, matched['index']+matched[0].length)
+                        matched[0] = txt.slice(nearest_word_sep(txt, 'left', matched[0].length, settings[i][2])+1, txt.length)
+                        */
                         break
 
                     case 'C':
@@ -204,7 +219,7 @@ function divide (input, RE_list) {
             output[block] = divide_old(lesson[0], RE_list)[0]
             continue
         }
-        
+
         for (let i = 0; i < lesson.length; i++) {
             let text = lesson[i]
             let index = -1
@@ -267,7 +282,7 @@ function divide (input, RE_list) {
             }
         }
         if (cut_off_excess(uncuted) != '') {
-            //console.log(uncuted)
+            console.log(uncuted)
             content.concat(divide_old(uncuted, RE_list)[0])
         }
 
@@ -369,14 +384,19 @@ function divide_old (text, RE_list) {
     return content
 }
 
+let first_day = '9999-01-01'
+let last_day  = '2022-01-01'
 function gen_row_data(table, day, day_content, prefix) { // prefixes: ЗФО|ОФО|Преподаватель
     let required_REs = prefix.toLowerCase() == 'преподаватель'? teacher_REs : group_REs
+
+    if (day < first_day) first_day = day
+    else if (day > last_day) last_day = day
 
     let tr = document.createElement('tr');
     add_td(
         `<p class="rasp-table-day-date">${new Date(day).getDate()} ${monthNames[new Date(day).getMonth()]}</p>
         <p class="rasp-table-day-weekdate">${weekNames[new Date(day).getDay()]}</p>`,
-        tr, "rasp-table-day"
+        tr, "rasp-table-day", day
     )
  
     //renew_used_class_names() doesn't work
@@ -385,7 +405,8 @@ function gen_row_data(table, day, day_content, prefix) { // prefixes: ЗФО|О�
         for (let i = 1; i <= 7; i++) { // for each 'пара'
             if (day_content[i]) {
                 let td = document.createElement('td')
-                td.classList.add("rasp-table-pair");
+                td.classList.add("rasp-table-pair")
+                td.setAttribute('id', day+'-'+i)
                 tr.appendChild(td)
 
                 content = divide(day_content[i], required_REs)
@@ -396,18 +417,18 @@ function gen_row_data(table, day, day_content, prefix) { // prefixes: ЗФО|О�
                     td.appendChild(div)
 
                     for (d in content[lesson]) { // for each div in block
-                        add_div(content[lesson][d][1], div, content[lesson][d][0])
+                        add_div(content[lesson][d][1], div, content[lesson][d][0], 'base')
                     }
                 }
             }
             else { // if empty 'пара'
-                add_td('', tr, "rasp-table-pair")
+                add_td('', tr, "rasp-table-pair", day+'-'+i)
             }
         }
     }
     else { // if empty day
-        for (let i = 0; i < 7; i++) {
-            add_td('', tr, "rasp-table-pair")
+        for (let i = 1; i <= 7; i++) {
+            add_td('', tr, "rasp-table-pair", day+'-'+i)
         }
     }
     //console.log(day);
