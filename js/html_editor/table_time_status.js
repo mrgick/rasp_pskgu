@@ -9,8 +9,8 @@ function colorize_cell (lesson, status) {
             break
 
         case 'disable': 
-            cell.style['background'] = 'rgba(225, 225, 225, 1)'
-            cell.style['opacity'] = '0.4' 
+            cell.style['background'] = 'rgba(128, 128, 128, 0.25)'
+            cell.style['opacity'] = '0.5' 
             break
 
         case 'active': 
@@ -19,7 +19,6 @@ function colorize_cell (lesson, status) {
 
         case 'part_active': 
             let p = get_lesson_percentage()
-            //document.getElementById('style_lesson_type-lecture').style['background-color'] = `linear-gradient(to right, #88DDCC ${p}%, transparent ${100-p}%)`
             cell.style['background'] = `linear-gradient(to right, #AAEEDD ${p}%, transparent ${p}%)`
             break
 
