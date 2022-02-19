@@ -51,13 +51,10 @@ table td {
 .header-main-right .mode-switcher {
     position: unset;
 }
-.mode-switcher svg {
-    fill: var(--color-primary);
-}
 .mode-switcher:hover {
     cursor: pointer;
 }
-.mode-switcher:hover svg {
-    fill: var(--color-secondary);
-}
 
+.timetrack-switcher:hover {
+    cursor: pointer;
+}
