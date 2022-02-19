@@ -70,6 +70,7 @@ async function loadGroup(group_name)
     }
     
     generate_css_classes()
+    renew_table_time_status()
     
     if (document.URL.split("#")[1] != undefined)
     {
