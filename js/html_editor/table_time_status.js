@@ -52,7 +52,7 @@ function check_lesson_time (lesson) {
                 crnt_time.getMinutes().toString().padStart(2, '0')
 
     for (let lsi = 0; lsi < lessons_time.length-1; lsi++) {
-        if (lessons_time[lsi] < crnt_time && crnt_time < lessons_time[lsi+1]) {
+        if (lessons_time[lsi] <= crnt_time && crnt_time < lessons_time[lsi+1]) {
             return (lesson == Math.floor(lsi/2))
         }
     }
@@ -66,7 +66,7 @@ function get_lesson_percentage () {
     crnt_time = Number(crnt_time.getHours()*60) + Number(crnt_time.getMinutes())
                 
     for (let lsi = 0; lsi < lessons_time.length-1; lsi++) {
-        if (to_minutes(lessons_time[lsi]) < crnt_time && crnt_time < to_minutes(lessons_time[lsi+1])) {
+        if (to_minutes(lessons_time[lsi]) <= crnt_time && crnt_time < to_minutes(lessons_time[lsi+1])) {
             if (lsi%2 == 0) return Math.floor((crnt_time-to_minutes(lessons_time[lsi]))/90*100)
             else return 100
         }
