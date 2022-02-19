@@ -168,3 +168,7 @@ function set_line_through (style_class, value_or_id) {
 		}
 	}
 }
+
+function set_attrib_from_editor (call_id) {
+	console.log(call_id)
+}
