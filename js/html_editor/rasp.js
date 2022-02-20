@@ -28,6 +28,16 @@ function generate_table(group, day, week_number) {
     }
     used_class_names = create_used_class_names()
 
+    //========================================= should to be remade in future =========================================//
+    let i = 1
+    while (document.getElementById('Week_' + i)) {
+        try {
+            eval(`Week_${i}.children[1].children[0].children[7].children[7].style['border-radius'] = '0px 0px 20px 0px'`)
+            i++
+        } catch {break}
+    }
+    //========================================= should to be remade in future =========================================//
+
     table.appendChild(tbody);
     rasp.appendChild(table);
     let div = document.createElement('br');
