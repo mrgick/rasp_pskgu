@@ -82,16 +82,40 @@ function check_is_base (style_tag, mode = null) {
 	return true
 }
 
-function update_base_styles (was, became) {
+function update_base_styles (style = MODE) {
 	let style_tag = document.getElementById('style_base')
 
-	if (check_is_base(style_tag, was)) {
-		set_css_attribute('background-color', base_styles[became]['background-color'], style_tag)
-		set_css_attribute('color'			, base_styles[became]['color'			], style_tag)
-		set_css_attribute('border'			, base_styles[became]['border'			], style_tag)
-		set_css_attribute('font-style'		, base_styles[became]['font-style'		], style_tag)
-		set_css_attribute('font-weight'		, base_styles[became]['font-weight'		], style_tag)
-		set_css_attribute('text-decoration'	, base_styles[became]['text-decoration'	], style_tag)
+	set_css_attribute('background-color', base_styles[style]['background-color'     ], style_tag)
+	set_css_attribute('color'	    , base_styles[style]['color'		], style_tag)
+	set_css_attribute('border'	    , base_styles[style]['border'		], style_tag)
+	set_css_attribute('font-style'	    , base_styles[style]['font-style'		], style_tag)
+	set_css_attribute('font-weight'	    , base_styles[style]['font-weight'		], style_tag)
+	set_css_attribute('text-decoration' , base_styles[style]['text-decoration'	], style_tag)
+}
+
+function generate_new_global_placement () {
+	let list = document.getElementsByClassName('editbar-main-choice__item')
+	let names = []
+	for (let i = 0; i < list.length; i++) names.push(list[i].getAttribute('name'))
+	let new_global_placement = []
+	let i = 0
+	for (cname of names) for (class_name in all_REs) {
+		if (cname == all_REs[class_name][0]) {
+		new_global_placement.push(class_name)
+		break
+		}
+	}
+	//console.log(new_global_placement)
+	let need_reload = false
+	for (let i = 0; i < new_global_placement.length; i++) {
+		if (new_global_placement[i] != global_placement[i]) {
+			need_reload = true
+			break
+		}
+	}
+	if (need_reload) {
+		createCookie('global_placement', JSON.stringify(new_global_placement), 180)
+		location.reload()
 	}
 }
 
@@ -228,6 +252,9 @@ function save_settings () {
 
 		createCookie(class_name, result_cookie.join('|'), 180)
 	}
+  
+	generate_new_global_placement()
+	if (current_filter_list) genFilterList(current_filter_list)
 }
 
 const special_colour_code = {255: 'dont_use', 254: 'transparent', 253: 'inherit'}
@@ -318,6 +345,11 @@ function load_settings () {
 			}
 		}
 	}
+ 
+	used_class_names = create_used_class_names()
+ 
+	genEditOrder()
+	if (current_filter_list) genFilterList(current_filter_list)
 }
 
 
@@ -335,6 +367,21 @@ function set_default_styles () {
 			for (attrib in base_text_styles[cl_name][scl_name]) {
 				set_css_attribute(attrib, base_text_styles[cl_name][scl_name][attrib], cl_name+'-'+scl_name)
 			}
+		}
+	}
+
+	used_class_names = create_used_class_names(base_global_placement)
+
+	genEditOrder()
+	if (current_filter_list) genFilterList(current_filter_list)
+}
+
+function set_clear_styles () {
+	for (class_text in used_class_names) {
+		for (subclass_text in used_class_names[class_text]) {
+			let class_name = used_class_names[class_text][subclass_text]
+			style_tag = document.getElementById('style_'+class_name)
+			if (style_tag) style_tag.innerHTML  = `.${class_name} { }`
 		}
 	}
 }
