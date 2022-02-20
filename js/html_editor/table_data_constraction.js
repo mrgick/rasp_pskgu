@@ -1,5 +1,31 @@
 /* Файл генерации данных таблицы*/
 
+let loaded_seq = readCookie('global_placement')
+let global_placement = []
+let group_sequence   = []
+let teacher_sequence = []
+if (loaded_seq) {
+    try {
+        global_placement = eval(loaded_seq)
+    }
+    catch {
+        global_placement = []
+        for (let i = 0; i < base_global_placement.length; i++) {
+            global_placement.push(base_global_placement[i])
+        }
+    }
+}
+else {
+    for (let i = 0; i < base_global_placement.length; i++) {
+        global_placement.push(base_global_placement[i])
+    }
+}
+
+for (let i = 0; i < global_placement.length; i++) {
+    if (group_excepts.indexOf(global_placement[i]) === -1) group_sequence.push(global_placement[i])
+    if (teacher_excepts.indexOf(global_placement[i]) === -1) teacher_sequence.push(global_placement[i])
+}
+
 let group_REs   = {}
 let teacher_REs = {}
 
@@ -49,21 +75,21 @@ function try_convert (text) {
     return text // if failed to convert
 }
 
-let used_class_names = {}
-//function renew_used_class_names () {
-//    for (key in used_class_names) delete used_class_names[key]
-for (class_name in group_REs  ) used_class_names[group_REs  [class_name][0]] = {}
-for (class_name in teacher_REs) used_class_names[teacher_REs[class_name][0]] = {}
+let pre_used_class_names = {}
+//function renew_pre_used_class_names () {
+//    for (key in pre_used_class_names) delete pre_used_class_names[key]
+for (class_name in group_REs  ) pre_used_class_names[group_REs  [class_name][0]] = {}
+for (class_name in teacher_REs) pre_used_class_names[teacher_REs[class_name][0]] = {}
 //}
 
 function try_push (class_name, subclass_name, matched) {
     if (group_REs[class_name]) {
-        if (!used_class_names[group_REs[class_name][0]][matched]) {
-             used_class_names[group_REs[class_name][0]][matched] = class_name+'-'+subclass_name
+        if (!pre_used_class_names[group_REs[class_name][0]][matched]) {
+             pre_used_class_names[group_REs[class_name][0]][matched] = class_name+'-'+subclass_name
     }}
     else if (teacher_REs[class_name]) {
-        if (!used_class_names[teacher_REs[class_name][0]][matched]) {
-             used_class_names[teacher_REs[class_name][0]][matched] = class_name+'-'+subclass_name
+        if (!pre_used_class_names[teacher_REs[class_name][0]][matched]) {
+             pre_used_class_names[teacher_REs[class_name][0]][matched] = class_name+'-'+subclass_name
     }}
 }
 
@@ -399,7 +425,7 @@ function gen_row_data(table, day, day_content, prefix) { // prefixes: ЗФО|О�
         tr, "rasp-table-day", day
     )
  
-    //renew_used_class_names() doesn't work
+    //renew_pre_used_class_names() doesn't work
   
     if (day_content) {
         for (let i = 1; i <= 7; i++) { // for each 'пара'
@@ -434,4 +460,16 @@ function gen_row_data(table, day, day_content, prefix) { // prefixes: ЗФО|О�
     //console.log(day);
     table.appendChild(tr)
     return
+}
+
+let used_class_names = {}
+function create_used_class_names (placement = global_placement) {
+    used_class_names = {}
+    for (gtype of placement) for (class_name in pre_used_class_names) {
+        if (all_REs[gtype][0] == class_name) {
+            used_class_names[class_name] = pre_used_class_names[class_name]
+            break
+        }
+    }
+    return used_class_names
 }
