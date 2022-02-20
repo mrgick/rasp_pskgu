@@ -17,15 +17,6 @@ a {
     text-decoration: none;
 }
 
-table {
-    width: 100%;
-    table-layout: fixed;
-}
-
-table td {
-    width: 100%;
-}
-
 :active, :hover, :focus {
     outline: 0;
     outline-offset: 0;
