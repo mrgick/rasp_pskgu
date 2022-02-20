@@ -13,10 +13,16 @@
 }
 
 .rasp-table {
+    width: 100%;
+    table-layout: fixed;
     border-collapse: collapse;
     border-radius: 20px;
     border-style: hidden;
     box-shadow: 0 0 0 3px var(--color-primary);
+}
+
+.rasp-table td {
+    width: 100%;
 }
 
 .rasp-table-date {
