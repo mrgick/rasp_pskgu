@@ -384,4 +384,7 @@ function set_clear_styles () {
 			if (style_tag) style_tag.innerHTML  = `.${class_name} { }`
 		}
 	}
+	
+	genEditOrder()
+	if (current_filter_list) genFilterList(current_filter_list)
 }
