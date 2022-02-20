@@ -94,6 +94,12 @@ var MODE;
 var tracking_status;
 window.onload = async function ()
 {
+    let settings = readCookie("mode")
+    if (settings) [MODE, tracking_status] = settings.split('|');
+    else [MODE, tracking_status] = ['light', 'false']
+    if (tracking_status == 'false') tracking_status = false
+    else tracking_status = true
+
     SetTheme();
     if (window.location.search == "?list")
     {
@@ -109,12 +115,10 @@ function ChangeTheme()
     if (MODE == "dark")
     {
         MODE = "light";
-        update_base_styles("dark", "light")
     }
     else // if (MODE = "light")
     {
         MODE = "dark";
-        update_base_styles("light", "dark")
     }
     createCookie("mode", MODE+'|'+tracking_status.toString(), 30);
     SetTheme();
@@ -129,19 +133,15 @@ function change_tracking_status () {
 
 function SetTheme()
 {
-    let settings = readCookie("mode")
-    if (settings) [MODE, tracking_status] = settings.split('|');
-    else [MODE, tracking_status] = ['light', 'false']
-    if (tracking_status == 'false') tracking_status = false
-    else tracking_status = true
-    
     if (MODE == "dark")
     {
         document.getElementById("CSS-Theme").setAttribute("href", "styles/dark-style.css");
+        update_base_styles();
     }
     else // if (MODE = "light" or null)
     {
         MODE = "light"
         document.getElementById("CSS-Theme").setAttribute("href", "styles/light-style.css");
+        update_base_styles();
     }
 }
