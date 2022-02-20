@@ -168,3 +168,43 @@ function set_line_through (style_class, value_or_id) {
 		}
 	}
 }
+
+function set_attrib_from_editor (call_id) {
+	//console.log(call_id)
+	let i = call_id.indexOf('_of_')
+	let set_type = call_id.slice(0, i)
+	call_id = call_id.replace(set_type+'_of_', '')
+	i = call_id.lastIndexOf('_')
+	let class_name = call_id.slice(0, i)
+	let id_str = set_type + '_of_' + class_name
+
+	switch (set_type) {
+		case 'txtclr':
+			set_new_txt_colour(class_name, id_str + '_input')
+			break
+
+		case 'bgrclr':
+			set_background(class_name, id_str + '_checkbox', id_str + '_input')
+			break
+
+		case 'brdclr':
+			set_border(class_name, id_str + '_checkbox', id_str + '_input')
+			break
+		 
+		case 'fstyle':
+			set_italic(class_name, id_str + '_checkbox')
+			break
+		 
+		case 'weight':
+			set_bold(class_name, id_str + '_checkbox')
+			break
+		 
+		case 'underl':
+			set_underline(class_name, id_str + '_checkbox')
+			break
+		 
+		case 'linetr':
+			set_line_through(class_name, id_str + '_checkbox')
+			break
+	}
+}
