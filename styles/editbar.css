@@ -46,7 +46,8 @@
     background-color: var(--color-background);
     border-radius: 10px;
     padding: 5px;
-    margin: 5px;
+    margin-top: 5px;
+    height: 18px;
     text-align: center;
     font-weight: 500;
 }
@@ -54,9 +55,8 @@
     cursor: pointer;
     box-shadow: 0 0 2px;
 }
-
-.editbar-main-menu__button--disabled {
-    color: var(--color-additionaly);
+.editbar-main-menu__button:active {
+    background-color: var(--color-additionaly);
 }
 
 .editbar-main-choice__item {
@@ -68,17 +68,81 @@
     justify-content: space-between;
     border: 1px solid var(--color-secondary);
     background-color: var(--color-additionaly);
+    position: relative;
+    width: 180px;
+    height: 28px;
 }
 .editbar-main-choice__item:hover {
     cursor: pointer;
     box-shadow: 0 0 2px;
 }
 
-.editbar-main-choice__item-name {
+.editbar-main-choice__item_up {
+    position: absolute;
+    top: 0px;
+    left: 0px;
     font-size: 14px;
-    font-weight: 500;
+    width: 14px;
+    height: 14px;
+    margin: 0px;
+    color: #000000;
+}
+.editbar-main-choice__item_up:hover {
+    background-color: var(--color-light);
+}
+.editbar-main-choice__item_up:active {
+    background-color: var(--color-additionaly);
+}
+
+.editbar-main-choice__item_down {
+    position: absolute;
+    top: 14px;
+    left: 0px;
+    font-size: 14px;
+    width: 14px;
+    height: 14px;
+    margin: 0px;
+    color: #000000;
+}
+.editbar-main-choice__item_down:hover {
+    background-color: var(--color-light);
+}
+.editbar-main-choice__item_down:active {
+    background-color: var(--color-additionaly);
+}
+
+.editbar-main-choice__item_content {
+    position: absolute;
+    top: 0px;
+    left: 14px;
+    right: 28px;
+    height: 28px;
+    margin: 0px;
+    text-align: right;
+    vertical-align: middle;
+}
+
+.editbar-main-choice__item-name {
+    padding-top: 7px;
+    padding-bottom: 7px;
+    vertical-align: middle;
+    font-size: 14px;
     color: var(--color-primary);
-    padding: 5px;
+}
+
+.editbar-main-choice__item_svg {
+    padding: 0px;
+    width: 28px;
+    height: 28px;
+    position: relative;
+}
+
+.editbar-main-choice__item_svg svg {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    right: 2px;
+    bottom: 2px;
 }
 
 .editbar_outdated {
