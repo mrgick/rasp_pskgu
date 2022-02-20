@@ -83,6 +83,7 @@ function generate_rasp_page(group)
                     <a class="editbar-main-menu__button editbar-main-menu__button--disabled editbar-main-menu__button--export" disabled>Экспортировать</a>
                     <a class="editbar-main-menu__button editbar-main-menu__button--cancel" onclick="load_settings();">Отменить</a>
                     <a class="editbar-main-menu__button editbar-main-menu__button--default" onclick="set_default_styles()">По умолчанию</a>
+                    <a class="editbar-main-menu__button editbar-main-menu__button--clear" onclick="set_clear_styles()">Сбросить</a>
                 </div>
             </div>
         </aside>
