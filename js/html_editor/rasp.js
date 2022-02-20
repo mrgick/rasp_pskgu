@@ -26,6 +26,7 @@ function generate_table(group, day, week_number) {
         let day_date = get_next_day(day, i)
         gen_row_data(tbody, day_date, group.days[day_date], group.prefix[0])
     }
+    used_class_names = create_used_class_names()
 
     table.appendChild(tbody);
     rasp.appendChild(table);
