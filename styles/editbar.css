@@ -60,6 +60,10 @@
 }
 .editbar-main-menu__button--disabled {
     color: var(--color-additionaly);
+    background-color: var(--color-additionaly);
+}
+.editbar-main-menu__button--disabled:active {
+    cursor: default;
 }
 
 .editbar-main-choice__item {
