@@ -76,6 +76,7 @@ function new_clr_input (width, style_class, attrib, with_checkbox = false, Lmarg
     clr_input.setAttribute('style'   , '')
     clr_input.style['position'     ] = 'absolute'
     clr_input.style['left'         ] = with_checkbox? (Lmargin+height)+'px' : Lmargin+'px'
+    clr_input.style['top'          ] = '0px'
     clr_input.style['margin'       ] = '0px'
     clr_input.style['margin-top'   ] = '1px'
     clr_input.style['margin-bottom'] = '1px'
@@ -89,6 +90,7 @@ function new_clr_input (width, style_class, attrib, with_checkbox = false, Lmarg
     div.style['background-color'] = attrib_colour
     div.style['position'        ] = 'absolute'
     div.style['left'            ] = with_checkbox? (Lmargin+height)+'px' : Lmargin+'px'
+    div.style['top'             ] = '0px'
     div.style['margin'          ] = '0px'
     div.style['margin-top'      ] = '1px'
     div.style['margin-bottom'   ] = '1px'
@@ -121,6 +123,7 @@ function new_clr_input (width, style_class, attrib, with_checkbox = false, Lmarg
         checkbox.setAttribute('style'   , '')
         checkbox.style['position'     ] = 'absolute'
         checkbox.style['left'         ] = Lmargin+'px'
+        checkbox.style['top'          ] = '0px'
         checkbox.style['margin'       ] = '0px'
         checkbox.style['margin-top'   ] = '1px'
         checkbox.style['margin-bottom'] = '1px'

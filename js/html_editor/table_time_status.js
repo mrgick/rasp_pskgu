@@ -92,7 +92,7 @@ function renew_table_time_status (enabled = tracking_status) {
                    crnt_time.getDate().toString().padStart(2, '0'))
 
     if (enabled) {
-        for (let i = 0; i < number_of_days; i++) {
+        for (let i = 0; i <= number_of_days; i++) {
             iter_day = (day.getFullYear()+'-'+
                         (Number(day.getMonth())+1).toString().padStart(2, '0')+'-'+
                         day.getDate().toString().padStart(2, '0'))
