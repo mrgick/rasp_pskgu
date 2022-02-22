@@ -47,7 +47,7 @@ const lessons_time =   ['08:30', '10:00',
 function check_lesson_time (lesson) {
     lesson--
     let crnt_time = new Date()
-    //let crnt_time = new Date(2022, 1, 16, 10, 10)
+    //let crnt_time = new Date(2022, 1, 22, 8, 0)
     crnt_time = crnt_time.getHours().toString().padStart(2, '0') + ':' + 
                 crnt_time.getMinutes().toString().padStart(2, '0')
 
@@ -62,7 +62,7 @@ function day_not_started () {
     //let crnt_time = new Date(2022, 1, 22, 8, 0)
     crnt_time = crnt_time.getHours().toString().padStart(2, '0') + ':' + 
                 crnt_time.getMinutes().toString().padStart(2, '0')
-    if (crnt_time < lessons_time[0]) return true
+    if (crnt_time < '08:30') return true
     else return false
 }
 
@@ -91,6 +91,8 @@ function get_lesson_percentage () {
 }
 
 function renew_table_time_status (enabled = tracking_status) {
+    if (first_day > last_day) return
+
     let number_of_days = days_between(first_day, last_day)
     let day = new Date(first_day) 
     let iter_day = ''
