@@ -57,6 +57,14 @@ function check_lesson_time (lesson) {
         }
     }
 }
+function day_not_started () {
+    let crnt_time = new Date()
+    //let crnt_time = new Date(2022, 1, 22, 8, 0)
+    crnt_time = crnt_time.getHours().toString().padStart(2, '0') + ':' + 
+                crnt_time.getMinutes().toString().padStart(2, '0')
+    if (crnt_time < lessons_time[0]) return true
+    else return false
+}
 
 function to_minutes (time) {return Number(time.slice(0, 2))*60 + Number(time.slice(3, 5))}
 
@@ -99,6 +107,7 @@ function renew_table_time_status (enabled = tracking_status) {
             
             for (let lesson = 1; lesson <= 7; lesson++) {
                 if (iter_day == crnt_day) {
+                    if (day_not_started()) return
                     if (check_lesson_time(lesson)) {
                         colorize_cell(iter_day + '-' + lesson, 'part_active')
                         return
