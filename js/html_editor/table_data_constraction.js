@@ -410,6 +410,19 @@ function divide_old (text, RE_list) {
     return content
 }
 
+function go_to_link (event, link) {
+    if (event.ctrlKey) {
+        if (confirm('Открыть расписание группы/преподавателя ' + link + ' в отдельной вкладке?')) {
+            window.open('/?group_name=' + link.replaceAll(' ', '_'), '_blank');
+        }
+    }
+    else {
+        if (confirm('Перейти к расписанию группы/преподавателя ' + link + '?')) {
+            document.location.href = '/?group_name=' + link.replaceAll(' ', '_');
+        }
+    }
+}
+
 let first_day = '9999-01-01'
 let last_day  = '2022-01-01'
 function gen_row_data(table, day, day_content, prefix) { // prefixes: ЗФО|ОФО|Преподаватель
@@ -442,8 +455,15 @@ function gen_row_data(table, day, day_content, prefix) { // prefixes: ЗФО|О�
                     div.setAttribute('class', 'block_'+lesson)
                     td.appendChild(div)
 
-                    for (d in content[lesson]) { // for each div in block
-                        add_div(content[lesson][d][1], div, content[lesson][d][0], 'base')
+                    for (sub_div of content[lesson]) { // for each div in block
+                        if (['teacher', 'group'].indexOf(sub_div[0].split('-')[0]) !== -1) {
+                            let a = document.createElement('a')
+                            a.setAttribute('onclick', `go_to_link(event, '${sub_div[1]}')`)
+                            a.setAttribute('style', 'cursor: pointer')
+                            add_div(sub_div[1], a, sub_div[0], 'base')
+                            div.appendChild(a)
+                        }
+                        else add_div(sub_div[1], div, sub_div[0], 'base')
                     }
                 }
             }
