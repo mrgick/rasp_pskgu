@@ -181,9 +181,9 @@ function encode_style (style_tag) {
 	value = get_css_attribute('background-color', style_tag)
 	if (value == 'transparent') result += convert_10_to_sys(255)
 	else result += compact_colour(value)
-	value = get_css_attribute('color'           , style_tag)
-	if (value == base_styles[MODE]['color']) result += convert_10_to_sys(255)
-	else result += compact_colour(value)
+	value = get_css_attribute('color', style_tag)
+	if (check_for_css_attribute('color', style_tag)) result += compact_colour(value)
+	else result += convert_10_to_sys(255)
 	result += compact_colour(get_css_attribute('border', style_tag).split(' ')[2])
 
 	value = ''
