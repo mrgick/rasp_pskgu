@@ -54,6 +54,7 @@ async function loadGroup(group_name)
     // Проверка на пустоту
     if (days_length == 0) {
         rasp_add_empty()
+        used_class_names = create_used_class_names()
         return
     }
 
