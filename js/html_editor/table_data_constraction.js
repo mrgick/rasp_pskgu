@@ -413,12 +413,13 @@ function divide_old (text, RE_list) {
 function go_to_link (event, link) {
     if (event.ctrlKey) {
         if (confirm('Открыть расписание группы/преподавателя ' + link + ' в отдельной вкладке?')) {
-            window.open('/?group_name=' + link.replaceAll(' ', '_'), '_blank');
+            
+            window.open(document.location.href.replace(document.location.search, '?group_name=' + link.replaceAll(' ', '_')), '_blank');
         }
     }
     else {
         if (confirm('Перейти к расписанию группы/преподавателя ' + link + '?')) {
-            document.location.href = '/?group_name=' + link.replaceAll(' ', '_');
+            document.location.href = document.location.href.replace(document.location.search, '?group_name=' + link.replaceAll(' ', '_'))
         }
     }
 }
