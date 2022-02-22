@@ -34,12 +34,32 @@ function delete_css_attribute (attrib, style_class) {
 	}
 }
 
+function check_for_css_attribute (attrib, style_class) {
+	if (typeof style_class == 'string') style_class = document.getElementById('style_'+style_class)
+	if (style_class) {
+		let matched = style_class.innerText.match(RegExp(` ${attrib}: [^;]*;`,'i'))
+		if (matched) return true
+		else return false
+	}
+	else return false
+}
+
 //=================================================================================================
 
-function set_new_txt_colour (style_class, value_or_id) {
-	if (typeof value_or_id == 'string') {
-		if (value_or_id[0] == '#') set_css_attribute('color', value_or_id, style_class)
-		else set_css_attribute('color', document.getElementById(value_or_id).value, style_class)
+function set_new_txt_colour (style_class, bgr_value_or_id, clr_value_or_id) {
+	let colour = ''
+	if (clr_value_or_id[0] == '#') colour = clr_value_or_id
+	else {
+		let elem = document.getElementById(clr_value_or_id)
+		if (elem) colour = elem.value
+	}
+
+	if (bgr_value_or_id == 'true') set_css_attribute('color', colour, style_class)
+	else if (bgr_value_or_id == 'false') delete_css_attribute('color', style_class)
+	else {
+		let elem = document.getElementById(bgr_value_or_id)
+		if (elem.checked) set_css_attribute('color', colour, style_class)
+		else delete_css_attribute('color', style_class)
 	}
 }
 function set_background (style_class, bgr_value_or_id, clr_value_or_id) {
@@ -180,7 +200,7 @@ function set_attrib_from_editor (call_id) {
 
 	switch (set_type) {
 		case 'txtclr':
-			set_new_txt_colour(class_name, id_str + '_input')
+			set_new_txt_colour(class_name, id_str + '_checkbox', id_str + '_input')
 			break
 
 		case 'bgrclr':
