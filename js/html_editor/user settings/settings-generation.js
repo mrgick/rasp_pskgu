@@ -105,7 +105,7 @@ function new_clr_input (width, style_class, attrib, with_checkbox = false, Lmarg
         let checked = true
         switch (attrib) {
             case 'color':
-                checked = (attrib_colour !== 'transparent')
+                checked = check_for_css_attribute('color', style_class)
                 break
             case 'background-color':
                 checked = (attrib_colour !== 'transparent')
@@ -123,7 +123,7 @@ function new_clr_input (width, style_class, attrib, with_checkbox = false, Lmarg
         checkbox.setAttribute('style'   , '')
         checkbox.style['position'     ] = 'absolute'
         checkbox.style['left'         ] = Lmargin+'px'
-        checkbox.style['top'          ] = '0px'
+	checkbox.style['top'          ] = '0px'
         checkbox.style['margin'       ] = '0px'
         checkbox.style['margin-top'   ] = '1px'
         checkbox.style['margin-bottom'] = '1px'
@@ -189,8 +189,7 @@ function genFilterList(class_name) {
     collgroup.setAttribute('style', 'align: center; valign: center')
     collgroup.innerHTML = `
         <col span='1' style=''>
-        <col span='1' style='width: 54px'>
-        <col span='2' style='width: 64px'>
+        <col span='3' style='width: 60px'>
         <col span='1' style='width: 5px'>
         <col span='4' style='width: 20px'>`
     table.appendChild(collgroup)
@@ -218,9 +217,9 @@ function genFilterList(class_name) {
                     </p>
                 </td>`
 
-        tr.appendChild(new_clr_input(54, style_class, 'color'                 ))
-        tr.appendChild(new_clr_input(64, style_class, 'background-color', true))
-        tr.appendChild(new_clr_input(64, style_class, 'border'          , true))
+        tr.appendChild(new_clr_input(60, style_class, 'color'           , true))
+        tr.appendChild(new_clr_input(60, style_class, 'background-color', true))
+        tr.appendChild(new_clr_input(60, style_class, 'border'          , true))
         tr.appendChild(document.createElement('td'))
         tr.appendChild(new_checkbox(style_class, 'font-style'  ))
         tr.appendChild(new_checkbox(style_class, 'font-weight' ))
