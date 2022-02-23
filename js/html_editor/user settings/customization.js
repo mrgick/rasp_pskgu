@@ -119,7 +119,7 @@ function set_bold (style_class, value_or_id) {
 	}
 }
 function set_underline (style_class, value_or_id) {
-	let old_value = get_css_attribute('text-decoration', style_class)
+	let old_value = cut_off_excess(get_css_attribute('text-decoration', style_class))
 	if (old_value == 'none') {
 		if (value_or_id == 'true') set_css_attribute('text-decoration', 'underline', style_class)
 		else if (value_or_id == 'false') delete_css_attribute('text-decoration', style_class)
@@ -154,7 +154,7 @@ function set_underline (style_class, value_or_id) {
 	}
 }
 function set_line_through (style_class, value_or_id) {
-	let old_value = get_css_attribute('text-decoration', style_class)
+	let old_value = cut_off_excess(get_css_attribute('text-decoration', style_class))
 	if (old_value == 'none') {
 		if (value_or_id == 'true') set_css_attribute('text-decoration', 'line-through', style_class)
 		else if (value_or_id == 'false') delete_css_attribute('text-decoration', style_class)
