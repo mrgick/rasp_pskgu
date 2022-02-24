@@ -14,12 +14,12 @@ function colorize_cell (lesson, status) {
             break
 
         case 'active': 
-            cell.style['background'] = '#AAEEDD'//'#AAEEDD' '#FFFFAA'
+            cell.style['background'] = 'var(--color-time_tracking)'
             break
 
         case 'part_active': 
             let p = get_lesson_percentage()
-            cell.style['background'] = `linear-gradient(to right, #AAEEDD ${p}%, transparent ${p}%)`
+            cell.style['background'] = `linear-gradient(to right, var(--color-time_tracking) ${p}%, transparent ${p}%)`
             break
 
         case 'in_future': 
@@ -125,7 +125,7 @@ function renew_table_time_status (enabled = tracking_status) {
         }
     }
     else {
-        for (let i = 0; i < number_of_days; i++) {
+        for (let i = 0; i <= number_of_days; i++) {
             iter_day = (day.getFullYear()+'-'+
                         (Number(day.getMonth())+1).toString().padStart(2, '0')+'-'+
                         day.getDate().toString().padStart(2, '0'))
