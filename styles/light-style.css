@@ -8,6 +8,7 @@
     --color-unchoiced: #CCCCFF;
     --color-background: #FFFFFF;
     --color-error: #CC0000;
+    --color-time_tracking: #AAEEDD;
 }
 
 .mode-switcher svg {
