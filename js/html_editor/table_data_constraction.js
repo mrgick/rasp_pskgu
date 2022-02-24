@@ -225,8 +225,8 @@ to
   ['lesson', 'Math'], 
   ['group', '0123-45']]]
 */
-group_content   = {'0': 'lesson_type, lesson'       , '-3': 'subgroup', '-2': 'teacher', '-1': 'room'}
-teacher_content = {'0': 'group, lesson_type, lesson', '-2': 'subgroup', '-1': 'room'}
+group_content   = {'0': 'lesson_type, lesson, subgroup'       , '-3': 'subgroup', '-2': 'teacher', '-1': 'room'}
+teacher_content = {'0': 'group, lesson_type, lesson, subgroup', '-2': 'subgroup', '-1': 'room'}
 function divide (input, RE_list) {
     let content = []    // here will be divs
     let output = []     // here will be blocks with sorted divs
@@ -300,6 +300,7 @@ function divide (input, RE_list) {
                     }
                 }
                 if (other_as_lesson) {
+                    // maybe insert here divide_old too?
                     let lesson_text = adapt_lesson_text(text)
                     content.push(['lesson-'+adapt_for_html(lesson_text), lesson_text])
                     try_push('lesson', adapt_for_html(lesson_text), lesson_text)
