@@ -89,34 +89,38 @@ function encode_style (style_tag) {
 	return result
 }
 
+let there_are_changes = false
 function save_settings () {
-	for (class_text in used_class_names) {
-		if (Object.keys(used_class_names[class_text]).length == 0) continue
-		let class_name = used_class_names[class_text][Object.keys(used_class_names[class_text])[0]].split('-')[0]
-		let encoded_str = []
-		let to_remove = []
+	if (clear_button_pressed) for (class_name in all_REs) createCookie(class_name, '', 180)
+	clear_button_pressed = false
+	there_are_changes = false
+	let cookies = {}
+	for (class_name in all_REs) cookies[class_name] = {'encoded_str': [], 'to_remove': []}
 
-		for (subclass_text in used_class_names[class_text]) {
-			let subclass_name = used_class_names[class_text][subclass_text].split('-')[1]
-			let style_tag = document.getElementById('style_'+class_name+'-'+subclass_name)
+	let styles = document.getElementsByTagName('style')
+	for (style_tag of styles) {
+		let full_class_name = style_tag.getAttribute('id').replace('style_', '')
+		if (full_class_name == 'base') continue
+		let subclass_name = full_class_name.split('-')[1]
+		let class_name = full_class_name.split('-')[0]
 
-			if (!check_is_base(style_tag)) {
-				encoded_str.push(encode_subclass_name(subclass_name) + encode_style(style_tag))
-			}
-			else to_remove.push(encode_subclass_name(subclass_name))
+		if (!check_is_base(style_tag)) {
+			cookies[class_name]['encoded_str'].push(encode_subclass_name(subclass_name) + encode_style(style_tag))
 		}
-		
+		else cookies[class_name]['to_remove'].push(encode_subclass_name(subclass_name))
+	}
+	for (class_name in all_REs) {
 		let loaded_cookie = readCookie(class_name)
-		let result_cookie = [...encoded_str]
+		let result_cookie = [...cookies[class_name]['encoded_str']]
 
 		if (loaded_cookie) {
 			loaded_cookie = loaded_cookie.split('|')
 			for (code of loaded_cookie) {
 				if (code.length != 7) code = try_debug(code)
-				if (to_remove.indexOf(code.slice(0, 3)) !== -1) continue
+				if (cookies[class_name]['to_remove'].indexOf(code.slice(0, 3)) !== -1) continue
 				else {
 					let push_old = true
-					for (str of encoded_str) if (str.slice(0, 3) == code.slice(0, 3)) {
+					for (str of cookies[class_name]['encoded_str']) if (str.slice(0, 3) == code.slice(0, 3)) {
 						push_old = false
 						break
 					}
@@ -178,6 +182,8 @@ function try_debug (code) {
 }
 
 function load_settings () {
+	clear_button_pressed = false
+	there_are_changes = false
 	let head = document.getElementsByTagName('head')[0]
 
 	for (class_text in used_class_names) {
