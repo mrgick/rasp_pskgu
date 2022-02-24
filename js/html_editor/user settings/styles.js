@@ -153,13 +153,8 @@ function insert_recomended_styles () {
 }
 
 function set_rec_style (rec_style) {
-	for (class_text in used_class_names) {
-		for (subclass_text in used_class_names[class_text]) {
-			let class_name = used_class_names[class_text][subclass_text]
-			style_tag = document.getElementById('style_'+class_name)
-			if (style_tag) style_tag.innerHTML  = `.${class_name} { }`
-		}
-	}
+	let styles = document.getElementsByTagName('style')
+	for (style of styles) style.innerHTML  = `.${style.getAttribute('id').replace('style_', '')} { }`
 
 	for (cl_name in recomended_styles[rec_style]) {
 		if (recomended_styles[rec_style][cl_name]['!all']) {
