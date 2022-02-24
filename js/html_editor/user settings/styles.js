@@ -26,6 +26,14 @@ function generate_css_classes () {
 	load_settings()
 }
 
+function clear_current_styles () {
+	let styles = document.getElementsByTagName('style')
+	for (style of styles) {
+		if (style.getAttribute('id') == 'style_base') continue
+		style.innerHTML  = `.${style.getAttribute('id').replace('style_', '')} { }`
+	}
+}
+
 const base_styles = {'light':{
 							  'background-color':'transparent',
 							  'color'           :'#000000',
@@ -94,7 +102,7 @@ const recomended_styles = {
 			'volkswagen': {'background-color': '#99CC99', 'border':'1px solid #000000', 'color': '#000000'},
 		},
 		'room': {
-			'!all': {'color': '#0099CC', 'font-weight': 'bold'},
+			'!all': {'color': '#006699', 'font-weight': 'bold'},
 		},
 		'subgroup': {
 			'1': {'color': '#CC3333', 'font-weight': 'bold'},
@@ -136,7 +144,7 @@ const recomended_styles = {
 		'group': {
 			'!all': {'color': '#999999'}
 		}
-	}
+	},
 }
 
 function insert_recomended_styles () {
@@ -153,8 +161,7 @@ function insert_recomended_styles () {
 }
 
 function set_rec_style (rec_style) {
-	let styles = document.getElementsByTagName('style')
-	for (style of styles) style.innerHTML  = `.${style.getAttribute('id').replace('style_', '')} { }`
+	clear_current_styles()
 
 	for (cl_name in recomended_styles[rec_style]) {
 		if (recomended_styles[rec_style][cl_name]['!all']) {
@@ -231,9 +238,8 @@ function set_clear_styles () {
 	alerted_this_session = true
 	clear_button_pressed = true
 	there_are_changes    = true
-	
-	let styles = document.getElementsByTagName('style')
-	for (style of styles) style.innerHTML  = `.${style.getAttribute('id').replace('style_', '')} { }`
+
+	clear_current_styles()
 	
 	genEditOrder()
 	if (current_filter_list) genFilterList(current_filter_list)
