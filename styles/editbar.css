@@ -66,6 +66,14 @@
     cursor: not-allowed;
 }
 
+.editbar-main-menu__button--accept:hover {
+    color: var(--color-hover);
+}
+
+.editbar-main-menu__button--clear:hover {
+    color: var(--color-error);
+}
+
 .editbar-main-menu__button--recommendations {
     z-index: 1;
     position: relative;
