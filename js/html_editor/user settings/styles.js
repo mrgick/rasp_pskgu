@@ -171,6 +171,7 @@ function set_rec_style (rec_style) {
 			}
 		}
 		else for (scl_name in recomended_styles[rec_style][cl_name]) {
+			if (!document.getElementById('style_' + cl_name+'-'+scl_name)) create_class(cl_name+'-'+scl_name)
 			for (attrib in recomended_styles[rec_style][cl_name][scl_name]) {
 				set_css_attribute(attrib, recomended_styles[rec_style][cl_name][scl_name][attrib], cl_name+'-'+scl_name)
 			}
@@ -194,7 +195,7 @@ function check_is_base (style_tag, mode = null) {
 function update_base_styles (style = MODE) {
 	let style_tag = document.getElementById('style_base')
 
-	set_css_attribute('background-color', base_styles[style]['background-color'     ], style_tag)
+	set_css_attribute('background-color', base_styles[style]['background-color' 	], style_tag)
 	set_css_attribute('color'	    , base_styles[style]['color'		], style_tag)
 	set_css_attribute('border'	    , base_styles[style]['border'		], style_tag)
 	set_css_attribute('font-style'	    , base_styles[style]['font-style'		], style_tag)
@@ -228,14 +229,16 @@ function generate_new_global_placement () {
 	}
 }
 
+let clear_button_pressed = false
+let alerted_this_session = false
 function set_clear_styles () {
-	for (class_text in used_class_names) {
-		for (subclass_text in used_class_names[class_text]) {
-			let class_name = used_class_names[class_text][subclass_text]
-			style_tag = document.getElementById('style_'+class_name)
-			if (style_tag) style_tag.innerHTML  = `.${class_name} { }`
-		}
-	}
+	if (!alerted_this_session) alert('Осторожно! При нажатии кнопки "применить", Вы удалите все фильтры без возможности их вернуть. Вы всё ещё сможете вернуть последние сохранённые фильтры, если нажмёте "отменить".')
+	alerted_this_session = true
+	clear_button_pressed = true
+	there_are_changes    = true
+	
+	let styles = document.getElementsByTagName('style')
+	for (style of styles) style.innerHTML  = `.${style.getAttribute('id').replace('style_', '')} { }`
 	
 	genEditOrder()
 	if (current_filter_list) genFilterList(current_filter_list)
