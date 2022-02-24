@@ -13,6 +13,12 @@ function editbarOpen()
 
 function editbarClose()
 {
+    if (there_are_changes) {
+        if (confirm('Вы не применили последние изменения и при следующей перезагрузке страницы они будут утеряны. Применить сейчас?')) {
+            save_settings()
+            there_are_changes = false
+        }
+    }
     document.getElementById("Editbar").classList.add("editbar--hidden");
     document.getElementById("Filterbar").classList.add("filterbar--hidden");
     return false;
