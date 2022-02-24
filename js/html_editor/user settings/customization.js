@@ -190,6 +190,7 @@ function set_line_through (style_class, value_or_id) {
 }
 
 function set_attrib_from_editor (call_id) {
+	there_are_changes = true
 	//console.log(call_id)
 	let i = call_id.indexOf('_of_')
 	let set_type = call_id.slice(0, i)
