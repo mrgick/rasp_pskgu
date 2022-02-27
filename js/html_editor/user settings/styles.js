@@ -24,14 +24,7 @@ function generate_css_classes () {
 	}
 
 	load_settings()
-}
-
-function clear_current_styles () {
-	let styles = document.getElementsByTagName('style')
-	for (style of styles) {
-		if (style.getAttribute('id') == 'style_base') continue
-		style.innerHTML  = `.${style.getAttribute('id').replace('style_', '')} { }`
-	}
+	create_class('highlight')
 }
 
 const base_styles = {'light':{
@@ -157,6 +150,14 @@ function insert_recomended_styles () {
 			div.innerText = rec_style
 			rec_list.appendChild(div)
 		}
+	}
+}
+
+function clear_current_styles () {
+	let styles = document.getElementsByTagName('style')
+	for (style of styles) {
+		if (style.getAttribute('id') == 'style_base') continue
+		style.innerHTML  = `.${style.getAttribute('id').replace('style_', '')} { }`
 	}
 }
 
