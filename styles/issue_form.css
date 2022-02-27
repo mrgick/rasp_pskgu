@@ -1,0 +1,263 @@
+.aside_form {
+    position: fixed;
+    top: 75px;
+    left: 25px;
+    width: 600px;
+    height: fit-content;
+    background-color: #FFFFFF;
+    border: 1px solid #000000;
+    padding: 0px;
+    z-index: 10;
+}
+
+.aside_form--hidden {
+    display: none;
+}
+
+
+
+.AF_header {
+    width: 100%;
+    height: fit-content;
+    background-color: #006488;
+    color: #FFFFFF;
+    margin: 0px;
+}
+
+.AF_header h2 {
+    margin: 0px;
+    padding: 10px;
+    font-size: 18px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 100;
+    max-width: calc(100% - 34px);
+    color: #FFFFFF;
+}
+
+.issue_report-close {
+    position: absolute;
+    right: 5px;
+    top: 0px;
+    font-size: 30px;
+    color: #FFFFFF;
+}
+.issue_report-close:hover {
+    cursor: pointer;
+}
+
+
+
+.AF_content {
+    width: calc(100% - 10px);
+    height: fit-content;
+    min-height: 200px;
+    background-color: #FFFFFF;
+    color: #000000;
+    margin: 0px;
+    padding: 5px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    position: relative;
+}
+
+#AF_table {
+    vertical-align: middle;
+}
+
+#AF_table input[type='checkbox'] {
+    width: 19px;
+    height: 19px;
+    margin: 0px;
+    vertical-align: middle;
+    position: relative;
+}
+
+#AF_table p {
+    font-size: 14px;
+}
+
+#AF_table td {
+    padding: 2px;
+    padding-top: 4px;
+}
+
+.AF_content input[type='text'] {
+    width: 90%;
+    border: 0px;
+}
+
+div[id^='AF_this_input_'] {
+    height: fit-content;
+    min-height: 30px;
+    color: #000000;
+    background-color: #EEEEEE;
+    position: absolute;
+    width: 70%;
+}
+
+.AF_label {
+    display: inline-block;
+    font-size: 18px;
+    margin-left: 3px;
+    vertical-align: middle;
+}
+
+div[id^='AF_this_input_']:hover {
+    cursor: pointer;
+    transition: 0.25s;
+    background-color: #CCCCCC;
+}
+
+input[id^='AF_this_chbx_'] {
+    height: 100%;
+    width: 100%;
+    margin: 0px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    opacity: 0;
+}
+
+.AF_content input[type="text"] {
+    font-size: 14px;
+    border: 0px;
+}
+
+.AF_content textarea {
+    width: 80%;  
+    max-width: 95%;
+    height: 200px; 
+    border: 1px solid #000000;
+}
+
+
+
+.AF_progressbar {
+    width: 100%;
+    height: fit-content;
+    background-color: #EEEEEE;
+    margin: 0px;
+    text-align: center;
+}
+
+#AF_prev_button {
+    width: 100px;
+    height: 30px;
+    margin: 0px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: #006488;
+    color: #FFFFFF;
+    border: 0px;
+    clip-path: polygon( 0px 15px, 
+                        15px 0px,
+                        100% 0px,
+                        100% 100%,
+                        15px 100%);
+    display: inline-block;
+    vertical-align: bottom;
+    font-size: 20px;
+}
+#AF_prev_button:hover {
+    background-color: #00516e;
+}
+#AF_prev_button:disabled {
+    background-color: #cacaca;
+    color: #888888;
+}
+
+#AF_progress_bar {
+    width: calc(100% - 200px - 50px);
+    height: 28px;
+    margin: 0px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: #FFFFFF;
+    color: #000000;
+    text-shadow: 0px 0px 5px #FFFFFF;
+    border: 1px solid #000000;
+    display: inline-block;
+    text-align: center;
+    vertical-align: bottom;
+    font-size: 24px;
+    position: relative;
+}
+
+#AF_next_button {
+    width: 100px;
+    height: 30px;
+    margin: 0px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: #006488;
+    color: #FFFFFF;
+    border: 0px;
+    clip-path: polygon( 100% 15px,
+                        calc(100% - 15px) 0px,
+                        0px 0px,
+                        0px 100%,
+                        calc(100% - 15px) 100%);
+    display: inline-block;
+    vertical-align: bottom;
+    font-size: 20px;
+}
+#AF_next_button:hover {
+    background-color: #00516e;
+}
+#AF_next_button:disabled {
+    background-color: #cacaca;
+    color: #888888;
+}
+
+
+
+form[target='dummyframe'] {
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    position: absolute;
+}
+
+#form_submit {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+    background-color: #006488;
+    color: #FFFFFF;
+    font-size: 20px;
+}
+#form_submit:hover {
+    background-color: #00516e;
+}
+#form_submit:disabled {
+    background-color: #cacaca;
+    color: #888888;
+}
+
+.AF_content p {
+    font-size: 16px;
+}
+
+#AF_close {
+    width: 60%;
+    height: 28px;
+    margin: 0px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: #006488;
+    color: #FFFFFF;
+    border: 1px solid #000000;
+    display: inline-block;
+    text-align: center;
+    vertical-align: bottom;
+    font-size: 24px;
+}
+#AF_close:hover {
+    background-color: #00516e;
+}
