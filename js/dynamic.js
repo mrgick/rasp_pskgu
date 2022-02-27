@@ -36,3 +36,18 @@ function filterbarClose()
     document.getElementById("Filterbar").classList.add("filterbar--hidden");
     return false;
 }
+
+function open_issue_report () {
+    document.getElementById("issue_form").classList.remove("aside_form--hidden");
+    fid = 'start';
+    AF_selected = '';
+    AF_value = '';
+    AF_count = '';
+    for (key in issue_report) delete issue_report[key]
+    generate_form(fid);
+}
+
+function close_issue_report () {
+    document.getElementById("issue_form").classList.add("aside_form--hidden");
+    document.getElementById("issue_form").innerHTML = '';
+}
