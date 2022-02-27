@@ -47,6 +47,13 @@ function move_down (class_name) {
     }
 }
 
+let clrinput_titles = { 'color'           : 'Выберите цвет для текста.', 
+                        'background-color': 'Выберите цвет для заднего фона текста.', 
+                        'border'          : 'Выберите цвет для границы блока текста.'}
+let checkbox_titles = { 'color'           : 'Вкл/выкл. постоянный цвет текста. Если выключен, цвет будет зависеть от выбранной цветовой темы.', 
+                        'background-color': 'Вкл/выкл. отображение заднего фона текста. Если выключить, фон будет прозрачным.', 
+                        'border'          : 'Вкл/выкл. отображение границы блока текста.'}
+
 function new_clr_input (width, style_class, attrib, with_checkbox = false, Lmargin = 3, Rmargin = 3, height = 18) {
     let attrib_colour = ''
     let id_str = ''
@@ -73,6 +80,7 @@ function new_clr_input (width, style_class, attrib, with_checkbox = false, Lmarg
     clr_input.setAttribute('value'   , attrib_colour)
     clr_input.setAttribute('id'      , id_str + '_input')
     clr_input.setAttribute('onchange', "set_attrib_from_editor('"+id_str+"_input')")
+    clr_input.setAttribute('title'   , clrinput_titles[attrib])
     clr_input.setAttribute('style'   , '')
     clr_input.style['position'     ] = 'absolute'
     clr_input.style['left'         ] = with_checkbox? (Lmargin+height)+'px' : Lmargin+'px'
@@ -120,6 +128,7 @@ function new_clr_input (width, style_class, attrib, with_checkbox = false, Lmarg
         if (checked) checkbox.setAttribute('checked', '')
         checkbox.setAttribute('id'      , id_str + '_checkbox')
         checkbox.setAttribute('onchange', "set_attrib_from_editor('"+id_str+"_checkbox')")
+        checkbox.setAttribute('title'   , checkbox_titles[attrib])
         checkbox.setAttribute('style'   , '')
         checkbox.style['position'     ] = 'absolute'
         checkbox.style['left'         ] = Lmargin+'px'
@@ -137,6 +146,11 @@ function new_clr_input (width, style_class, attrib, with_checkbox = false, Lmarg
 
     return td
 }
+
+let CBtitles = {'font-style'  : 'Выделить текст курсивом.', 
+                'font-weight' : 'Выделить текст жирным.', 
+                'underline'   : 'Выделить текст подчёркиванием.', 
+                'line-through': 'Выделить текст зачёркиванием.'}
 
 function new_checkbox (style_class, attrib, height = 18) {
     let td = document.createElement('td')
@@ -167,6 +181,7 @@ function new_checkbox (style_class, attrib, height = 18) {
     if (checked) checkbox.setAttribute('checked', '')
     checkbox.setAttribute('id'   , id_str + '_checkbox')
     checkbox.setAttribute('onchange', "set_attrib_from_editor('"+id_str+"_checkbox')")
+    checkbox.setAttribute('title', CBtitles[attrib])
     checkbox.setAttribute('style', '')
     checkbox.style['margin'  ] = '1px'
     checkbox.style['width'   ] = height+'px'
