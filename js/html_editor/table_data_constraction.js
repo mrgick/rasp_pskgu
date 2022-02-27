@@ -301,7 +301,7 @@ function divide (input, RE_list) {
                 }
                 if (other_as_lesson) {
                     // maybe insert here divide_old too?
-                    let lesson_text = adapt_lesson_text(text)
+                    lesson_text = adapt_lesson_text(text)
                     content.push(['lesson-'+adapt_for_html(lesson_text), lesson_text])
                     try_push('lesson', adapt_for_html(lesson_text), lesson_text)
                 }
@@ -411,7 +411,12 @@ function divide_old (text, RE_list) {
     return content
 }
 
-function go_to_link (event, link) {
+function go_to_link (event, link, class_name) {
+    if (event.altKey) {
+        highlight_same(event, class_name)
+        return
+    }
+    link = link.replace('_тёзка_', '(тёзка)').replaceAll('．', '.')
     if (event.ctrlKey) {
         if (confirm('Открыть расписание группы/преподавателя ' + link + ' в отдельной вкладке?')) {
             
@@ -421,6 +426,22 @@ function go_to_link (event, link) {
     else {
         if (confirm('Перейти к расписанию группы/преподавателя ' + link + '?')) {
             document.location.href = document.location.href.replace(document.location.search, '?group_name=' + link.replaceAll(' ', '_'))
+        }
+    }
+}
+
+function clear_highlight () {
+    let style = document.getElementById('style_highlight')
+    style.innerHTML = ''
+}
+
+function highlight_same (event, class_name) {
+    if (event.altKey) {
+        let style = document.getElementById('style_highlight')
+        if (style.innerHTML.indexOf(class_name) !== -1) clear_highlight()
+        else {
+            let size = document.getElementsByClassName(class_name)[0].getBoundingClientRect()
+            style.innerHTML = `.${class_name} {border: 2px dashed var(--color-error); width: ${size.width-4}px; height: ${size.height-4}px; background-color: var(--color-background); color: var(--color-error)}`
         }
     }
 }
@@ -458,14 +479,17 @@ function gen_row_data(table, day, day_content, prefix) { // prefixes: ЗФО|О�
                     td.appendChild(div)
 
                     for (sub_div of content[lesson]) { // for each div in block
+                        let text_div = document.createElement('div')
+                        text_div.setAttribute('class', 'base ' + sub_div[0])
+
                         if (['teacher', 'group'].indexOf(sub_div[0].split('-')[0]) !== -1) {
-                            let a = document.createElement('a')
-                            a.setAttribute('onclick', `go_to_link(event, '${sub_div[1]}')`)
-                            a.setAttribute('style', 'cursor: pointer')
-                            add_div(sub_div[1], a, sub_div[0], 'base')
-                            div.appendChild(a)
+                            text_div.setAttribute('style', 'cursor: pointer')
+                            text_div.setAttribute('onclick', `go_to_link(event, '${sub_div[1]}', '${sub_div[0]}')`)
                         }
-                        else add_div(sub_div[1], div, sub_div[0], 'base')
+                        else text_div.setAttribute('onclick', `highlight_same(event, '${sub_div[0]}')`)
+
+                        text_div.innerText = sub_div[1]
+                        div.appendChild(text_div)
                     }
                 }
             }
