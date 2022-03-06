@@ -1,9 +1,9 @@
 function generate_main_page()
 {
     document.getElementById("MAIN").innerHTML=`
-    <div class="issue_form-switcher" onclick="open_issue_report();">
-        <button>bug report</button>
-    </div>
+    <a class="issue_form-switcher" onclick="open_issue_report();">
+        <svg xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 0 24 24" width="36px"></svg>
+    </a>
     <a class="mode-switcher" onclick="ChangeTheme();"><svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 20 20" height="36px" viewBox="0 0 20 20" width="36px"></svg></a>
     <h1 class="title">Расписание<br>ПсковГУ</h1>
     <div class="search" id="Search_Group">
@@ -26,9 +26,9 @@ function generate_main_page()
 function generate_search_page(text)
 {
     document.getElementById("MAIN").innerHTML=`
-    <div class="issue_form-switcher" onclick="open_issue_report();">
-        <button>bug report</button>
-    </div>
+    <a class="issue_form-switcher" onclick="open_issue_report();">
+        <svg xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 0 24 24" width="36px"></svg>
+    </a>
     <a class="mode-switcher" onclick="ChangeTheme();"><svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 20 20" height="36px" viewBox="0 0 20 20" width="36px"></svg></a>
     <header class="header">
         <h1 class="title title--top"><a href="${window.location.pathname}">Расписание<br>ПсковГУ</a></h1>
@@ -58,7 +58,7 @@ function generate_rasp_page(group)
             <div class="header-main-right">
                 <div class="switchers">
                     <div class="issue_form-switcher" onclick="open_issue_report();">
-                        <button>bug report</button>
+                        <svg xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 0 24 24" width="36px"></svg>
                     </div>
                     <div class="timetrack-switcher" onclick="change_tracking_status();">
                         <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 20 20" height="36px" viewBox="0 0 20 20" width="36px"></svg>
@@ -125,9 +125,9 @@ function generate_groups_list()
 {
     document.getElementById("MAIN").innerHTML=`
         <h1 class="title title--top"><a href="${window.location.pathname}">Расписание ПсковГУ</a></h1>
-        <div class="issue_form-switcher" onclick="open_issue_report();">
-            <button>bug report</button>
-        </div>
+        <a class="issue_form-switcher" onclick="open_issue_report();">
+            <svg xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 0 24 24" width="36px"></svg>
+        </a>
         <a class="mode-switcher" onclick="ChangeTheme();"><svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 20 20" height="36px" viewBox="0 0 20 20" width="36px"></svg></a>
         <div id="Lists">
             <div class="possible_list" id="Education_Form">

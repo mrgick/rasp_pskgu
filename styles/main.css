@@ -49,3 +49,16 @@ a {
 .timetrack-switcher:hover {
     cursor: pointer;
 }
+
+.issue_form-switcher {
+    position: absolute;
+    top: 6px;
+    right: 36px;
+}
+.header-main-right .issue_form-switcher {
+    position: unset;
+}
+
+.issue_form-switcher:hover {
+    cursor: pointer;
+}
