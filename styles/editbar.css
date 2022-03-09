@@ -81,7 +81,7 @@
 
 .editbar-main-menu__rec_list {
     position: absolute;
-    top: 20px;
+    top: 100%;
     right: 4px;
     width: max-content;
     min-width: 95%;
