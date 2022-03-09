@@ -38,7 +38,7 @@ function genPossibilities(structLink, id, cid = 0)
     else
     {
         for (var key of Object.keys(struct)) {
-            if (!structLink || structLink[0] != "преподаватель")
+            if (!structLink || structLink[0] != "Расписание преподавателей")
             {
                 if (length == 3)
                 {
