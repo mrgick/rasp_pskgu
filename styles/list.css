@@ -8,13 +8,13 @@
 }
 
 .possible_list {
-    border-radius: 15px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: space-around;
     max-width: 900px;
-    margin: 20px 0;
+    margin: 20px 1px;
+    border-left: 3px solid var(--color-link);;
 }
 
 .possible_list__item {
@@ -23,15 +23,18 @@
     font-size: 14px;
     padding: 5px 15px;
     background-color: var(--color-unchoiced);
-    border: solid 1px var(--color-additionaly);
+    border: 0px;
+    margin: 1px;
     width: calc(100% - 30px);
-}
-.possible_list__item--active {
-    background-color: var(--color-link);
-    color: var(--color-background);
+    transition: 0.25s;
 }
 .possible_list__item:hover {
     cursor: pointer;
     background-color: var(--color-hover);
     color: var(--color-background);
+}
+.possible_list__item--active {
+    background-color: var(--color-link);
+    color: var(--color-background);
+    border-right: 1px solid var(--color-link);
 }
