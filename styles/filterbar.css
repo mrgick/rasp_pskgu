@@ -2,6 +2,7 @@
     position: fixed;
     top: 75px;
     right: 400px;
+    max-width: calc(100% - 425px);
     height: fit-content;
     background-color: var(--color-background);
     border: 1px solid var(--color-primary);
@@ -11,6 +12,14 @@
 }
 .filterbar--hidden {
     display: none;
+}
+
+@media (max-width: 850px) {
+    .filterbar {
+        top: 345px;
+        right: 15px;
+        max-width: calc(100% - 40px);
+    }
 }
 
 .filterbar-close {
@@ -33,4 +42,14 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
+}
+
+.filterbar-main-choice td:first-child {
+    border-left: 3px solid var(--color-background);
+    border-bottom: 1px solid var(--color-background);
+}
+
+.filterbar-main-choice td:first-child:hover {
+    border-left: 3px solid var(--color-hover);
+    background-color: var(--color-unchoiced);
 }
