@@ -1,10 +1,17 @@
 function generate_main_page()
 {
     document.getElementById("MAIN").innerHTML=`
-    <a class="issue_form-switcher" onclick="open_issue_report();">
-        <svg xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 0 24 24" width="36px"></svg>
-    </a>
-    <a class="mode-switcher" onclick="ChangeTheme();"><svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 20 20" height="36px" viewBox="0 0 20 20" width="36px"></svg></a>
+    <div class="header-main-right" style='padding-right: 25px'>
+        <div class="switchers">
+            <div class="issue_form-switcher" onclick="open_issue_report();">
+                <svg xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 0 24 24" width="36px"></svg>
+            </div>
+            <div class="mode-switcher" onclick="switch_theme_list();">
+                <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 20 20" height="36px" viewBox="0 0 20 20" width="36px"></svg>
+                <div id="theme_list" class="clr_theme_list clr_theme_list--hidden"></div>
+            </div>
+        </div>
+    </div>
     <h1 class="title">Расписание<br>ПсковГУ</h1>
     <div class="search" id="Search_Group">
         <form class="search-form">
@@ -18,6 +25,8 @@ function generate_main_page()
         <a class="footer-link" href="http://rasp.pskgu.ru">Оригинал расписания</a>
         <div class="footer-authors">© MrGick, KGlebB, WhiteRain7<br>сайт создан используя <a class="footer-authors-link" href="https://github.com/mrgick/pskgu_api">API</a></div>
     </footer>
+    <aside id="theme_editor" class="theme_aside_editor theme_aside_editor--hidden">
+    </aside>
     <aside id="issue_form" class="aside_form aside_form--hidden">
     </aside>
     `
@@ -26,10 +35,17 @@ function generate_main_page()
 function generate_search_page(text)
 {
     document.getElementById("MAIN").innerHTML=`
-    <a class="issue_form-switcher" onclick="open_issue_report();">
-        <svg xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 0 24 24" width="36px"></svg>
-    </a>
-    <a class="mode-switcher" onclick="ChangeTheme();"><svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 20 20" height="36px" viewBox="0 0 20 20" width="36px"></svg></a>
+    <div class="header-main-right" style='padding-right: 25px'>
+        <div class="switchers">
+            <div class="issue_form-switcher" onclick="open_issue_report();">
+                <svg xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 0 24 24" width="36px"></svg>
+            </div>
+            <div class="mode-switcher" onclick="switch_theme_list();">
+                <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 20 20" height="36px" viewBox="0 0 20 20" width="36px"></svg>
+                <div id="theme_list" class="clr_theme_list clr_theme_list--hidden"></div>
+            </div>
+        </div>
+    </div>
     <header class="header">
         <h1 class="title title--top"><a href="${window.location.pathname}">Расписание<br>ПсковГУ</a></h1>
         <div class="search search--top" id="Search_Group">
@@ -43,6 +59,8 @@ function generate_search_page(text)
     <div class="groups" id="Groups_List">
         <p class="groups-text">Поиск соответствий...</p>
     </div>
+    <aside id="theme_editor" class="theme_aside_editor theme_aside_editor--hidden">
+    </aside>
     <aside id="issue_form" class="aside_form aside_form--hidden">
     </aside>
     `
@@ -66,8 +84,10 @@ function generate_rasp_page(group)
                     <div class="editbar-switcher" onclick="editbarOpen();">
                         <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 20 20" height="36px" viewBox="0 0 20 20" width="36px"></svg>
                     </div>
-                    <div class="mode-switcher" onclick="ChangeTheme();">
+                    <div class="mode-switcher" onclick="switch_theme_list();">
                         <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 20 20" height="36px" viewBox="0 0 20 20" width="36px"></svg>
+                        <div id="theme_list" class="clr_theme_list clr_theme_list--hidden">
+                        </div>
                     </div>
                 </div>
                 <a class="header-main-back" href="${group.page_url}">Оригинал</a>
@@ -115,6 +135,8 @@ function generate_rasp_page(group)
         </aside>
         <aside id="issue_form" class="aside_form aside_form--hidden">
         </aside>
+        <aside id="theme_editor" class="theme_aside_editor theme_aside_editor--hidden">
+        </aside>
         <div id="Group_Rasp">
         </div>
     </container>
@@ -125,14 +147,23 @@ function generate_groups_list()
 {
     document.getElementById("MAIN").innerHTML=`
         <h1 class="title title--top"><a href="${window.location.pathname}">Расписание ПсковГУ</a></h1>
-        <a class="issue_form-switcher" onclick="open_issue_report();">
-            <svg xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 0 24 24" width="36px"></svg>
-        </a>
-        <a class="mode-switcher" onclick="ChangeTheme();"><svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 20 20" height="36px" viewBox="0 0 20 20" width="36px"></svg></a>
+        <div class="header-main-right" style='padding-right: 25px; position: absolute; top: 0px; right: 0px'>
+            <div class="switchers">
+                <div class="issue_form-switcher" onclick="open_issue_report();">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 0 24 24" width="36px"></svg>
+                </div>
+                <div class="mode-switcher" onclick="switch_theme_list();">
+                    <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 20 20" height="36px" viewBox="0 0 20 20" width="36px"></svg>
+                    <div id="theme_list" class="clr_theme_list clr_theme_list--hidden"></div>
+                </div>
+            </div>
+        </div>
         <div id="Lists">
             <div class="possible_list" id="Education_Form">
             </div>
         </div>
+        <aside id="theme_editor" class="theme_aside_editor theme_aside_editor--hidden">
+        </aside>
         <aside id="issue_form" class="aside_form aside_form--hidden">
         </aside>
     `
