@@ -13,15 +13,6 @@
     display: none;
 }
 
-.editbar-close {
-    position: absolute;
-    right: 5px;
-    top: 5px;
-}
-.editbar-close:hover {
-    cursor: pointer;
-}
-
 .editbar-title {
     font-size: 16px;
     color: var(--color-primary);
