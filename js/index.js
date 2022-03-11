@@ -15,6 +15,7 @@ async function main(find_name, group_name) {
 async function loadBlank()
 {
     generate_main_page();
+    insert_themes()
 }
 
 // Поисковая страница
@@ -38,6 +39,7 @@ async function loadSearch(find_name)
     {
         document.getElementById("Groups_List").innerHTML='<p class="groups-text groups-text-error">Соответствий не найдено!</p>'
     }
+    insert_themes()
 }
 
 // Страница расписания
@@ -70,6 +72,7 @@ async function loadGroup(group_name)
         day = get_next_day(day, 7);
     }
     
+    insert_themes()
     generate_css_classes()
     insert_recomended_styles()
     renew_table_time_status()
@@ -89,20 +92,21 @@ async function loadList()
     STRUCT = await get_list_groups('structure');
     generate_groups_list();
     genPossibilities(null, 'Education_Form');
+    insert_themes();
 }
 
-var STRUCT
-var MODE;
+var STRUCT;
 var tracking_status;
 window.onload = async function ()
 {
     let settings = readCookie("mode")
-    if (settings) [MODE, tracking_status] = settings.split('|');
-    else [MODE, tracking_status] = ['light', 'false']
+    if (settings) tracking_status = settings.split('|')[1];
+    else tracking_status = 'false'
     if (tracking_status == 'false') tracking_status = false
     else tracking_status = true
 
-    SetTheme();
+    set_clr_theme(MODE, true)
+
     if (window.location.search == "?list")
     {
         await loadList();
@@ -112,38 +116,8 @@ window.onload = async function ()
     await main(params.get("find_group_name"), params.get("group_name"));
 }
 
-function ChangeTheme()
-{
-    if (MODE == "dark")
-    {
-        MODE = "light";
-    }
-    else // if (MODE = "light")
-    {
-        MODE = "dark";
-    }
-    createCookie("mode", MODE+'|'+tracking_status.toString(), 30);
-    SetTheme();
-    return false;
-}
-
 function change_tracking_status () {
     tracking_status = !tracking_status
     createCookie("mode", MODE+'|'+tracking_status.toString(), 30);
     renew_table_time_status()
-}
-
-function SetTheme()
-{
-    if (MODE == "dark")
-    {
-        document.getElementById("CSS-Theme").setAttribute("href", "styles/dark-style.css");
-        update_base_styles();
-    }
-    else // if (MODE = "light" or null)
-    {
-        MODE = "light"
-        document.getElementById("CSS-Theme").setAttribute("href", "styles/light-style.css");
-        update_base_styles();
-    }
 }
