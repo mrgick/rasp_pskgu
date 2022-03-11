@@ -1,12 +1,9 @@
-.weekbar-switcher {
+.switcher-weekbar {
     position: fixed;
     background-color: var(--color-background);
     left: 5px;
     top: 60px;
     border-radius: 10px;
-}
-.weekbar-switcher:hover {
-    cursor: pointer;
 }
 
 .weekbar {
@@ -19,9 +16,6 @@
     border-radius: 15px;
     padding: 5px;
     z-index: 3;
-}
-.weekbar--hidden {
-    display: none;
 }
 
 .weekbar-title {
