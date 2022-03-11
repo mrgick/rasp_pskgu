@@ -10,9 +10,6 @@
     padding: 5px;
     z-index: 3;
 }
-.filterbar--hidden {
-    display: none;
-}
 
 @media (max-width: 850px) {
     .filterbar {
@@ -20,15 +17,6 @@
         right: 15px;
         max-width: calc(100% - 40px);
     }
-}
-
-.filterbar-close {
-    position: absolute;
-    right: 5px;
-    top: 5p
-}
-.filterbar-close:hover {
-    cursor: pointer;
 }
 
 .filterbar-title {
