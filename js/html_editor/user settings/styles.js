@@ -152,6 +152,9 @@ const recomended_styles = {
 	},
 }
 
+const ignored_styles = ['style_base', 'style_svgs', 'style_highlight']
+const ignored_style_tags = ['base', 'svgs', 'highlight']
+
 function insert_recomended_styles () {
 	let rec_list = document.getElementById('rec_list')
 	if (rec_list) {
@@ -168,7 +171,7 @@ function insert_recomended_styles () {
 function clear_current_styles () {
 	let styles = document.getElementsByTagName('style')
 	for (style of styles) {
-		if (style.getAttribute('id') == 'style_base') continue
+		if (ignored_styles.indexOf(style.getAttribute('id')) !== -1) continue
 		style.innerHTML  = `.${style.getAttribute('id').replace('style_', '')} { }`
 	}
 }
