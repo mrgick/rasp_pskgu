@@ -30,35 +30,66 @@ a {
     display: flex;
 }
 
-.editbar-switcher:hover {
-    cursor: pointer;
-}
-
-.mode-switcher {
+.asidebar-close {
     position: absolute;
-    top: 6px;
-    right: 6px;
-}
-.header-main-right .mode-switcher {
-    position: unset;
-}
-.mode-switcher:hover {
+    right: 5px;
+    top: 5px;
     cursor: pointer;
 }
 
-.timetrack-switcher:hover {
-    cursor: pointer;
+.hidden {
+    display: none;
 }
 
-.issue_form-switcher {
+div[class='background_of_setting_menu'] {
     position: absolute;
-    top: 6px;
-    right: 36px;
-}
-.header-main-right .issue_form-switcher {
-    position: unset;
+    top: 0px;
+    right: 0px;
+    width: max-content;
+    background-color: var(--color-primary);
+    z-index: 7;
+    --svg_sz: 36px;
+    clip-path: polygon( 0px var(--svg_sz),
+                        calc(100% - var(--svg_sz)) var(--svg_sz),
+                        calc(100% - var(--svg_sz)) 0px,
+                        100% 0px,
+                        100% 100%,
+                        0px 100%);
 }
 
-.issue_form-switcher:hover {
+div[class='setting_menu'] {
+    --svg_sz: 36px;
+    background-color: var(--color-background);
+    clip-path: polygon( 1px calc(var(--svg_sz) + 1px),
+                        calc(100% - var(--svg_sz) + 1px) calc(var(--svg_sz) + 1px),
+                        calc(100% - var(--svg_sz) + 1px) 1px,
+                        calc(100% - 1px) 1px,
+                        calc(100% - 1px) calc(100% - 1px),
+                        1px calc(100% - 1px));
+}
+
+div[class^='switcher'] {
+    text-align: right;
+    min-height: 36px;
+    border-bottom: 1px solid var(--color-light);
     cursor: pointer;
+}
+div[class^='switcher']:hover {
+    transition: 0.25s;
+    background-color: var(--color-light);
+}
+
+div[class^='switcher'] label {
+    vertical-align: top;
+    display: inline-block;
+    font-size: 20px;
+    line-height: 36px;
+    margin-left: 10px;
+    color: var(--color-primary);
+    cursor: pointer;
+}
+
+.switcher-mode:hover div[id^='theme_div-'] {
+    transition: 0.25s;
+    border-top: 1px solid var(--color-additionaly);
 }
