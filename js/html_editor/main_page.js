@@ -1,14 +1,28 @@
 function generate_main_page()
 {
     document.getElementById("MAIN").innerHTML=`
-    <div class="header-main-right" style='padding-right: 25px'>
-        <div class="switchers">
-            <div class="issue_form-switcher" onclick="open_issue_report();">
-                <svg xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 0 24 24" width="36px"></svg>
-            </div>
-            <div class="mode-switcher" onclick="switch_theme_list();">
-                <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 20 20" height="36px" viewBox="0 0 20 20" width="36px"></svg>
-                <div id="theme_list" class="clr_theme_list clr_theme_list--hidden"></div>
+    <div class="enable_setting_menu" style='position: absolute; top: 6px; right: 6px;'>
+        <svg name='special' onclick="Switch('setting_menu');" xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 0 24 24" width="36px"></svg>
+        <div class="background_of_setting_menu hidden" id='setting_menu'>
+            <div class="setting_menu">
+                <div class="switcher" onclick="Switch('setting_menu');">
+                    <svg name='special' xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 0 24 24" width="36px"></svg>
+                </div>
+                <div class="switcher-info" onclick="">
+                    <label style='color: var(--color-additionaly)'>Справка</label>
+                    <svg xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 0 24 24" width="36px"></svg>
+                </div>
+                <div class="switcher-mode" onclick="switch_theme_list();">
+                    <div>    
+                        <label>Выбрать цветовую тему</label>
+                        <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 20 20" height="36px" viewBox="0 0 20 20" width="36px"></svg>
+                    </div>
+                    <div id="theme_list" class="clr_theme_list hidden"></div>
+                </div>
+                <div class="switcher-issue_form" onclick="switch_issue_report();">
+                    <label>Сообщить об ошибке</label>
+                    <svg xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 0 24 24" width="36px"></svg>
+                </div>
             </div>
         </div>
     </div>
@@ -25,9 +39,9 @@ function generate_main_page()
         <a class="footer-link" href="http://rasp.pskgu.ru">Оригинал расписания</a>
         <div class="footer-authors">© MrGick, KGlebB, WhiteRain7<br>сайт создан используя <a class="footer-authors-link" href="https://github.com/mrgick/pskgu_api">API</a></div>
     </footer>
-    <aside id="theme_editor" class="theme_aside_editor theme_aside_editor--hidden">
+    <aside id="theme_editor" class="theme_aside_editor hidden">
     </aside>
-    <aside id="issue_form" class="aside_form aside_form--hidden">
+    <aside id="issue_form" class="aside_form hidden">
     </aside>
     `
 }
@@ -35,14 +49,28 @@ function generate_main_page()
 function generate_search_page(text)
 {
     document.getElementById("MAIN").innerHTML=`
-    <div class="header-main-right" style='padding-right: 25px'>
-        <div class="switchers">
-            <div class="issue_form-switcher" onclick="open_issue_report();">
-                <svg xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 0 24 24" width="36px"></svg>
-            </div>
-            <div class="mode-switcher" onclick="switch_theme_list();">
-                <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 20 20" height="36px" viewBox="0 0 20 20" width="36px"></svg>
-                <div id="theme_list" class="clr_theme_list clr_theme_list--hidden"></div>
+    <div class="enable_setting_menu" style='position: absolute; top: 6px; right: 6px;'>
+        <svg name='special' onclick="Switch('setting_menu');" xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 0 24 24" width="36px"></svg>
+        <div class="background_of_setting_menu hidden" id='setting_menu'>
+            <div class="setting_menu">
+                <div class="switcher" onclick="Switch('setting_menu');">
+                    <svg name='special' xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 0 24 24" width="36px"></svg>
+                </div>
+                <div class="switcher-info" onclick="">
+                    <label style='color: var(--color-additionaly)'>Справка</label>
+                    <svg xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 0 24 24" width="36px"></svg>
+                </div>
+                <div class="switcher-mode" onclick="switch_theme_list();">
+                    <div>    
+                        <label>Выбрать цветовую тему</label>
+                        <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 20 20" height="36px" viewBox="0 0 20 20" width="36px"></svg>
+                    </div>
+                    <div id="theme_list" class="clr_theme_list hidden"></div>
+                </div>
+                <div class="switcher-issue_form" onclick="switch_issue_report();">
+                    <label>Сообщить об ошибке</label>
+                    <svg xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 0 24 24" width="36px"></svg>
+                </div>
             </div>
         </div>
     </div>
@@ -59,9 +87,9 @@ function generate_search_page(text)
     <div class="groups" id="Groups_List">
         <p class="groups-text">Поиск соответствий...</p>
     </div>
-    <aside id="theme_editor" class="theme_aside_editor theme_aside_editor--hidden">
+    <aside id="theme_editor" class="theme_aside_editor hidden">
     </aside>
-    <aside id="issue_form" class="aside_form aside_form--hidden">
+    <aside id="issue_form" class="aside_form hidden">
     </aside>
     `
 }
@@ -74,37 +102,63 @@ function generate_rasp_page(group)
         <div class="header-main">
             <h2 class="group_name" id="Group_Name">${group.prefix[0]=="преподаватель" ? "Преподаватель" : "Группа"} ${group.name.replace("_", " ")}</h2>
             <div class="header-main-right">
-                <div class="switchers">
-                    <div class="issue_form-switcher" onclick="open_issue_report();">
+                <div name='menu_content'>
+                    <div class="enable_alt_click" onclick="switch_alt_click();" title='Выделять схожие элементы в таблице по нажатию. Аналогично alt + ЛКМ.'>
                         <svg xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 0 24 24" width="36px"></svg>
                     </div>
-                    <div class="timetrack-switcher" onclick="change_tracking_status();">
-                        <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 20 20" height="36px" viewBox="0 0 20 20" width="36px"></svg>
-                    </div>
-                    <div class="editbar-switcher" onclick="editbarOpen();">
-                        <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 20 20" height="36px" viewBox="0 0 20 20" width="36px"></svg>
-                    </div>
-                    <div class="mode-switcher" onclick="switch_theme_list();">
-                        <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 20 20" height="36px" viewBox="0 0 20 20" width="36px"></svg>
-                        <div id="theme_list" class="clr_theme_list clr_theme_list--hidden">
+                    <div class="enable_setting_menu" style='position: relative'>
+                        <svg name='special' onclick="Switch('setting_menu');" xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 0 24 24" width="36px"></svg>
+                        <div class="background_of_setting_menu hidden" id='setting_menu'>
+                            <div class="setting_menu">
+                                <div class="switcher" onclick="Switch('setting_menu');">
+                                    <svg name='special' xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 0 24 24" width="36px"></svg>
+                                </div>
+                                <div class="switcher-info" onclick="">
+                                    <label style='color: var(--color-additionaly)'>Справка</label>
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 0 24 24" width="36px"></svg>
+                                </div>
+                                <div class="switcher-favorite" onclick="document.getElementsByClassName('switcher-favorite')[0].classList.toggle('switcher-favorite--active');">
+                                    <label style='color: var(--color-additionaly)'>Добавить в избранное</label>
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 0 24 24" width="36px"></svg>
+                                </div>
+                                <div class="switcher-timetrack" onclick="change_tracking_status();">
+                                    <label>Отслеживание времени</label>
+                                    <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 20 20" height="36px" viewBox="0 0 20 20" width="36px"></svg>
+                                </div>
+                                <div class="switcher-editbar" onclick="editbarOpen();">
+                                    <label>Настроить фильтры</label>
+                                    <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 20 20" height="36px" viewBox="0 0 20 20" width="36px"></svg>
+                                </div>
+                                <div class="switcher-mode" onclick="switch_theme_list();">
+                                    <div>    
+                                        <label>Выбрать цветовую тему</label>
+                                        <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 20 20" height="36px" viewBox="0 0 20 20" width="36px"></svg>
+                                    </div>
+                                    <div id="theme_list" class="clr_theme_list hidden"></div>
+                                </div>
+                                <div class="switcher-issue_form" onclick="switch_issue_report();">
+                                    <label>Сообщить об ошибке</label>
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 0 24 24" width="36px"></svg>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <a class="header-main-back" href="${group.page_url}">Оригинал</a>
-            <div>
+            </div>
         </div>
     </header>
     <container class="rpage">
-        <div class="weekbar-switcher" onclick="Switch('Weekbar');">
+        <div class="switcher-weekbar" onclick="Switch('Weekbar');">
             <svg xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 0 24 24" width="36px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none"/></svg>
         </div>
-        <aside class="weekbar weekbar--hidden" id="Weekbar">
+        <aside class="weekbar hidden" id="Weekbar">
             <p class="weekbar-title">Список недель:</p>
             <div class="weekbar-list" id="Weekbar_List"></div>
         </aside>
-        <aside class="editbar editbar--hidden" id="Editbar">
+        <aside class="editbar hidden" id="Editbar">
             <p class="editbar-title">Настройки отображения пар</p>
-            <a class="editbar-close" onclick="editbarClose();">
+            <a class="asidebar-close" onclick="editbarClose();">
                 <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 0 24 24" width="18px"></svg>
             </a>
             <div class="editbar-main">
@@ -123,8 +177,8 @@ function generate_rasp_page(group)
                 </div>
             </div>
         </aside>
-        <aside class="filterbar filterbar--hidden" id="Filterbar">
-        <a class="filterbar-close" onclick="filterbarClose();">
+        <aside class="filterbar hidden" id="Filterbar">
+        <a class="asidebar-close" onclick="filterbarClose();">
             <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 0 24 24" width="18px"></svg>
         </a>
             <p class="filterbar-title">Пользовательские фильтры</p>
@@ -133,9 +187,9 @@ function generate_rasp_page(group)
                 </div>
             </div>
         </aside>
-        <aside id="issue_form" class="aside_form aside_form--hidden">
+        <aside id="issue_form" class="aside_form hidden">
         </aside>
-        <aside id="theme_editor" class="theme_aside_editor theme_aside_editor--hidden">
+        <aside id="theme_editor" class="theme_aside_editor hidden">
         </aside>
         <div id="Group_Rasp">
         </div>
@@ -146,25 +200,39 @@ function generate_rasp_page(group)
 function generate_groups_list()
 {
     document.getElementById("MAIN").innerHTML=`
-        <h1 class="title title--top"><a href="${window.location.pathname}">Расписание ПсковГУ</a></h1>
-        <div class="header-main-right" style='padding-right: 25px; position: absolute; top: 0px; right: 0px'>
-            <div class="switchers">
-                <div class="issue_form-switcher" onclick="open_issue_report();">
+    <div class="enable_setting_menu" style='position: absolute; top: 6px; right: 6px;'>
+        <svg name='special' onclick="Switch('setting_menu');" xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 0 24 24" width="36px"></svg>
+        <div class="background_of_setting_menu hidden" id='setting_menu'>
+            <div class="setting_menu">
+                <div class="switcher" onclick="Switch('setting_menu');">
+                    <svg name='special' xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 0 24 24" width="36px"></svg>
+                </div>
+                <div class="switcher-info" onclick="">
+                    <label style='color: var(--color-additionaly)'>Справка</label>
                     <svg xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 0 24 24" width="36px"></svg>
                 </div>
-                <div class="mode-switcher" onclick="switch_theme_list();">
-                    <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 20 20" height="36px" viewBox="0 0 20 20" width="36px"></svg>
-                    <div id="theme_list" class="clr_theme_list clr_theme_list--hidden"></div>
+                <div class="switcher-mode" onclick="switch_theme_list();">
+                    <div>    
+                        <label>Выбрать цветовую тему</label>
+                        <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 20 20" height="36px" viewBox="0 0 20 20" width="36px"></svg>
+                    </div>
+                    <div id="theme_list" class="clr_theme_list hidden"></div>
+                </div>
+                <div class="switcher-issue_form" onclick="switch_issue_report();">
+                    <label>Сообщить об ошибке</label>
+                    <svg xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 0 24 24" width="36px"></svg>
                 </div>
             </div>
         </div>
-        <div id="Lists">
-            <div class="possible_list" id="Education_Form">
-            </div>
+    </div>
+    <h1 class="title title--top"><a href="${window.location.pathname}">Расписание ПсковГУ</a></h1>
+    <div id="Lists">
+        <div class="possible_list" id="Education_Form">
         </div>
-        <aside id="theme_editor" class="theme_aside_editor theme_aside_editor--hidden">
-        </aside>
-        <aside id="issue_form" class="aside_form aside_form--hidden">
-        </aside>
+    </div>
+    <aside id="theme_editor" class="theme_aside_editor hidden">
+    </aside>
+    <aside id="issue_form" class="aside_form hidden">
+    </aside>
     `
 }
