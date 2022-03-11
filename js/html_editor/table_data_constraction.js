@@ -411,8 +411,9 @@ function divide_old (text, RE_list) {
     return content
 }
 
+let auto_alt_click = false
 function go_to_link (event, link, class_name) {
-    if (event.altKey) {
+    if (event.altKey || auto_alt_click) {
         highlight_same(event, class_name)
         return
     }
@@ -436,7 +437,7 @@ function clear_highlight () {
 }
 
 function highlight_same (event, class_name) {
-    if (event.altKey) {
+    if (event.altKey || auto_alt_click) {
         let style = document.getElementById('style_highlight')
         if (style.innerHTML.indexOf(class_name) !== -1) clear_highlight()
         else {
