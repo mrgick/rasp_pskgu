@@ -28,21 +28,33 @@ function generate_css_classes () {
 }
 
 const base_styles = {'light':{
-							  'background-color':'transparent',
-							  'color'           :'#000000',
-							  'border'          :'0px solid #000000',
-							  'font-style'      :'normal',   // normal | italic
-					  		  'font-weight'     :'normal',   // normal | bold
-							  'text-decoration' :'none'},    // none | line-through | underline
-					 'dark': {
-							  'background-color':'transparent', // 333366 ?
-							  'color'           :'#ffffff',
-							  'border'          :'0px solid #000000',
-							  'font-style'      :'normal',   // normal | italic
-							  'font-weight'     :'normal',   // normal | bold
-							  'text-decoration' :'none'}     // none | line-through | underline
-							  //'border-color'    :'#000000',
-							  //'border-width'    :'0px',
+							'background-color':'transparent',
+							'color'           :'#000000',
+							'border'          :'0px solid #000000',
+							'font-style'      :'normal',   // normal | italic
+							'font-weight'     :'normal',   // normal | bold
+							'text-decoration' :'none'},    // none | line-through | underline
+				   'darkest':{
+							'background-color':'transparent', // 333366 ?
+							'color'           :'#ffffff',
+							'border'          :'0px solid #000000',
+							'font-style'      :'normal',   // normal | italic
+							'font-weight'     :'normal',   // normal | bold
+							'text-decoration' :'none'},    // none | line-through | underline
+					  'dark':{
+							'background-color':'transparent', // 333366 ?
+							'color'           :'#ffffff',
+							'border'          :'0px solid #000000',
+							'font-style'      :'normal',   // normal | italic
+							'font-weight'     :'normal',   // normal | bold
+							'text-decoration' :'none'},    // none | line-through | underline
+					'custom':{
+							'background-color':'transparent',
+							'color'           :'var(--color-primary)',
+							'border'          :'0px solid #000000',
+							'font-style'      :'normal',   // normal | italic
+							'font-weight'     :'normal',   // normal | bold
+							'text-decoration' :'none'},    // none | line-through | underline
 					}
 
 let base_style_classes = {}
