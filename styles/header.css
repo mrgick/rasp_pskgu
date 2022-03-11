@@ -18,6 +18,12 @@
     align-items: flex-end;
 }
 
+.header-main-right div[name='menu_content'] {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+}
+
 .header-main-back {
     text-decoration: none;
     color: var(--color-secondary);
