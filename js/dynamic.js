@@ -4,6 +4,27 @@ function Switch(id)
     return false;
 }
 
+function switch_theme_list() 
+{
+    let theme_list = document.getElementById("theme_list")
+    if (theme_list.classList.contains("clr_theme_list--hidden")) {
+        theme_list.classList.remove("clr_theme_list--hidden");
+        //genFilterList(listName);
+    }
+    else theme_list.classList.add("clr_theme_list--hidden");
+    return false;
+}
+
+function open_theme_editor () {
+    document.getElementById("theme_editor").classList.remove("theme_aside_editor--hidden");
+    fill_theme_editor()
+    return false;
+}
+function close_theme_editor () {
+    document.getElementById("theme_editor").classList.add("theme_aside_editor--hidden");
+    return false
+}
+
 function editbarOpen()
 {
     document.getElementById("Editbar").classList.remove("editbar--hidden");
