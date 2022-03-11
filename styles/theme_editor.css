@@ -1,0 +1,110 @@
+.clr_theme_list {
+    position: absolute;
+    top: 0px;
+    right: 25px;
+    width: fit-content;
+    height: fit-content;
+    background-color: var(--color-primary);
+    z-index: 7;
+    --svg_sz: 36px;
+    clip-path: polygon( 0px var(--svg_sz),
+                        calc(100% - var(--svg_sz)) var(--svg_sz),
+                        calc(100% - var(--svg_sz)) 0px,
+                        100% 0px,
+                        100% 100%,
+                        0px 100%);
+}
+
+.clr_theme_list div[name='123'] {
+    --svg_sz: 36px;
+    background-color: var(--color-background);
+    clip-path: polygon( 1px calc(var(--svg_sz) + 1px),
+                        calc(100% - var(--svg_sz) + 1px) calc(var(--svg_sz) + 1px),
+                        calc(100% - var(--svg_sz) + 1px) 1px,
+                        calc(100% - 1px) 1px,
+                        calc(100% - 1px) calc(100% - 1px),
+                        1px calc(100% - 1px));
+}
+
+.clr_theme_list--hidden {
+    display: none;
+}
+
+div[id^='theme_div-'] {
+    text-align: right;
+    min-height: 36px;
+    border-bottom: 1px solid var(--color-light);
+}
+div[id^='theme_div-']:hover {
+    transition: 0.25s;
+    background-color: var(--color-light);
+}
+
+div[id^='theme_div-'] label {
+    vertical-align: top;
+    display: inline-block;
+    font-size: 22px;
+    line-height: 36px;
+    margin-left: 10px;
+    color: var(--color-primary);
+    cursor: pointer;
+}
+
+.theme_aside_editor {
+    position: fixed;
+    top: 75px;
+    left: 15px;
+    width: fit-content;
+    height: fit-content;
+    background-color: var(--color-background);
+    border: 1px solid var(--color-primary);
+    border-radius: 15px;
+    z-index: 3;
+}
+.theme_aside_editor--hidden {
+    display: none;
+}
+
+#TE_header {
+    width: 100%;
+    height: fit-content;
+}
+#TE_header p {
+    margin: 5px 10px;
+}
+
+#TE_content {
+    padding: 10px;
+}
+
+#TE_content td {
+    vertical-align: middle;
+}
+#TE_content td:first-child {
+    padding-right: 10px;
+}
+
+#TE_content input[type='color'] {
+    padding: 0px;
+    background: none;
+}
+
+#TE_set_base {
+    height: fit-content;
+    padding: 5px;
+    padding-top: 0px;
+    text-align: center;
+}
+
+#TE_set_base button {
+    padding: 3px;
+    background-color: var(--color-light);
+    border: 1px solid var(--color-primary);
+}
+#TE_set_base button:hover {
+    background-color: var(--color-unchoiced);
+}
+
+#TE_set_base select {
+    background-color: var(--color-background);
+}
