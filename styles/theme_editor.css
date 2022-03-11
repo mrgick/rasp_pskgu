@@ -1,49 +1,25 @@
-.clr_theme_list {
-    position: absolute;
-    top: 0px;
-    right: 25px;
-    width: fit-content;
-    height: fit-content;
-    background-color: var(--color-primary);
-    z-index: 7;
-    --svg_sz: 36px;
-    clip-path: polygon( 0px var(--svg_sz),
-                        calc(100% - var(--svg_sz)) var(--svg_sz),
-                        calc(100% - var(--svg_sz)) 0px,
-                        100% 0px,
-                        100% 100%,
-                        0px 100%);
+#theme_list {
+    background-color: transparent;
 }
 
-.clr_theme_list div[name='123'] {
-    --svg_sz: 36px;
-    background-color: var(--color-background);
-    clip-path: polygon( 1px calc(var(--svg_sz) + 1px),
-                        calc(100% - var(--svg_sz) + 1px) calc(var(--svg_sz) + 1px),
-                        calc(100% - var(--svg_sz) + 1px) 1px,
-                        calc(100% - 1px) 1px,
-                        calc(100% - 1px) calc(100% - 1px),
-                        1px calc(100% - 1px));
-}
-
-.clr_theme_list--hidden {
-    display: none;
+#theme_list div[name='TE_background'] {
+    background-color: transparent;
 }
 
 div[id^='theme_div-'] {
     text-align: right;
     min-height: 36px;
-    border-bottom: 1px solid var(--color-light);
+    border-top: 1px solid var(--color-light);
 }
 div[id^='theme_div-']:hover {
     transition: 0.25s;
-    background-color: var(--color-light);
+    background-color: var(--color-additionaly);
 }
 
 div[id^='theme_div-'] label {
     vertical-align: top;
     display: inline-block;
-    font-size: 22px;
+    font-size: 16px;
     line-height: 36px;
     margin-left: 10px;
     color: var(--color-primary);
