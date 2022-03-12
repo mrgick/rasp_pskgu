@@ -76,6 +76,7 @@ async function loadGroup(group_name)
     generate_css_classes()
     insert_recomended_styles()
     renew_table_time_status()
+    if (check_is_favorite()) is_favorite()
     
     if (document.URL.split("#")[1] != undefined)
     {
