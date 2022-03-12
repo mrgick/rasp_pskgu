@@ -69,11 +69,13 @@ function open_issue_report () {
     AF_count = '';
     for (key in issue_report) delete issue_report[key]
     generate_form(fid);
+    return false;
 }
 
 function close_issue_report () {
     document.getElementById("issue_form").classList.add("hidden");
     document.getElementById("issue_form").innerHTML = '';
+    return false;
 }
 
 auto_alt_click = false
@@ -81,5 +83,21 @@ function switch_alt_click () {
     auto_alt_click = !auto_alt_click
     if (auto_alt_click) document.getElementsByClassName('enable_alt_click')[0].setAttribute('style', 'background: var(--color-light)')
     else document.getElementsByClassName('enable_alt_click')[0].removeAttribute('style')
-    return false
+    return false;
+}
+
+close_this = false
+function open_favorite_list () {
+    if (!close_this) {
+        document.getElementById('favorite_content').classList.remove("hidden");
+        fill_favorite_list();
+    }
+    close_this = false
+    return false;
+}
+
+function close_favorite_list () {
+    document.getElementById('favorite_content').classList.add("hidden");
+    close_this = true
+    return false;
 }
