@@ -69,7 +69,7 @@ function check_is_favorite (group = null) {
     if (group == null) group = get_current_group_name();
     content = get_cookie_favorite()
     if (content) {
-        if (content.indexOf(group) !== -1) return true
+        if (content.indexOf('|'+group+'|') !== -1) return true
         else return false
     }
     else return false
