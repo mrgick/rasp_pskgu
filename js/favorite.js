@@ -7,7 +7,7 @@ function fill_favorite_list () {
     </div>
     `
 
-    let content = readCookie('favorite')
+    let content = get_cookie_favorite()
     if (!content || content == '||') {
         list.innerHTML += `
         <label id='empty_favorite'>Добавленные в избранное расписания будут отображаться здесь</label>
@@ -26,6 +26,15 @@ function fill_favorite_list () {
     }
 }
 
+function get_cookie_favorite () {
+    let content = readCookie('favorite')
+    if (content) return content
+    else {
+        createCookie('favorite', '||', 180)
+        return '||'
+    }
+}
+
 function get_current_group_name () {
     group_name = document.getElementById('Group_Name')
     if (group_name) return group_name.innerText.split(' ').slice(1).join(' ')
@@ -39,15 +48,15 @@ function switch_favorite () {
 
 function add_to_favorite (group = null) {
     if (group == null) group = get_current_group_name();
-    
-    createCookie('favorite', readCookie('favorite').replace('||','|') + group + '|', 180)
+
+    createCookie('favorite', get_cookie_favorite().replace('||','|') + group + '|', 180)
     is_favorite()
 }
 
 function remove_from_favorite (group = null, block = null) {
     if (group == null) group = get_current_group_name();
 
-    content = readCookie('favorite')
+    content = get_cookie_favorite()
     content = content.replace(group + '|', '')
     if (content == '|') content = '||'
     createCookie('favorite', content, 180)
@@ -58,7 +67,7 @@ function remove_from_favorite (group = null, block = null) {
 
 function check_is_favorite (group = null) {
     if (group == null) group = get_current_group_name();
-    content = readCookie('favorite')
+    content = get_cookie_favorite()
     if (content) {
         if (content.indexOf(group) !== -1) return true
         else return false
