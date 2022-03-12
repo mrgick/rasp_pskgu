@@ -1,6 +1,10 @@
 function generate_main_page()
 {
     document.getElementById("MAIN").innerHTML=`
+    <div id='favorite_list' onclick='open_favorite_list()'>
+        <svg xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 0 24 24" width="36px"></svg>
+        <div id='favorite_content' class='hidden'></div>
+    </div>
     <div class="enable_setting_menu" style='position: absolute; top: 6px; right: 6px;'>
         <svg name='special' onclick="Switch('setting_menu');" xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 0 24 24" width="36px"></svg>
         <div class="background_of_setting_menu hidden" id='setting_menu'>
@@ -117,8 +121,8 @@ function generate_rasp_page(group)
                                     <label style='color: var(--color-additionaly)'>Справка</label>
                                     <svg xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 0 24 24" width="36px"></svg>
                                 </div>
-                                <div class="switcher-favorite" onclick="document.getElementsByClassName('switcher-favorite')[0].classList.toggle('switcher-favorite--active');">
-                                    <label style='color: var(--color-additionaly)'>Добавить в избранное</label>
+                                <div class="switcher-favorite" onclick="switch_favorite()">
+                                    <label>Добавить в избранное</label>
                                     <svg xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 0 24 24" width="36px"></svg>
                                 </div>
                                 <div class="switcher-timetrack" onclick="change_tracking_status();">
@@ -135,6 +139,10 @@ function generate_rasp_page(group)
                                         <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 20 20" height="36px" viewBox="0 0 20 20" width="36px"></svg>
                                     </div>
                                     <div id="theme_list" class="clr_theme_list hidden"></div>
+                                </div>
+                                <div style='display: none' class="switcher-print" onclick="print()">
+                                    <label>Печать страницы</label>
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 0 24 24" width="36px"></svg>
                                 </div>
                                 <div class="switcher-issue_form" onclick="switch_issue_report();">
                                     <label>Сообщить об ошибке</label>
