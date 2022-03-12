@@ -93,3 +93,70 @@ div[class^='switcher'] label {
     transition: 0.25s;
     border-top: 1px solid var(--color-additionaly);
 }
+
+#favorite_list {
+    position: absolute;
+    top: 6px;
+    left: 6px;
+}
+
+#favorite_content {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 250px;
+    height: 400px;
+    background-color: var(--color-background);
+    border: 1px solid var(--color-primary);
+    overflow-y: auto;
+}
+
+#empty_favorite {
+    display: inline-block;
+    padding: 15%;
+    text-align: center;
+    vertical-align: middle;
+    align-self: center;
+    color: var(--color-additionaly);
+    font-size: 14px;
+}
+
+.goto_favorite {
+    text-align: center;
+    width: 100%;
+    min-height: 36px;
+    line-height: 36px;
+    background-color: var(--color-background);
+    border-bottom: 1px solid var(--color-light);
+    transition: 0.25s;
+    cursor: pointer;
+}
+.goto_favorite:hover {
+    background-color: var(--color-light);
+}
+.goto_favorite label {
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.goto_favorite div[onclick^='remove'] {
+    float: left;
+    width: 36px;
+    height: 36px;
+    font-size: 30px;
+}
+.goto_favorite div[onclick^='remove']:hover {
+    transition: 0.25s;
+    background-color: var(--color-additionaly);
+}
+
+.goto_favorite div[onclick^='go_to'] {
+    display: inline-block;
+    width: calc(100% - 36px)
+}
+
+div[onclick^='close'] svg {
+    position: relative;
+    bottom: 1px;
+    right: 1px;
+}
