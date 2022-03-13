@@ -134,7 +134,7 @@ function special_text (pattern, matched) {
 }
 
 function adapt_for_html (text) {
-    return text.replaceAll(/([ ,-]|\(|\))/g, '_').replaceAll(/[.]/g, '．') // ⋅．•
+    return text.replaceAll(/([ ,-]|\(|\))/g, '_').replaceAll(/[.]/g, '．').replaceAll('@', 'A') // ⋅．•
 }
 
 /* 
