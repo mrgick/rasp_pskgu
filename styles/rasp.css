@@ -10,6 +10,7 @@
     line-height: 120%;
     color: var(--color-primary);
     margin: 0 0 5px;
+    display: inline-block;
 }
 
 .rasp-table {
@@ -72,5 +73,107 @@
 @media (max-width: 1550px) {
     .rasp {
         margin: -50px 25px 0;
+    }
+}
+
+
+
+.Printable_rasp {
+    width:  calc(297mm - 2 * var(--table-side_padding));
+    height: calc(210mm - var(--table-top_padding) - var(--table-bottom_padding));
+    padding-right: var(--table-side_padding);
+    padding-left: var(--table-side_padding);
+    padding-top: var(--table-top_padding);
+    padding-bottom: var(--table-bottom_padding);
+    border-bottom: 1px dashed var(--color-primary);
+}
+
+.Printable_rasp table {
+    width: 100%;
+    height: calc(100% - 30px);
+}
+
+.Printable_rasp tr:first-child {
+    height: 30px;
+}
+
+#print_panel {
+    position: fixed;
+    top: 25px;
+    left: 25px;
+    width: 225px;
+    background-color: var(--color-background);
+    border: 1px solid var(--color-primary);
+}
+
+#PP_content {
+    padding: 5px;
+}
+
+#PP_content p {
+    border-top: 1px dashed #888888;
+    padding-top: 5px;
+    margin-top: 5px;
+    font-size: 14px;
+    color: #888888;
+}
+
+.padding_setters {
+    width: 100%;
+}
+
+input[id$='padding_setter-range'] {
+    display: inline-block;
+    width: 75%;
+    height: 24px;
+    vertical-align: bottom;
+}
+
+input[id$='padding_setter-input'] {
+    display: inline-block;
+    width: 20%;
+    height: 24px;
+    vertical-align: bottom;
+    background-color: var(--color-background);
+}
+
+.PP_subcontent {
+    margin: 8px 0px;
+}
+
+.PP_subcontent label {
+    font-size: 16px;
+    line-height: 18px;
+    vertical-align: bottom;
+}
+
+.PP_subcontent input[type='checkbox'] {
+    width: 18px;
+    height: 18px;
+    vertical-align: bottom;
+}
+
+.rasp-group {
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 120%;
+    color: var(--color-primary);
+    margin: 0 0 5px;
+    display: block;
+    float: right;
+}
+
+.rasp-group--hidden {
+    display: none;
+}
+
+@media print {
+    #print_panel {
+        display:none;
+    }
+    .Printable_rasp {
+        padding-bottom: 0px;
+        margin-bottom: var(--table-bottom_padding);
+        border: 0px;
     }
 }
