@@ -134,9 +134,10 @@ style.setAttribute('type', 'text/css')
 style.setAttribute('id', 'style_svgs')
 document.getElementsByTagName('head')[0].appendChild(style)
 
-delete custom_theme
-delete settings
-delete style
+// should be deleted
+custom_theme = undefined
+settings = undefined
+style = undefined
 
 function adapt_svg_clr (svg_txt, theme = MODE) {
     return svg_txt.replaceAll('%23000000', rec_themes[theme]['vars']['--color-primary'].replace('#', '%23'))
@@ -147,14 +148,14 @@ function update_svgs (theme = MODE) {
     style.innerHTML = ''
     for (i_theme in rec_themes) {
         style.innerHTML += `
-        #theme_div-${i_theme} svg {${adapt_svg_clr(rec_themes[i_theme]['svg'])}}
+        #theme_div-${i_theme} svg {${adapt_svg_clr(rec_themes[i_theme]['svg'], theme)}}
         `
     }
 
     style.innerHTML += `
-    .switcher-mode svg {${adapt_svg_clr(rec_themes[theme]['svg'])}}
+    .switcher-mode svg {${adapt_svg_clr(rec_themes[theme]['svg'], theme)}}
     `
-    style.innerHTML += adapt_svg_clr(using_svg)
+    style.innerHTML += adapt_svg_clr(using_svg, theme)
 }
 
 function insert_themes () {
@@ -172,9 +173,11 @@ function insert_themes () {
     }
 }
 
-function set_clr_theme (theme, only_uploading = false) {
-    MODE = theme
-    createCookie("mode", MODE+'|'+tracking_status.toString(), 30);
+function set_clr_theme (theme, only_uploading = false, with_mode_change = true) {
+    if (with_mode_change) {
+        MODE = theme
+        createCookie("mode", MODE+'|'+tracking_status.toString(), 30);
+    }
 
     if (!only_uploading) {
         if (theme == 'custom') {
@@ -187,8 +190,8 @@ function set_clr_theme (theme, only_uploading = false) {
         document.documentElement.style.setProperty(property, rec_themes[theme]['vars'][property])
     }
 
-    update_svgs();
-    update_base_styles();
+    update_svgs(theme);
+    update_base_styles(theme);
 }
 
 function fill_theme_editor () {
