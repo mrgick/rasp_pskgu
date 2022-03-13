@@ -98,7 +98,6 @@ async function loadList()
 
 
 async function load_print_page (group_name) {
-    set_clr_theme('light', true, false)
     let group = await get_group_info(group_name)
 
     document.documentElement.style.setProperty('--table-side_padding'  , '5mm')
@@ -131,6 +130,7 @@ async function load_print_page (group_name) {
     catch {}
     
     generate_css_classes()
+    set_clr_theme('light', true, false)
     
     let styles = document.getElementsByTagName('style')
     for (style of styles) {
