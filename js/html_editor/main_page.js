@@ -140,8 +140,8 @@ function generate_rasp_page(group)
                                     </div>
                                     <div id="theme_list" class="clr_theme_list hidden"></div>
                                 </div>
-                                <div style='display: none' class="switcher-print" onclick="print()">
-                                    <label>Печать страницы</label>
+                                <div class="switcher-print" onclick="open_print_page()">
+                                    <label>Распечатать</label>
                                     <svg xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 0 24 24" width="36px"></svg>
                                 </div>
                                 <div class="switcher-issue_form" onclick="switch_issue_report();">
@@ -241,6 +241,64 @@ function generate_groups_list()
     <aside id="theme_editor" class="theme_aside_editor hidden">
     </aside>
     <aside id="issue_form" class="aside_form hidden">
+    </aside>
+    `
+}
+
+function generate_print_preview()
+{
+    document.getElementById("MAIN").innerHTML=`
+    <div id="Group_Rasp">
+    </div>
+    <aside id="print_panel" class="print_aside_form">
+        <div class="switcher-print" onclick="print()" style='text-align: left'>
+            <svg xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 0 24 24" width="36px"></svg>
+            <label style='margin-left: 0px;'>Печать</label>
+        </div>
+        <div id='PP_content'>
+            <div class='PP_subcontent'>
+                <label>Боковые отступы (мм)</label>
+                <div class='padding_setters'>
+                    <input id='side_padding_setter-range' type='range'  min="0" max="20" value="5" step="1" onchange='set_table_padding("side", this)' oninput='document.getElementById("side_padding_setter-input").value = this.value'>
+                    <input id='side_padding_setter-input' type='number' min="0" max="20" value="5" step="1" onchange='set_table_padding("side", this)'>
+                </div>
+            </div>
+            <div class='PP_subcontent'>
+                <label>Верхний отступ (мм)</label>
+                <div class='padding_setters'>
+                    <input id='top_padding_setter-range' type='range'  min="0" max="20" value="5" step="1" onchange='set_table_padding("top", this)' oninput='document.getElementById("top_padding_setter-input").value = this.value'>
+                    <input id='top_padding_setter-input' type='number' min="0" max="20" value="5" step="1" onchange='set_table_padding("top", this)'>
+                </div>
+            </div>
+            <div class='PP_subcontent'>
+                <label>Нижний отступ (мм)</label>
+                <div class='padding_setters'>
+                    <input id='bottom_padding_setter-range' type='range'  min="0" max="20" value="5" step="1" onchange='set_table_padding("bottom", this)' oninput='document.getElementById("bottom_padding_setter-input").value = this.value'>
+                    <input id='bottom_padding_setter-input' type='number' min="0" max="20" value="5" step="1" onchange='set_table_padding("bottom", this)'>
+                </div>
+            </div>
+            <div class='PP_subcontent' id='light_theme_using'>
+                <input type='checkbox' name='use_light_theme' onchange='switch_theme_using(this)' checked>
+                <label for='use_light_theme'>Светлая тема</label>
+            </div>
+            <div class='PP_subcontent' id='filters_using'>
+                <input type='checkbox' name='use_filters' onchange='switch_filters_using(this)'>
+                <label for='use_filters'>Фильтры</label>
+            </div>
+            <div class='PP_subcontent' id='group_name_display'>
+                <input type='checkbox' name='display_group_name' onchange='switch_group_name_display(this)' checked>
+                <label for='display_group_name'>Принадлежность</label>
+            </div>
+            <div class='PP_subcontent' id='without_saturday'>
+                <input type='checkbox' name='display_saturday' onchange='switch_saturday(this)'>
+                <label for='display_saturday'>скрывать субботу</label>
+            </div>
+            <div class='PP_subcontent' id='without_sunday'>
+                <input type='checkbox' name='display_sunday' onchange='switch_sunday(this)'>
+                <label for='display_sunday'>скрывать воскресенье</label>
+            </div>
+            <p>Рекомендуем при печати выставить альбомную ориентацию страницы и выключить отображение полей.</p>
+        </div>
     </aside>
     `
 }
