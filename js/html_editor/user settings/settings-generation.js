@@ -1,5 +1,6 @@
 function genEditOrder() {
     let eleo = document.getElementById("EditOrder");
+    if (!eleo) return
     eleo.innerHTML='';
     for (class_name in used_class_names) {
         let opacity = ''
