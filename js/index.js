@@ -1,12 +1,13 @@
 
-async function main(find_name, group_name) {
+async function main(find_name, group_name, print_group_name) {
 
     if (find_name) {
         return await loadSearch(find_name);
     } else if (group_name) {
         return await loadGroup(group_name);
-    }
-    else {
+    } else if (print_group_name) {
+        return await load_print_page(print_group_name);
+    } else {
         return await loadBlank();
     }
 }
@@ -45,7 +46,6 @@ async function loadSearch(find_name)
 // Страница расписания
 async function loadGroup(group_name)
 {
-
     let group = await get_group_info(group_name)
 
     generate_rasp_page(group);
@@ -96,6 +96,50 @@ async function loadList()
     insert_themes();
 }
 
+
+async function load_print_page (group_name) {
+    set_clr_theme('light', true, false)
+    let group = await get_group_info(group_name)
+
+    document.documentElement.style.setProperty('--table-side_padding'  , '5mm')
+    document.documentElement.style.setProperty('--table-top_padding'   , '5mm')
+    document.documentElement.style.setProperty('--table-bottom_padding', '5mm')
+
+    generate_print_preview(group);
+
+    let days_length = Object.keys(group.days).length
+
+    // Проверка на пустоту
+    if (days_length == 0) {
+        rasp_add_empty()
+        used_class_names = create_used_class_names()
+        return
+    }
+
+    // Генерация таблиц
+    let first_date = Object.keys(group.days)[0]
+    let last_date = new Date(Object.keys(group.days)[days_length - 1])
+    let day = get_monday(first_date)
+
+    let week = 0;
+    
+    while (new Date(day) <= last_date) {
+        generate_printable_table(group, day, ++week);
+        day = get_next_day(day, 7);
+    }
+    try {document.getElementById('Week_' + week).setAttribute('style', 'margin-bottom: 0px')}
+    catch {}
+    
+    generate_css_classes()
+    
+    let styles = document.getElementsByTagName('style')
+    for (style of styles) {
+        if (ignored_styles.indexOf(style.getAttribute('id')) !== -1) continue
+        style.setAttribute('media', '1')
+    }
+}
+
+
 var STRUCT;
 var tracking_status;
 window.onload = async function ()
@@ -114,7 +158,7 @@ window.onload = async function ()
         return;
     }
     const params = new URLSearchParams(window.location.search);
-    await main(params.get("find_group_name"), params.get("group_name"));
+    await main(params.get("find_group_name"), params.get("group_name"), params.get("print_group_name"));
 }
 
 function change_tracking_status () {
