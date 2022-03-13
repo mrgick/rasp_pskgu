@@ -101,3 +101,7 @@ function close_favorite_list () {
     close_this = true
     return false;
 }
+
+function open_print_page () {
+    window.open(document.location.href.replace(document.location.search, '?print_group_name=' + get_current_group_name().replaceAll(' ', '_')), '_blank');
+}
