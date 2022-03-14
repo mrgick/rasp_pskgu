@@ -160,3 +160,53 @@ div[onclick^='close'] svg {
     bottom: 1px;
     right: 1px;
 }
+
+#date_of_last_update {
+    padding: 3px;
+}
+#date_of_last_update p {
+    color: var(--color-secondary);
+    font-size: 14px;
+}
+
+
+#aside_warning {
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    background-color: var(--color-background);
+    border: 1px solid var(--color-primary);
+    min-width: 100px;
+    max-width: 400px;
+    z-index: 15;
+}
+
+#AW_header {
+    background-color: var(--color-link);
+    padding: 5px;
+}
+#AW_header h1 {
+    color: var(--color-background);
+    font-size: 18px;
+    font-weight: bold;
+}
+
+#AW_content {
+    padding: 5px;
+}
+
+#AW_OK {
+    padding: 5px;
+    height: 28px;
+}
+#AW_OK button {
+    width: 80px;
+    height: 28px;
+    background-color: var(--color-light);
+    color: var(--color-primary);
+    float: right;
+}
+#AW_OK button:hover {
+    transition: 0.25s;
+    background-color: var(--color-additionaly);
+}
