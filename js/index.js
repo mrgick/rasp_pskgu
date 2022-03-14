@@ -57,6 +57,7 @@ async function loadGroup(group_name)
     if (days_length == 0) {
         rasp_add_empty()
         used_class_names = create_used_class_names()
+        insert_date_of_last_update('', new Date(group.last_updated))
         return
     }
 
@@ -76,6 +77,7 @@ async function loadGroup(group_name)
     generate_css_classes()
     insert_recomended_styles()
     renew_table_time_status()
+    insert_date_of_last_update(last_date, new Date(group.last_updated))
     if (check_is_favorite()) is_favorite()
     
     if (document.URL.split("#")[1] != undefined)
