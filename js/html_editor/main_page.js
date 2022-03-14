@@ -148,6 +148,8 @@ function generate_rasp_page(group)
                                     <label>Сообщить об ошибке</label>
                                     <svg xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 0 24 24" width="36px"></svg>
                                 </div>
+                                <div id='date_of_last_update'>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -198,6 +200,11 @@ function generate_rasp_page(group)
         <aside id="issue_form" class="aside_form hidden">
         </aside>
         <aside id="theme_editor" class="theme_aside_editor hidden">
+        </aside>
+        <aside id='aside_warning' class='hidden'>
+            <div id='AW_header'><h1>Предупреждение</h1></div>
+            <div id='AW_content'><p>Все занятия по данному расписанию закончились, а последнее обновление было больше месяца назад. Возможно, оно более не используется.</p></div>
+            <div id='AW_OK'><button onclick='document.getElementById("aside_warning").classList.add("hidden")'>хорошо</button></div>
         </aside>
         <div id="Group_Rasp">
         </div>
