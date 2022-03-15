@@ -151,6 +151,8 @@ function generate_form (fid, content = form_content) {
             </div>
         </div>`
 
+    dragElement(form, 0);
+
     let header = document.createElement('h2')
     header.innerText = content['title']
     form.children[0].appendChild(header)
@@ -253,9 +255,9 @@ function generate_form (fid, content = form_content) {
  
     p = content['progress']
     if (p !== '100%') {
-        AF_progress_bar.style['background'] = `linear-gradient(to right, #006488 ${p}, transparent ${p})`
+        AF_progress_bar.style['background'] = `linear-gradient(to right, var(--color-special) ${p}, transparent ${p})`
         AF_progress_bar.innerHTML = `<label style = "
-            background: linear-gradient(90deg, #ffffff ${p}, #000000 ${p}, #000000); 
+            background: linear-gradient(90deg, var(--color-header_text) ${p}, var(--color-text) ${p}, var(--color-text)); 
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;">
             ${p}
@@ -274,8 +276,8 @@ function input_changed () {
                 let input_div = document.getElementById('AF_this_input_' + ans)
                 if (document.getElementById('AF_this_chbx_' + ans).checked) {
                     input_div.disabled = true
-                    input_div.style['backgroundColor'] = '#006488'
-                    input_div.children[0].style['color'] = '#FFFFFF'
+                    input_div.style['backgroundColor'] = 'var(--color-special)'
+                    input_div.children[0].style['color'] = 'var(--color-header_text)'
                     AF_selected = ans
                     AF_value = form_content[fid]['answers'][ans][0]
                 }
