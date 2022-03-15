@@ -26,6 +26,10 @@
     width: 100%;
 }
 
+.rasp-table .block_1, .block_2 {
+    border-top: 1px dashed var(--color-additionaly);
+}
+
 .rasp-table-date {
     text-align: center;
     font-weight: 500;
