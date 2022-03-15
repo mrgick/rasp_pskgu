@@ -26,15 +26,16 @@
 
 .header-main-back {
     text-decoration: none;
-    color: var(--color-secondary);
+    color: var(--color-text);
 }
 .header-main-back:hover {
     text-decoration: underline;
+    color: var(--color-link_hover);
 }
 
 .header--rasp {
     background-color: var(--color-background);
-    border-bottom: 1px solid var(--color-primary);
+    border-bottom: 1px solid var(--color-text);
     top: 0;
     position: fixed;
     width: calc(100% - 50px);
