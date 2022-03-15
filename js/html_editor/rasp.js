@@ -84,7 +84,7 @@ function generate_printable_table(group, day, week_number) {
     rasp.appendChild(table);
     let div = document.createElement('br');
     rasp.appendChild(div);
-    document.getElementById('Group_Rasp').appendChild(rasp);
+    document.getElementById('Printable_Group_Rasp').appendChild(rasp);
 }
 
 
@@ -108,64 +108,4 @@ function generate_top(table) {
         div_in_td(num_cls[i], time_cls[i], tr, 'rasp-table-shedule')
     }
     table.appendChild(tr)
-}
-
-function set_table_padding (side, input) {
-    if (input.value < 0 ) input.value = 0
-    if (input.value > 20) input.value = 20
-    document.documentElement.style.setProperty(`--table-${side}_padding`, input.value+"mm")
-    document.getElementById(side+'_padding_setter-range').value = input.value
-    document.getElementById(side+'_padding_setter-input').value = input.value
-}
-
-function switch_theme_using (input) {
-    if (input.checked) set_clr_theme('light', true, false)
-    else {
-        MODE = readCookie('mode')
-        if (MODE) MODE = MODE.split('|')[0]
-        else MODE = 'light'
-        set_clr_theme(MODE, true, false)
-    }
-}
-
-function switch_filters_using (input) {
-    let styles = document.getElementsByTagName('style')
-
-    if (input.checked) for (style of styles) {
-        if (ignored_styles.indexOf(style.getAttribute('id')) !== -1) continue
-        style.removeAttribute('media')
-    }
-    else for (style of styles) {
-        if (ignored_styles.indexOf(style.getAttribute('id')) !== -1) continue
-        style.setAttribute('media', '1')
-    }
-}
-
-function switch_group_name_display (input) {
-    let group_names = document.getElementsByClassName('rasp-group')
-
-    if (input.checked) for (group of group_names) group.classList.remove('rasp-group--hidden')
-    else for (group of group_names) group.classList.add('rasp-group--hidden')
-}
-
-function switch_saturday (input) {
-    let timetables = document.getElementsByClassName('Printable_rasp')
-
-    if (input.checked) for (timetable of timetables) {
-        timetable.children[1].children[0].children[6].classList.add('hidden')
-    }
-    else for (timetable of timetables) {
-        timetable.children[1].children[0].children[6].classList.remove('hidden')
-    }
-}
-
-function switch_sunday (input) {
-    let timetables = document.getElementsByClassName('rasp-table')
-
-    if (input.checked) for (timetable of timetables) {
-        timetable.children[0].children[7].classList.add('hidden')
-    }
-    else for (timetable of timetables) {
-        timetable.children[0].children[7].classList.remove('hidden')
-    }
 }
