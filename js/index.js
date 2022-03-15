@@ -79,15 +79,18 @@ async function loadGroup(group_name)
     renew_table_time_status()
     insert_date_of_last_update(last_date, new Date(group.last_updated))
     if (check_is_favorite()) is_favorite()
+    dragElement(document.getElementById('Editbar'), 0)
+    dragElement(document.getElementById('Filterbar'), 0)
     
-    if (document.URL.split("#")[1] != undefined)
+    if (document.location.hash != '')
     {
-        document.getElementById(document.URL.split("#")[1]).scrollIntoView();
+        document.getElementById(document.location.hash.split('#')[1]).scrollIntoView();
     }
-    else
+    else try
     {
         document.getElementById(`Week_${getCurrentWeek(first_date)}`).scrollIntoView();
     }
+    catch {}
 }
 
 async function loadList()
@@ -101,6 +104,13 @@ async function loadList()
 
 async function load_print_page (group_name) {
     let group = await get_group_info(group_name)
+
+    document.documentElement.style.setProperty('--table-inline', '1')
+
+    document.documentElement.style.setProperty('--table-page_width' , '297mm')
+    document.documentElement.style.setProperty('--table-page_height', '210mm')
+
+    document.documentElement.style.setProperty('--table-font_size', '8pt')
 
     document.documentElement.style.setProperty('--table-side_padding'  , '5mm')
     document.documentElement.style.setProperty('--table-top_padding'   , '5mm')
@@ -133,7 +143,8 @@ async function load_print_page (group_name) {
     
     generate_css_classes()
     set_clr_theme('light', true, false)
-    
+    dragElement(document.getElementById('print_panel'))
+
     let styles = document.getElementsByTagName('style')
     for (style of styles) {
         if (ignored_styles.indexOf(style.getAttribute('id')) !== -1) continue
@@ -146,6 +157,7 @@ var STRUCT;
 var tracking_status;
 window.onload = async function ()
 {
+    need_up_warning = check_for_cookies();
     let settings = readCookie("mode")
     if (settings) tracking_status = settings.split('|')[1];
     else tracking_status = 'false'
@@ -161,10 +173,32 @@ window.onload = async function ()
     }
     const params = new URLSearchParams(window.location.search);
     await main(params.get("find_group_name"), params.get("group_name"), params.get("print_group_name"));
+    
+    if (need_up_warning) up_warning('Пользуясь данным сайтом, вы автоматически соглашаетесь с ' + 
+                                    'политикой использования Cookie файлов на этом сайте. ' + 
+                                    'Они используются для хранения Ваших персональных настроек.', 
+                                    'Cookies');
 }
 
 function change_tracking_status () {
     tracking_status = !tracking_status
     createCookie("mode", MODE+'|'+tracking_status.toString(), 30);
     renew_table_time_status()
+}
+
+function up_warning (warning_text, warning_header = 'Предупреждение') {
+    document.getElementById('AW_header').innerHTML = `<h1>${warning_header}</h1>`
+    document.getElementById('AW_content').innerHTML = `<p>${warning_text}</p>`
+    document.getElementById("aside_warning").classList.remove("hidden")
+}
+
+function check_for_cookies () {
+    if (readCookie('Cookies_enabled')) return false
+    else {
+        createCookie('Cookies_enabled', 'true', 180)
+        if (readCookie('Cookies_enabled')) {
+            return true
+            }
+        else return false
+    }
 }
