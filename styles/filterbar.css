@@ -14,7 +14,8 @@
 @media (max-width: 850px) {
     .filterbar {
         top: 345px;
-        right: 15px;
+        left: calc(100% - 15px);
+        transform: translateX(-100%);
         max-width: calc(100% - 40px);
     }
 }
