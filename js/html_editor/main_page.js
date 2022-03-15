@@ -13,7 +13,7 @@ function generate_main_page()
                     <svg name='special' xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 0 24 24" width="36px"></svg>
                 </div>
                 <div class="switcher-info" onclick="">
-                    <label style='color: var(--color-additionaly)'>Справка</label>
+                    <label style='color: var(--color-halftone_text)'>Справка</label>
                     <svg xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 0 24 24" width="36px"></svg>
                 </div>
                 <div class="switcher-mode" onclick="switch_theme_list();">
@@ -41,13 +41,10 @@ function generate_main_page()
     </div>
     <footer class="footer">
         <a class="footer-link" href="http://rasp.pskgu.ru">Оригинал расписания</a>
-        <div class="footer-authors">© MrGick, KGlebB, WhiteRain7<br>сайт создан используя <a class="footer-authors-link" href="https://github.com/mrgick/pskgu_api">API</a></div>
+        <div class="footer-authors">© MrGick, KGlebB, WhiteRain7<br>сайт создан с использованием <a class="footer-authors-link" href="https://github.com/mrgick/pskgu_api">API</a></div>
     </footer>
-    <aside id="theme_editor" class="theme_aside_editor hidden">
-    </aside>
-    <aside id="issue_form" class="aside_form hidden">
-    </aside>
     `
+    add_aside_bars()
 }
 
 function generate_search_page(text)
@@ -61,7 +58,7 @@ function generate_search_page(text)
                     <svg name='special' xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 0 24 24" width="36px"></svg>
                 </div>
                 <div class="switcher-info" onclick="">
-                    <label style='color: var(--color-additionaly)'>Справка</label>
+                    <label style='color: var(--color-halftone_text)'>Справка</label>
                     <svg xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 0 24 24" width="36px"></svg>
                 </div>
                 <div class="switcher-mode" onclick="switch_theme_list();">
@@ -91,11 +88,8 @@ function generate_search_page(text)
     <div class="groups" id="Groups_List">
         <p class="groups-text">Поиск соответствий...</p>
     </div>
-    <aside id="theme_editor" class="theme_aside_editor hidden">
-    </aside>
-    <aside id="issue_form" class="aside_form hidden">
-    </aside>
     `
+    add_aside_bars()
 }
 
 function generate_rasp_page(group)
@@ -118,7 +112,7 @@ function generate_rasp_page(group)
                                     <svg name='special' xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 0 24 24" width="36px"></svg>
                                 </div>
                                 <div class="switcher-info" onclick="">
-                                    <label style='color: var(--color-additionaly)'>Справка</label>
+                                    <label style='color: var(--color-halftone_text)'>Справка</label>
                                     <svg xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 0 24 24" width="36px"></svg>
                                 </div>
                                 <div class="switcher-favorite" onclick="switch_favorite()">
@@ -129,7 +123,7 @@ function generate_rasp_page(group)
                                     <label>Отслеживание времени</label>
                                     <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 20 20" height="36px" viewBox="0 0 20 20" width="36px"></svg>
                                 </div>
-                                <div class="switcher-editbar" onclick="editbarOpen();">
+                                <div class="switcher-editbar" onclick="Switch_editbar();">
                                     <label>Настроить фильтры</label>
                                     <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 20 20" height="36px" viewBox="0 0 20 20" width="36px"></svg>
                                 </div>
@@ -188,28 +182,20 @@ function generate_rasp_page(group)
             </div>
         </aside>
         <aside class="filterbar hidden" id="Filterbar">
-        <a class="asidebar-close" onclick="filterbarClose();">
-            <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 0 24 24" width="18px"></svg>
-        </a>
             <p class="filterbar-title">Пользовательские фильтры</p>
+            <a class="asidebar-close" onclick="filterbarClose();">
+                <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 0 24 24" width="18px"></svg>
+            </a>
             <div class="filterbar-main">
                 <div class="filterbar-main-choice" id="Filters_List">
                 </div>
             </div>
         </aside>
-        <aside id="issue_form" class="aside_form hidden">
-        </aside>
-        <aside id="theme_editor" class="theme_aside_editor hidden">
-        </aside>
-        <aside id='aside_warning' class='hidden'>
-            <div id='AW_header'><h1>Предупреждение</h1></div>
-            <div id='AW_content'><p>Все занятия по данному расписанию закончились, а последнее обновление было больше месяца назад. Возможно, оно более не используется.</p></div>
-            <div id='AW_OK'><button onclick='document.getElementById("aside_warning").classList.add("hidden")'>хорошо</button></div>
-        </aside>
         <div id="Group_Rasp">
         </div>
     </container>
     `
+    add_aside_bars()
 }
 
 function generate_groups_list()
@@ -223,7 +209,7 @@ function generate_groups_list()
                     <svg name='special' xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 0 24 24" width="36px"></svg>
                 </div>
                 <div class="switcher-info" onclick="">
-                    <label style='color: var(--color-additionaly)'>Справка</label>
+                    <label style='color: var(--color-halftone_text)'>Справка</label>
                     <svg xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 0 24 24" width="36px"></svg>
                 </div>
                 <div class="switcher-mode" onclick="switch_theme_list();">
@@ -245,67 +231,117 @@ function generate_groups_list()
         <div class="possible_list" id="Education_Form">
         </div>
     </div>
-    <aside id="theme_editor" class="theme_aside_editor hidden">
-    </aside>
-    <aside id="issue_form" class="aside_form hidden">
-    </aside>
     `
+    add_aside_bars()
 }
 
 function generate_print_preview()
 {
     document.getElementById("MAIN").innerHTML=`
-    <div id="Group_Rasp">
+    <div id="Printable_Group_Rasp">
     </div>
     <aside id="print_panel" class="print_aside_form">
-        <div class="switcher-print" onclick="print()" style='text-align: left'>
-            <svg xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 0 24 24" width="36px"></svg>
-            <label style='margin-left: 0px;'>Печать</label>
+        <div class="switcher-print" style='text-align: left'>
+            <div onclick="print()">
+                <svg xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 0 24 24" width="36px"></svg>
+                <label style='margin-left: 0px;'>Печать</label>
+            </div>
+            <div id='print_switcher' onclick='switch_print_panel(this)'>&#9650;</div>
         </div>
-        <div id='PP_content'>
-            <div class='PP_subcontent'>
+        <div id='PP_content' class='hidden'>
+            <div class='PP_subcontent-range'>
                 <label>Боковые отступы (мм)</label>
                 <div class='padding_setters'>
                     <input id='side_padding_setter-range' type='range'  min="0" max="20" value="5" step="1" onchange='set_table_padding("side", this)' oninput='document.getElementById("side_padding_setter-input").value = this.value'>
                     <input id='side_padding_setter-input' type='number' min="0" max="20" value="5" step="1" onchange='set_table_padding("side", this)'>
                 </div>
             </div>
-            <div class='PP_subcontent'>
+            <div class='PP_subcontent-range'>
                 <label>Верхний отступ (мм)</label>
                 <div class='padding_setters'>
                     <input id='top_padding_setter-range' type='range'  min="0" max="20" value="5" step="1" onchange='set_table_padding("top", this)' oninput='document.getElementById("top_padding_setter-input").value = this.value'>
                     <input id='top_padding_setter-input' type='number' min="0" max="20" value="5" step="1" onchange='set_table_padding("top", this)'>
                 </div>
             </div>
-            <div class='PP_subcontent'>
+            <div class='PP_subcontent-range'>
                 <label>Нижний отступ (мм)</label>
                 <div class='padding_setters'>
                     <input id='bottom_padding_setter-range' type='range'  min="0" max="20" value="5" step="1" onchange='set_table_padding("bottom", this)' oninput='document.getElementById("bottom_padding_setter-input").value = this.value'>
                     <input id='bottom_padding_setter-input' type='number' min="0" max="20" value="5" step="1" onchange='set_table_padding("bottom", this)'>
                 </div>
             </div>
-            <div class='PP_subcontent' id='light_theme_using'>
+            <div class='PP_subcontent-input'>
+                <label>Размер таблицы (мм):</label>
+                <br>
+                <input type='number' id='width_of_page'  min='1' value='297' onchange='set_page_width(this)'>
+                <label>x</label>
+                <input type='number' id='height_of_page' min='1' value='210' onchange='set_page_height(this)'>
+                <select id='special_WH_of_page' onchange='set_special_page_size(this)'>
+                    <option value='1189x841'>A0</option>
+                    <option value='841x594' >A1</option>
+                    <option value='594x420' >A2</option>
+                    <option value='420x297' >A3</option>
+                    <option value='297x210' selected>A4</option>
+                    <option value='210x148' >A5</option>
+                    <option value='148x105' >A6</option>
+                </select>
+            </div>
+            <div class='PP_subcontent-input'>
+                <label>Расписаний в линии:</label>
+                <br>
+                <input type='number' id='count_on_row' min='1' value='1' onchange='set_inline(this)'>
+            </div>
+            <div class='PP_subcontent-input'>
+                <label>Размер шрифта (pt):</label>
+                <br>
+                <input type='number' min='1' value='8' id='size_of_font' name='font_size' onchange='set_font_size(this)'>
+            </div>
+            <div class='PP_subcontent-checkbox' id='light_theme_using'>
                 <input type='checkbox' name='use_light_theme' onchange='switch_theme_using(this)' checked>
                 <label for='use_light_theme'>Светлая тема</label>
             </div>
-            <div class='PP_subcontent' id='filters_using'>
+            <div class='PP_subcontent-checkbox' id='filters_using'>
                 <input type='checkbox' name='use_filters' onchange='switch_filters_using(this)'>
                 <label for='use_filters'>Фильтры</label>
             </div>
-            <div class='PP_subcontent' id='group_name_display'>
+            <div class='PP_subcontent-checkbox' id='group_name_display'>
                 <input type='checkbox' name='display_group_name' onchange='switch_group_name_display(this)' checked>
                 <label for='display_group_name'>Принадлежность</label>
             </div>
-            <div class='PP_subcontent' id='without_saturday'>
-                <input type='checkbox' name='display_saturday' onchange='switch_saturday(this)'>
-                <label for='display_saturday'>скрывать субботу</label>
+            <div class='PP_subcontent-days'>
+                <label>Отображение дней</label>
+                <div id='all_days_displaying'>
+                    <div class='day_displaying' active onclick='switch_day_displaying(this)'>пн</div>
+                    <div class='day_displaying' active onclick='switch_day_displaying(this)'>вт</div>
+                    <div class='day_displaying' active onclick='switch_day_displaying(this)'>ср</div>
+                    <div class='day_displaying' active onclick='switch_day_displaying(this)'>чт</div>
+                    <div class='day_displaying' active onclick='switch_day_displaying(this)'>пт</div>
+                    <div class='day_displaying' active onclick='switch_day_displaying(this)'>сб</div>
+                    <div class='day_displaying' active onclick='switch_day_displaying(this)'>вс</div>
+                </div>
             </div>
-            <div class='PP_subcontent' id='without_sunday'>
-                <input type='checkbox' name='display_sunday' onchange='switch_sunday(this)'>
-                <label for='display_sunday'>скрывать воскресенье</label>
-            </div>
-            <p>Рекомендуем при печати выставить альбомную ориентацию страницы и выключить отображение полей.</p>
         </div>
+        <p id='PP_rec'>Рекомендуем при печати выставить альбомную ориентацию страницы и выключить отображение полей.</p>
+    </aside>
+    <aside id='aside_warning' class='hidden'>
+        <div id='AW_header'></div>
+        <div id='AW_content'></div>
+        <div id='AW_OK'><button onclick='document.getElementById("aside_warning").classList.add("hidden")'>хорошо</button></div>
     </aside>
     `
+}
+
+function add_aside_bars () {
+    document.getElementById("MAIN").innerHTML += `
+    <aside id="theme_editor" class="theme_aside_editor hidden">
+    </aside>
+    <aside id="issue_form" class="aside_form hidden">
+    </aside>
+    <aside id='aside_warning' class='hidden'>
+        <div id='AW_header'><h1></h1></div>
+        <div id='AW_content'><p></p></div>
+        <div id='AW_OK'><button onclick='document.getElementById("aside_warning").classList.add("hidden")'>хорошо</button></div>
+    </aside>
+    `
+    dragElement(document.getElementById('theme_editor'))
 }
