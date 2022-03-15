@@ -14,7 +14,7 @@
     font-weight: inherit;
     font-size: inherit;
     margin-top: 5px;
-    color: var(--color-primary);
+    color: var(--color-text);
 }
 .groups-list__item::marker {
     color: var(--color-link);
@@ -27,7 +27,7 @@
 }
 
 .groups-list__item-link:hover {
-    color: var(--color-hover);
+    color: var(--color-link_hover);
     text-decoration: underline;
 }
 
