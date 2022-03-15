@@ -1,80 +1,150 @@
-rec_themes = {
+const rec_themes = {
     'light': {
         'text': 'светлый',
         'svg': `background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' enable-background='new 0 0 20 20' height='36px' viewBox='0 0 20 20' width='36px' fill='%23000000'%3E%3Crect fill='none' height='20' width='20'/%3E%3Cpath d='M10,7.5c1.38,0,2.5,1.12,2.5,2.5s-1.12,2.5-2.5,2.5S7.5,11.38,7.5,10S8.62,7.5,10,7.5z M10,6c-2.21,0-4,1.79-4,4s1.79,4,4,4 s4-1.79,4-4S12.21,6,10,6L10,6z M3.75,10.75c0.41,0,0.75-0.34,0.75-0.75c0-0.41-0.34-0.75-0.75-0.75h-2C1.34,9.25,1,9.59,1,10 s0.34,0.75,0.75,0.75H3.75z M18.25,10.75c0.41,0,0.75-0.34,0.75-0.75c0-0.41-0.34-0.75-0.75-0.75h-2c-0.41,0-0.75,0.34-0.75,0.75 s0.34,0.75,0.75,0.75H18.25z M9.25,3.75C9.25,4.16,9.59,4.5,10,4.5c0.41,0,0.75-0.34,0.75-0.75v-2C10.75,1.34,10.41,1,10,1 S9.25,1.34,9.25,1.75V3.75z M13.89,5.05c-0.29,0.29-0.29,0.77,0,1.06s0.77,0.29,1.06,0l1.06-1.06c0.29-0.29,0.29-0.77,0-1.06 c-0.29-0.29-0.77-0.29-1.06,0L13.89,5.05z M3.99,14.95c-0.29,0.29-0.29,0.77,0,1.06s0.77,0.29,1.06,0l1.06-1.06 c0.29-0.29,0.29-0.77,0-1.06c-0.29-0.29-0.77-0.29-1.06,0L3.99,14.95z M5.05,6.11c0.29,0.29,0.77,0.29,1.06,0s0.29-0.77,0-1.06 L5.05,3.99c-0.29-0.29-0.77-0.29-1.06,0s-0.29,0.77,0,1.06L5.05,6.11z M14.95,16.01c0.29,0.29,0.77,0.29,1.06,0s0.29-0.77,0-1.06 l-1.06-1.06c-0.29-0.29-0.77-0.29-1.06,0c-0.29,0.29-0.29,0.77,0,1.06L14.95,16.01z M9.25,18.25C9.25,18.66,9.59,19,10,19 c0.41,0,0.75-0.34,0.75-0.75v-2c0-0.41-0.34-0.75-0.75-0.75s-0.75,0.34-0.75,0.75V18.25z'/%3E%3C/svg%3E");`,
         'vars': {
-            '--color-primary'      : '#000000',
-            '--color-secondary'    : '#666666',
-            '--color-additionaly'  : '#CCCCCC',
-            '--color-light'        : '#DDDDDD',
-            '--color-link'         : '#000066',
-            '--color-hover'        : '#0000CC',
-            '--color-unchoiced'    : '#EEEEFF',
             '--color-background'   : '#FFFFFF',
+            '--color-additionaly'  : '#DDDDDD',
+            '--color-light'        : '#EEEEEE',
+            '--color-hover_1'      : '#DDDDDD',
+            '--color-hover_2'      : '#CCCCCC',
+
+            '--color-text'         : '#000000',
+            '--color-halftone_text': '#888888',
+            '--color-header_text'  : '#FFFFFF', 
+                
+            '--color-link'         : '#000066',
+            '--color-link_hover'   : '#006699',
             '--color-error'        : '#CC0000',
-            '--color-time_tracking': '#AAEEDD'
+
+            '--color-special'      : '#006488',
+            '--color-special_hover': '#00516e',
+
+            '--color-unchoiced'    : '#EEEEFF',
+            '--color-time_tracking': '#AAEEDD',
+        }
+    },
+    'pink': { 
+        'text': 'розовый',
+        'svg': `background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='36px' viewBox='0 0 24 24' width='36px' fill='%23000000'%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3Cpath d='M18.7 12.4c-.28-.16-.57-.29-.86-.4.29-.11.58-.24.86-.4 1.92-1.11 2.99-3.12 3-5.19-1.79-1.03-4.07-1.11-6 0-.28.16-.54.35-.78.54.05-.31.08-.63.08-.95 0-2.22-1.21-4.15-3-5.19C10.21 1.85 9 3.78 9 6c0 .32.03.64.08.95-.24-.2-.5-.39-.78-.55-1.92-1.11-4.2-1.03-6 0 0 2.07 1.07 4.08 3 5.19.28.16.57.29.86.4-.29.11-.58.24-.86.4-1.92 1.11-2.99 3.12-3 5.19 1.79 1.03 4.07 1.11 6 0 .28-.16.54-.35.78-.54-.05.32-.08.64-.08.96 0 2.22 1.21 4.15 3 5.19 1.79-1.04 3-2.97 3-5.19 0-.32-.03-.64-.08-.95.24.2.5.38.78.54 1.92 1.11 4.2 1.03 6 0-.01-2.07-1.08-4.08-3-5.19zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z'/%3E%3C/svg%3E");`,
+        'vars': {
+            '--color-background'   : '#FFEEEE',
+            '--color-additionaly'  : '#DDBBCC',
+            '--color-light'        : '#EEDDDD',
+            '--color-hover_1'      : '#EEBBDD',
+            '--color-hover_2'      : '#BB99EE',
+
+            '--color-text'         : '#550000',
+            '--color-halftone_text': '#998888',
+            '--color-header_text'  : '#FFFFFF', 
+                
+            '--color-link'         : '#BB33EE',
+            '--color-link_hover'   : '#FF66EE',
+            '--color-error'        : '#EE6699',
+
+            '--color-special'      : '#7733AA',
+            '--color-special_hover': '#BB5599',
+
+            '--color-unchoiced'    : '#EECCEE',
+            '--color-time_tracking': '#EE99AA',
         }
     },
     'darkest': {
-        'text': 'полностью чёрный',
+        'text': 'чёрный + зелёный',
         'svg': `background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' enable-background='new 0 0 24 24' height='36px' viewBox='0 0 24 24' width='36px' fill='%23000000'%3E%3Cg%3E%3Crect fill='none' height='24' width='24'/%3E%3C/g%3E%3Cg%3E%3Cg%3E%3Cpath d='M15.5,22c1.05,0,2.05-0.16,3-0.46c-4.06-1.27-7-5.06-7-9.54s2.94-8.27,7-9.54C17.55,2.16,16.55,2,15.5,2 c-5.52,0-10,4.48-10,10S9.98,22,15.5,22L15.5,22z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");`,
         'vars': {
-            '--color-primary'      : '#CCCCCC',
-            '--color-secondary'    : '#999999',
-            '--color-additionaly'  : '#666666',
-            '--color-light'        : '#333333',
-            '--color-link'         : '#00CC00',
-            '--color-hover'        : '#00FF00',
-            '--color-unchoiced'    : '#333F35',
             '--color-background'   : '#000000',
-            '--color-error'        : '#CC6666',
-            '--color-time_tracking': '#697fb6'
+            '--color-additionaly'  : '#444444',
+            '--color-light'        : '#333333',
+            '--color-hover_1'      : '#33443F',
+            '--color-hover_2'      : '#557766',
+
+            '--color-text'         : '#DDDDDD',
+            '--color-halftone_text': '#999999',
+            '--color-header_text'  : '#DDDDDD', 
+                
+            '--color-link'         : '#22DD22',
+            '--color-link_hover'   : '#44EE44',
+            '--color-error'        : '#EE7766',
+
+            '--color-special'      : '#448833',
+            '--color-special_hover': '#116622',
+
+            '--color-unchoiced'    : '#74806B',
+            '--color-time_tracking': '#7788BB',
         }
     },
     'dark': {
-        'text': 'тёмный',
+        'text': 'тёмный + синий',
         'svg': `background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' enable-background='new 0 0 20 20' height='36px' viewBox='0 0 20 20' width='36px' fill='%23000000'%3E%3Crect fill='none' height='20' width='20'/%3E%3Cpath d='M8.04,4.86C7.88,5.39,7.8,5.94,7.8,6.5c0,3.14,2.56,5.7,5.7,5.7c0.56,0,1.11-0.08,1.64-0.24c-0.79,2.07-2.8,3.54-5.14,3.54 c-3.03,0-5.5-2.47-5.5-5.5C4.5,7.66,5.97,5.65,8.04,4.86z M10,3c-3.87,0-7,3.13-7,7s3.13,7,7,7s7-3.13,7-7 c0-0.36-0.03-0.72-0.08-1.06C16.16,10,14.91,10.7,13.5,10.7c-2.32,0-4.2-1.88-4.2-4.2c0-1.41,0.7-2.66,1.76-3.42 C10.72,3.03,10.36,3,10,3L10,3z'/%3E%3C/svg%3E");`,
         'vars': {
-            '--color-primary'      : '#DDDDDD',
-            '--color-secondary'    : '#AAAAAA',
-            '--color-additionaly'  : '#777777',
-            '--color-light'        : '#444444',
-            '--color-link'         : '#00CC00',
-            '--color-hover'        : '#00FF00',
-            '--color-unchoiced'    : '#333F35',
-            '--color-background'   : '#1F2020',
-            '--color-error'        : '#CC6666',
-            '--color-time_tracking': '#697fb6'
+            '--color-background'   : '#222222',
+            '--color-additionaly'  : '#555555',
+            '--color-light'        : '#333333',
+            '--color-hover_1'      : '#444455',
+            '--color-hover_2'      : '#666677',
+
+            '--color-text'         : '#DDDDDD',
+            '--color-halftone_text': '#999999',
+            '--color-header_text'  : '#DDDDDD', 
+                
+            '--color-link'         : '#0088DD',
+            '--color-link_hover'   : '#0099EE',
+            '--color-error'        : '#EE7766',
+
+            '--color-special'      : '#085C86',
+            '--color-special_hover': '#044C76',
+
+            '--color-unchoiced'    : '#556677',
+            '--color-time_tracking': '#7788BB',
         }
     },
     'custom': {
         'text': 'пользовательский',
         'svg': `background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='36px' viewBox='0 0 24 24' width='36px' fill='%23000000'%3E%3Cpath d='M0 0h24v24H0V0z' fill='none'/%3E%3Cpath d='M19.43 12.98c.04-.32.07-.64.07-.98 0-.34-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.09-.16-.26-.25-.44-.25-.06 0-.12.01-.17.03l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.06-.02-.12-.03-.18-.03-.17 0-.34.09-.43.25l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65c-.04.32-.07.65-.07.98 0 .33.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.09.16.26.25.44.25.06 0 .12-.01.17-.03l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.06.02.12.03.18.03.17 0 .34-.09.43-.25l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65zm-1.98-1.71c.04.31.05.52.05.73 0 .21-.02.43-.05.73l-.14 1.13.89.7 1.08.84-.7 1.21-1.27-.51-1.04-.42-.9.68c-.43.32-.84.56-1.25.73l-1.06.43-.16 1.13-.2 1.35h-1.4l-.19-1.35-.16-1.13-1.06-.43c-.43-.18-.83-.41-1.23-.71l-.91-.7-1.06.43-1.27.51-.7-1.21 1.08-.84.89-.7-.14-1.13c-.03-.31-.05-.54-.05-.74s.02-.43.05-.73l.14-1.13-.89-.7-1.08-.84.7-1.21 1.27.51 1.04.42.9-.68c.43-.32.84-.56 1.25-.73l1.06-.43.16-1.13.2-1.35h1.39l.19 1.35.16 1.13 1.06.43c.43.18.83.41 1.23.71l.91.7 1.06-.43 1.27-.51.7 1.21-1.07.85-.89.7.14 1.13zM12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm0 6c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z'/%3E%3C/svg%3E");`,
         'vars': {
-            '--color-primary'      : '#000000',
-            '--color-secondary'    : '#666666',
-            '--color-additionaly'  : '#CCCCCC',
-            '--color-light'        : '#DDDDDD',
-            '--color-link'         : '#000066',
-            '--color-hover'        : '#0000CC',
-            '--color-unchoiced'    : '#EEEEFF',
             '--color-background'   : '#FFFFFF',
+            '--color-additionaly'  : '#DDDDDD',
+            '--color-light'        : '#EEEEEE',
+            '--color-hover_1'      : '#DDDDDD',
+            '--color-hover_2'      : '#CCCCCC',
+
+            '--color-text'         : '#000000',
+            '--color-halftone_text': '#888888',
+            '--color-header_text'  : '#FFFFFF', 
+                
+            '--color-link'         : '#000066',
+            '--color-link_hover'   : '#006699',
             '--color-error'        : '#CC0000',
+
+            '--color-special'      : '#006488',
+            '--color-special_hover': '#00516e',
+
+            '--color-unchoiced'    : '#EEEEFF',
             '--color-time_tracking': '#AAEEDD'
         }
     }
 }
 
 let property_text = {
-    '--color-primary'      : 'Основной цвет',
-    '--color-secondary'    : 'Второстепенный цвет',
+    '--color-background'   : 'Задний фон',
     '--color-additionaly'  : 'Дополнительный цвет',
-    '--color-light'        : 'Тусклый цвет',
-    '--color-link'         : 'Цвет ссылок',
-    '--color-hover'        : 'Цвет при наведении',
-    '--color-unchoiced'    : 'Цвет невыбранных блоков',
-    '--color-background'   : 'Цвет фона',
-    '--color-error'        : 'Цвет выделения',
+    '--color-light'        : 'Близкий к заднему фону',
+    '--color-hover_1'      : 'Выделение 1',
+    '--color-hover_2'      : 'Выделение 2',
+
+    '--color-text'         : 'Текст',
+    '--color-halftone_text': 'Полутоновый текст',
+    '--color-header_text'  : 'Текст заголовка окон', 
+        
+    '--color-link'         : 'Ссылки',
+    '--color-link_hover'   : 'Ссылки при наведении',
+    '--color-error'        : 'Предупреждение',
+
+    '--color-special'      : 'Особый',
+    '--color-special_hover': 'Особый при наведении',
+
+    '--color-unchoiced'    : 'Невыбранный ("показать всё")',
     '--color-time_tracking': 'Цвет отслеживания времени'
 }
 
@@ -140,7 +210,7 @@ settings = undefined
 style = undefined
 
 function adapt_svg_clr (svg_txt, theme = MODE) {
-    return svg_txt.replaceAll('%23000000', rec_themes[theme]['vars']['--color-primary'].replace('#', '%23'))
+    return svg_txt.replaceAll('%23000000', rec_themes[theme]['vars']['--color-text'].replace('#', '%23'))
 }
 
 function update_svgs (theme = MODE) {
@@ -208,6 +278,10 @@ function fill_theme_editor () {
     let div = document.createElement('div')
     div.setAttribute('id', 'TE_content')
     for (property in rec_themes['custom']['vars']) {
+        if (!property_text[property]) {
+            delete rec_themes['custom']['vars'][property]
+            continue
+        }
         let row = document.createElement('tr')
         row.innerHTML = `
         <td>
@@ -247,7 +321,7 @@ function set_theme_property (property, clr_input) {
     rec_themes['custom']['vars'][property] = clr_input.value
     document.documentElement.style.setProperty(property, clr_input.value)
     save_custom_theme()
-    if (property == '--color-primary') update_svgs()
+    if (property == '--color-text') update_svgs()
 }
 
 function set_custom_as_base_theme () {
