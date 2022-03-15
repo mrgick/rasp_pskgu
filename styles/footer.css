@@ -13,18 +13,18 @@
     color: var(--color-link);
 }
 .footer-link:hover {
-    color: var(--color-hover);
+    color: var(--color-link_hover);
     text-decoration: underline;
 }
 .footer-authors {
-    color: var(--color-secondary);
+    color: var(--color-halftone_text);
     text-align: right;
 }
 .footer-authors-link {
     color: inherit;
 }
 .footer-authors-link:hover {
-    color: var(--color-additionaly);
+    color: var(--color-link_hover);
     cursor: pointer;
     text-decoration: underline;
 }
