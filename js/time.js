@@ -64,8 +64,8 @@ function insert_date_of_last_update (last_date, last_update) {
         <p>${last_update.getDate()} ${monthNames[last_update.getMonth()]} ${last_update.getFullYear()} (</p>
         `
 
-        if (difference < 1) div.innerHTML += '<p>Обновлено сегодня</p>'
-        else if (difference < 2) div.innerHTML += '<p>Обновлено вчера</p>'
+        if (difference < 1) div.children[1].innerText += 'Обновлено сегодня)'
+        else if (difference < 2) div.children[1].innerText += 'Обновлено вчера)'
         else for (i of [['year', 365], ['month', 30], ['week', 7], ['day', 1]]) {
             let result = try_insert_ago(...i, difference)
             if (result) {
