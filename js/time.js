@@ -47,8 +47,8 @@ function getCurrentWeek(first_date)
     return todate - mondate + 1;
 }
 
-function try_insert_ago (period, interval, diference) {
-    let result = Math.floor(diference/interval)
+function try_insert_ago (period, interval, difference) {
+    let result = Math.floor(difference/interval)
     if (result > 0) return `${result} ${was_updated[period][result == 1? 0 : (result < 5? 1 : 2)]} назад)`
     else return false
 }
@@ -56,7 +56,7 @@ function try_insert_ago (period, interval, diference) {
 function insert_date_of_last_update (last_date, last_update) {
     let difference = new Date() - last_update
     difference /= 1000*60*60*24
-    
+
     let div = document.getElementById('date_of_last_update')
     if (div) {
         div.innerHTML = `
@@ -77,6 +77,10 @@ function insert_date_of_last_update (last_date, last_update) {
 
     if (difference > 30) {
         if (div) div.children[1].setAttribute('style', 'color: var(--color-error)')
-        if (last_date <= new Date()) document.getElementById("aside_warning").classList.remove("hidden")
+        if (last_date <= new Date()) {
+            up_warning('Все занятия по данному расписанию закончились, ' + 
+                       'а последнее обновление было больше месяца назад. ' + 
+                       'Возможно, оно более не используется.')
+        }
     }  
 }
