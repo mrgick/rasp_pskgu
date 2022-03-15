@@ -62,7 +62,7 @@
 }
 
 #print_switcher:hover {
-    background-color: var(--color-additionaly);
+    background-color: var(--color-hover_2);
 }
 
 #PP_content {
