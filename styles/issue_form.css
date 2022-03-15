@@ -5,8 +5,8 @@
     max-width: 600px;
     width: 90%;
     height: fit-content;
-    background-color: #FFFFFF;
-    border: 1px solid #000000;
+    background-color: var(--color-background);
+    border: 1px solid var(--color-special);
     padding: 0px;
     z-index: 10;
 }
@@ -16,8 +16,7 @@
 .AF_header {
     width: 100%;
     height: fit-content;
-    background-color: #006488;
-    color: #FFFFFF;
+    background-color: var(--color-special);
     margin: 0px;
 }
 
@@ -28,7 +27,7 @@
     font-family: Arial, Helvetica, sans-serif;
     font-weight: 100;
     max-width: calc(100% - 34px);
-    color: #FFFFFF;
+    color: var(--color-header_text);
 }
 
 .issue_report-close {
@@ -36,7 +35,7 @@
     right: 5px;
     top: 0px;
     font-size: 30px;
-    color: #FFFFFF;
+    color: var(--color-header_text);
 }
 .issue_report-close:hover {
     cursor: pointer;
@@ -48,8 +47,8 @@
     width: calc(100% - 10px);
     height: fit-content;
     min-height: 200px;
-    background-color: #FFFFFF;
-    color: #000000;
+    background-color: var(--color-background);
+    color: var(--color-text);
     margin: 0px;
     padding: 5px;
     padding-top: 10px;
@@ -90,8 +89,8 @@ div[id^='AF_this_input_'] {
     min-height: 30px;
     margin: 0px;
     margin-bottom: 5px;
-    color: #000000;
-    background-color: #EEEEEE;
+    color: var(--color-text);
+    background-color: var(--color-light);
     position: relative;
 }
 
@@ -106,7 +105,7 @@ div[id^='AF_this_input_'] {
 div[id^='AF_this_input_']:hover {
     cursor: pointer;
     transition: 0.25s;
-    background-color: #CCCCCC;
+    background-color: var(--color-hover_2);
 }
 
 input[id^='AF_this_chbx_'] {
@@ -120,6 +119,7 @@ input[id^='AF_this_chbx_'] {
 }
 
 .AF_content input[type="text"] {
+    background-color: var(--color-background);
     font-size: 14px;
     border: 0px;
 }
@@ -128,7 +128,8 @@ input[id^='AF_this_chbx_'] {
     width: 80%;  
     max-width: calc(100% - 6px);
     height: 200px; 
-    border: 1px solid #000000;
+    background-color: var(--color-background);
+    border: 1px solid var(--color-text);
     padding: 2px;
 }
 
@@ -137,7 +138,7 @@ input[id^='AF_this_chbx_'] {
 .AF_navigation {
     width: calc(100% - 20px);
     height: fit-content;
-    background-color: #EEEEEE;
+    background-color: var(--color-light);
     margin: 0px;
     padding: 10px;
     text-align: center;
@@ -147,7 +148,7 @@ input[id^='AF_this_chbx_'] {
     width: 100px;
     height: 30px;
     margin: 0px;
-    background-color: #000000;
+    background-color: var(--color-text);
     border: 0px;
     clip-path: polygon( 0px 15px, 
                         15px 0px,
@@ -165,8 +166,9 @@ input[id^='AF_this_chbx_'] {
     width: 100%;
     height: 100%;
     margin: 0px;
-    background-color: #006488;
-    color: #FFFFFF;
+    transition: 0.25s;
+    background-color: var(--color-special);
+    color: var(--color-header_text);
     border: 0px;
     clip-path: polygon( 1px 15px, 
                         15px 1px,
@@ -176,11 +178,11 @@ input[id^='AF_this_chbx_'] {
     font-size: 20px;
 }
 #AF_prev_button:hover {
-    background-color: #00516e;
+    background-color: var(--color-special_hover);
 }
 #AF_prev_button:disabled {
-    background-color: #cacaca;
-    color: #888888;
+    background-color: var(--color-additionaly);
+    color: var(--color-halftone_text);
 }
 
 #AF_progress_bar {
@@ -188,8 +190,8 @@ input[id^='AF_this_chbx_'] {
     min-width: 100px;
     height: 28px;
     margin: 0px;
-    background-color: #FFFFFF;
-    border: 1px solid #000000;
+    background-color: var(--color-background);
+    border: 1px solid var(--color-text);
     display: inline-block;
     vertical-align: bottom;
     position: relative;
@@ -199,14 +201,14 @@ input[id^='AF_this_chbx_'] {
     width: 100%;
     font-size: 22px;
     line-height: 28px;
-    color: #000000;
+    color: var(--color-text);
 }
 
 #AF_next_button_border {
     width: 100px;
     height: 30px;
     margin: 0px;
-    background-color: #000000;
+    background-color: var(--color-text);
     border: 0px;
     clip-path: polygon( 100% 15px,
                         calc(100% - 15px) 0px,
@@ -224,8 +226,9 @@ input[id^='AF_this_chbx_'] {
     width: 100%;
     height: 100%;
     margin: 0px;
-    background-color: #006488;
-    color: #FFFFFF;
+    transition: 0.25s;
+    background-color: var(--color-special);
+    color: var(--color-header_text);
     border: 0px;
     clip-path: polygon( calc(100% - 1px) 15px,
                         calc(100% - 15px) 1px,
@@ -235,11 +238,11 @@ input[id^='AF_this_chbx_'] {
     font-size: 20px;
 }
 #AF_next_button:hover {
-    background-color: #00516e;
+    background-color: var(--color-special_hover);
 }
 #AF_next_button:disabled {
-    background-color: #cacaca;
-    color: #888888;
+    background-color: var(--color-additionaly);
+    color: var(--color-halftone_text);
 }
 
 
@@ -261,16 +264,17 @@ form[target='dummyframe'] {
     margin: 0px;
     padding: 0px;
     border: 0px;
-    background-color: #006488;
-    color: #FFFFFF;
+    transition: 0.25s;
+    background-color: var(--color-special);
+    color: var(--color-header_text);
     font-size: 20px;
 }
 #form_submit:hover {
-    background-color: #00516e;
+    background-color: var(--color-special_hover);
 }
 #form_submit:disabled {
-    background-color: #cacaca;
-    color: #888888;
+    background-color: var(--color-additionaly);
+    color: var(--color-halftone_text);
 }
 
 .AF_content p {
@@ -283,14 +287,14 @@ form[target='dummyframe'] {
     margin: 0px;
     margin-top: 10px;
     margin-bottom: 10px;
-    background-color: #006488;
-    color: #FFFFFF;
-    border: 1px solid #000000;
+    background-color: var(--color-special);
+    color: var(--color-header_text);
+    border: 1px solid var(--color-text);
     display: inline-block;
     text-align: center;
     vertical-align: bottom;
     font-size: 24px;
 }
 #AF_close:hover {
-    background-color: #00516e;
+    background-color: var(--color-special_hover);
 }
