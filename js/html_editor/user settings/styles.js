@@ -34,6 +34,13 @@ const base_styles = {'light':{
 							'font-style'      :'normal',   // normal | italic
 							'font-weight'     :'normal',   // normal | bold
 							'text-decoration' :'none'},    // none | line-through | underline
+					  'pink':{
+							'background-color':'transparent', // 333366 ?
+							'color'           :'#440000',
+							'border'          :'0px solid #440000',
+							'font-style'      :'normal',   // normal | italic
+							'font-weight'     :'normal',   // normal | bold
+							'text-decoration' :'none'},    // none | line-through | underline
 				   'darkest':{
 							'background-color':'transparent', // 333366 ?
 							'color'           :'#ffffff',
@@ -50,8 +57,8 @@ const base_styles = {'light':{
 							'text-decoration' :'none'},    // none | line-through | underline
 					'custom':{
 							'background-color':'transparent',
-							'color'           :'var(--color-primary)',
-							'border'          :'0px solid #000000',
+							'color'           :'var(--color-text)',
+							'border'          :'0px solid var(--color-text)',
 							'font-style'      :'normal',   // normal | italic
 							'font-weight'     :'normal',   // normal | bold
 							'text-decoration' :'none'},    // none | line-through | underline
@@ -250,7 +257,10 @@ function generate_new_global_placement () {
 let clear_button_pressed = false
 let alerted_this_session = false
 function set_clear_styles () {
-	if (!alerted_this_session) alert('Осторожно! При нажатии кнопки "применить", Вы удалите все фильтры без возможности их вернуть. Вы всё ещё сможете вернуть последние сохранённые фильтры, если нажмёте "отменить".')
+	if (!alerted_this_session) up_warning(	'Осторожно! При нажатии кнопки "применить", ' + 
+						'Вы удалите все фильтры без возможности их вернуть. ' + 
+						'У Вас всё ещё имеется возможность восстановить последние ' + 
+						'сохранённые фильтры, если нажмёте "отменить".')
 	alerted_this_session = true
 	clear_button_pressed = true
 	there_are_changes    = true
