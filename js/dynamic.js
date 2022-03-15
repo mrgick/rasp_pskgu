@@ -20,6 +20,16 @@ function close_theme_editor () {
     return false
 }
 
+function Switch_editbar() {
+    if (document.getElementById("Editbar").classList.contains("hidden")) {
+        editbarOpen()
+    }
+    else {
+        editbarClose()
+        filterbarClose()
+    }
+}
+
 function editbarOpen()
 {
     document.getElementById("Editbar").classList.remove("hidden");
@@ -31,7 +41,8 @@ function editbarOpen()
 function editbarClose()
 {
     if (there_are_changes) {
-        if (confirm('Вы не применили последние изменения и при следующей перезагрузке страницы они будут утеряны. Применить сейчас?')) {
+        if (confirm('Вы не применили последние изменения и при следующей перезагрузке ' + 
+                    'страницы они будут утеряны. Применить сейчас?')) {
             save_settings()
             there_are_changes = false
         }
@@ -81,7 +92,7 @@ function close_issue_report () {
 auto_alt_click = false
 function switch_alt_click () {
     auto_alt_click = !auto_alt_click
-    if (auto_alt_click) document.getElementsByClassName('enable_alt_click')[0].setAttribute('style', 'background: var(--color-light)')
+    if (auto_alt_click) document.getElementsByClassName('enable_alt_click')[0].setAttribute('style', 'background: var(--color-hover_1)')
     else document.getElementsByClassName('enable_alt_click')[0].removeAttribute('style')
     return false;
 }
@@ -104,4 +115,42 @@ function close_favorite_list () {
 
 function open_print_page () {
     window.open(document.location.href.replace(document.location.search, '?print_group_name=' + get_current_group_name().replaceAll(' ', '_')), '_blank');
+}
+
+
+function dragElement(elem, dragable_subelem = null) {
+    var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+    if (dragable_subelem != null) {
+        if (typeof dragable_subelem == 'number') elem.children[dragable_subelem].onmousedown = dragMouseDown;
+        else document.getElementById(dragable_subelem).onmousedown = dragMouseDown;
+    } 
+    else elem.onmousedown = dragMouseDown;
+
+  function dragMouseDown(e) {
+    e = e || window.event;
+    // get the mouse cursor position at startup:
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    document.onmouseup = closeDragElement;
+    // call a function whenever the cursor moves:
+    document.onmousemove = elementDrag;
+  }
+
+  function elementDrag(e) {
+    e = e || window.event;
+    // calculate the new cursor position:
+    pos1 = pos3 - e.clientX;
+    pos2 = pos4 - e.clientY;
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    // set the element's new position:
+    elem.style.top = (elem.offsetTop - pos2) + "px";
+    elem.style.left = (elem.offsetLeft - pos1) + "px";
+  }
+
+  function closeDragElement() {
+    /* stop moving when mouse button is released:*/
+    document.onmouseup = null;
+    document.onmousemove = null;
+  }
 }
