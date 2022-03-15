@@ -2,7 +2,7 @@
     font-family: 'Open Sans', sans-serif;
     font-weight: inherit;
     font-size: inherit;
-    color: var(--color-primary);
+    color: var(--color-text);
     margin: 0;
 }
 
@@ -46,7 +46,7 @@ div[class='background_of_setting_menu'] {
     top: 0px;
     right: 0px;
     width: max-content;
-    background-color: var(--color-primary);
+    background-color: var(--color-text);
     z-index: 7;
     --svg_sz: 36px;
     clip-path: polygon( 0px var(--svg_sz),
@@ -71,12 +71,12 @@ div[class='setting_menu'] {
 div[class^='switcher'] {
     text-align: right;
     min-height: 36px;
-    border-bottom: 1px solid var(--color-light);
+    border-bottom: 1px solid var(--color-additionaly);
     cursor: pointer;
+    transition: 0.25s;
 }
 div[class^='switcher']:hover {
-    transition: 0.25s;
-    background-color: var(--color-light);
+    background-color: var(--color-hover_1);
 }
 
 div[class^='switcher'] label {
@@ -85,13 +85,12 @@ div[class^='switcher'] label {
     font-size: 20px;
     line-height: 36px;
     margin-left: 10px;
-    color: var(--color-primary);
+    color: var(--color-text);
     cursor: pointer;
 }
 
 .switcher-mode:hover div[id^='theme_div-'] {
-    transition: 0.25s;
-    border-top: 1px solid var(--color-additionaly);
+    border-top: 1px solid var(--color-hover_2);
 }
 
 #favorite_list {
@@ -107,7 +106,7 @@ div[class^='switcher'] label {
     width: 250px;
     height: 400px;
     background-color: var(--color-background);
-    border: 1px solid var(--color-primary);
+    border: 1px solid var(--color-text);
     overflow-y: auto;
 }
 
@@ -117,7 +116,7 @@ div[class^='switcher'] label {
     text-align: center;
     vertical-align: middle;
     align-self: center;
-    color: var(--color-additionaly);
+    color: var(--color-halftone_text);
     font-size: 14px;
 }
 
@@ -127,12 +126,12 @@ div[class^='switcher'] label {
     min-height: 36px;
     line-height: 36px;
     background-color: var(--color-background);
-    border-bottom: 1px solid var(--color-light);
+    border-bottom: 1px solid var(--color-additionaly);
     transition: 0.25s;
     cursor: pointer;
 }
 .goto_favorite:hover {
-    background-color: var(--color-light);
+    background-color: var(--color-hover_1);
 }
 .goto_favorite label {
     cursor: pointer;
@@ -147,7 +146,7 @@ div[class^='switcher'] label {
 }
 .goto_favorite div[onclick^='remove']:hover {
     transition: 0.25s;
-    background-color: var(--color-additionaly);
+    background-color: var(--color-hover_2);
 }
 
 .goto_favorite div[onclick^='go_to'] {
@@ -161,11 +160,12 @@ div[onclick^='close'] svg {
     right: 1px;
 }
 
+
 #date_of_last_update {
-    padding: 3px;
+    padding: 4px;
 }
 #date_of_last_update p {
-    color: var(--color-secondary);
+    color: var(--color-halftone_text);
     font-size: 14px;
 }
 
@@ -175,18 +175,18 @@ div[onclick^='close'] svg {
     bottom: 10px;
     left: 10px;
     background-color: var(--color-background);
-    border: 1px solid var(--color-primary);
+    border: 1px solid var(--color-special);
     min-width: 100px;
     max-width: 400px;
     z-index: 15;
 }
 
 #AW_header {
-    background-color: var(--color-link);
+    background-color: var(--color-special);
     padding: 5px;
 }
 #AW_header h1 {
-    color: var(--color-background);
+    color: var(--color-header_text);
     font-size: 18px;
     font-weight: bold;
 }
@@ -202,11 +202,11 @@ div[onclick^='close'] svg {
 #AW_OK button {
     width: 80px;
     height: 28px;
-    background-color: var(--color-light);
-    color: var(--color-primary);
+    transition: 0.25s;
+    background-color: var(--color-hover_1);
+    color: var(--color-text);
     float: right;
 }
 #AW_OK button:hover {
-    transition: 0.25s;
-    background-color: var(--color-additionaly);
+    background-color: var(--color-hover_2);
 }
