@@ -79,15 +79,6 @@ function get_lesson_percentage () {
             else return 100
         }
     }
-    /*
-    if      (60* 8+30 < crnt_time && crnt_time < 60*10+00) return Math.floor((crnt_time-(60* 8+30))/90*100)
-    else if (60*10+15 < crnt_time && crnt_time < 60*11+45) return Math.floor((crnt_time-(60*10+15))/90*100)
-    else if (60*12+30 < crnt_time && crnt_time < 60*14+00) return Math.floor((crnt_time-(60*12+30))/90*100)
-    else if (60*14+30 < crnt_time && crnt_time < 60*15+45) return Math.floor((crnt_time-(60*14+30))/90*100)
-    else if (60*16+00 < crnt_time && crnt_time < 60*17+30) return Math.floor((crnt_time-(60*16+00))/90*100)
-    else if (60*18+00 < crnt_time && crnt_time < 60*19+30) return Math.floor((crnt_time-(60*18+00))/90*100)
-    else if (60*19+40 < crnt_time && crnt_time < 60*21+10) return Math.floor((crnt_time-(60*19+40))/90*100)
-    */
 }
 
 function renew_table_time_status (enabled = tracking_status) {
@@ -100,6 +91,8 @@ function renew_table_time_status (enabled = tracking_status) {
     let crnt_day = (crnt_time.getFullYear()+'-'+
                    (Number(crnt_time.getMonth())+1).toString().padStart(2, '0')+'-'+
                    crnt_time.getDate().toString().padStart(2, '0'))
+
+    if (crnt_day < first_day) return
 
     if (enabled) {
         for (let i = 0; i <= number_of_days; i++) {
