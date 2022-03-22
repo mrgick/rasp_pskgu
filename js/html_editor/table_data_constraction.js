@@ -134,7 +134,7 @@ function special_text (pattern, matched) {
 }
 
 function adapt_for_html (text) {
-    return text.replaceAll(/([ ,-/'"]|\(|\)|\\|)/g, '_').replaceAll(/[.]/g, '．').replaceAll('@', 'A') // ⋅．•
+    return text.replaceAll(/([ ,-/]|\(|\)|\\)/g, '_').replaceAll(/[.]/g, '．').replaceAll('@', 'A') // ⋅．•
 }
 
 /* 
@@ -287,7 +287,17 @@ function divide (input, RE_list) {
                                         matched[0] = res_123[1]
                                         try_push(type, subclass_name, res_123[0])
                                     }
-                                    content.push([class_name, matched[0]]) // future div
+
+                                    let already_exists = false
+                                    for (matching_block of content) {
+                                        if (matching_block[0] == class_name) {
+                                            if (matching_block[1] == matched[0]) {
+                                                already_exists = true
+                                                break
+                                            }
+                                        }
+                                    }
+                                    if (!already_exists) content.push([class_name, matched[0]]) // future div
 
                                     class_name = ''
                                     //index++
