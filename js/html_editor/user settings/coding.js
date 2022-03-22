@@ -62,8 +62,8 @@ function encode_style (style_tag) {
 	result += compact_colour(get_css_attribute('border', style_tag).split(' ')[2])
 
 	value = ''
-	value += get_css_attribute('font-style' , style_tag) == 'italic'? '1' : '0'
-	value += get_css_attribute('font-weight', style_tag) == 'bold'? '1' : '0'
+	value += (get_css_attribute('font-style' , style_tag) == 'italic'? '1' : '0')
+	value += (get_css_attribute('font-weight', style_tag) == 'bold'  ? '1' : '0')
 	switch(get_css_attribute('text-decoration', style_tag)) {
 		case '':
 		case 'none':
@@ -94,6 +94,7 @@ function save_settings () {
 	if (clear_button_pressed) for (class_name in all_REs) createCookie(class_name, '', 180)
 	clear_button_pressed = false
 	there_are_changes = false
+
 	let cookies = {}
 	for (class_name in all_REs) cookies[class_name] = {'encoded_str': [], 'to_remove': []}
 
@@ -164,11 +165,21 @@ function decode_style (str) {
 
 	if (value[0] == '1') style_content.push('font-style: italic')
 	if (value[1] == '1') style_content.push('font-weight: bold')
-	style_content.push('text-decoration: ' + (value[2] == '1'? 'underline '  : ''      )
-					       + (value[3] == '1'? 'line-through': ''      ))
+	switch(value[2] + value[3]) {
+		case '00':
+			 break
 
-	if (style_content[style_content.length-1] == 'text-decoration: ') {
-		style_content.pop()
+		case '10':
+			style_content.push('text-decoration: underline')
+			break
+
+		case '01':
+			style_content.push('text-decoration: line-through')
+			break
+
+		case '11':
+			style_content.push('text-decoration: underline line-through')
+			break
 	}
 
 	//console.log(`{ ${style_content.join('; ')}; }`)
