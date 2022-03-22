@@ -1,3 +1,5 @@
+const version = '1.0.0'
+
 function generate_main_page()
 {
     document.getElementById("MAIN").innerHTML=`
@@ -12,15 +14,21 @@ function generate_main_page()
                 <div class="switcher" onclick="Switch('setting_menu');">
                     <svg name='special' xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 0 24 24" width="36px"></svg>
                 </div>
-                <div class="switcher-info" onclick="">
-                    <label style='color: var(--color-halftone_text)'>Справка</label>
+                <div class="switcher-info" onclick="document.getElementById('info_list').classList.toggle('hidden')">
+                    <label>Справка</label>
                     <svg xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 0 24 24" width="36px"></svg>
+                    <div id="info_list" class="hidden">
+                        <div class='info_div' onclick='open_info_panel("search_page")'><label>страница поиска - что здесь</label></div>
+                        <div class='info_div' onclick='open_info_panel("correct_searching")'><label>Как правильно искать</label></div>
+                        <div class='info_div' onclick='open_info_panel("cookies")'><label>Для чего используются Cookies</label></div>
+                        <div class='info_div' onclick='open_info_panel("filling_out_form")'><label>Как сообщить об ошибке</label></div>
+                        <div class='info_div' onclick='open_info_panel("full_info_list")'><label>Полный список руководств</label></div>
+                        <div class='info_div' onclick='open_info_panel("last_update")'><label>Обновление ${version}</label></div>
+                    </div>
                 </div>
                 <div class="switcher-mode" onclick="switch_theme_list();">
-                    <div>    
-                        <label>Выбрать цветовую тему</label>
-                        <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 20 20" height="36px" viewBox="0 0 20 20" width="36px"></svg>
-                    </div>
+                    <label>Выбрать цветовую тему</label>
+                    <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 20 20" height="36px" viewBox="0 0 20 20" width="36px"></svg>
                     <div id="theme_list" class="clr_theme_list hidden"></div>
                 </div>
                 <div class="switcher-issue_form" onclick="switch_issue_report();">
@@ -35,13 +43,17 @@ function generate_main_page()
         <form class="search-form">
             <svg class="search-form-icon" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
             <input class="search-form-input" name="find_group_name" type="search" autocomplete="off" placeholder="группа/преподаватель" />
-            <button class="search-form-button" type="submit">Поиск</button>
+            <button class="search-form-button" onclick="adapt_search_text()" type="submit">Поиск</button>
         </form>
         <a class="search-showall" href="?list">Показать всё</a>
     </div>
     <footer class="footer">
-        <a class="footer-link" href="http://rasp.pskgu.ru">Оригинал расписания</a>
-        <div class="footer-authors">© MrGick, KGlebB, WhiteRain7<br>сайт создан с использованием <a class="footer-authors-link" href="https://github.com/mrgick/pskgu_api">API</a></div>
+        <a class="footer-link" href="http://rasp.pskgu.ru">Оригинал расписания</a> 
+        <div class="footer-authors">
+            © MrGick, KGlebB, WhiteRain7
+            <br>
+            <a class="footer-authors-link" href="https://github.com/mrgick/rasp_pskgu">сайт</a> создан с использованием <a class="footer-authors-link" href="https://github.com/mrgick/pskgu_api">API</a>
+        </div>
     </footer>
     `
     add_aside_bars()
@@ -57,15 +69,21 @@ function generate_search_page(text)
                 <div class="switcher" onclick="Switch('setting_menu');">
                     <svg name='special' xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 0 24 24" width="36px"></svg>
                 </div>
-                <div class="switcher-info" onclick="">
-                    <label style='color: var(--color-halftone_text)'>Справка</label>
+                <div class="switcher-info" onclick="document.getElementById('info_list').classList.toggle('hidden')">
+                    <label>Справка</label>
                     <svg xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 0 24 24" width="36px"></svg>
-                </div>
-                <div class="switcher-mode" onclick="switch_theme_list();">
-                    <div>    
-                        <label>Выбрать цветовую тему</label>
-                        <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 20 20" height="36px" viewBox="0 0 20 20" width="36px"></svg>
+                    <div id="info_list" class="hidden">
+                        <div class='info_div' onclick='open_info_panel("search_page")'><label>страница поиска - что здесь</label></div>
+                        <div class='info_div' onclick='open_info_panel("correct_searching")'><label>Как правильно искать</label></div>
+                        <div class='info_div' onclick='open_info_panel("cookies")'><label>Для чего используются Cookies</label></div>
+                        <div class='info_div' onclick='open_info_panel("filling_out_form")'><label>Как сообщить об ошибке</label></div>
+                        <div class='info_div' onclick='open_info_panel("full_info_list")'><label>Полный список руководств</label></div>
+                        <div class='info_div' onclick='open_info_panel("last_update")'><label>Обновление ${version}</label></div>
                     </div>
+                </div>
+                <div class="switcher-mode" onclick="switch_theme_list();"> 
+                    <label>Выбрать цветовую тему</label>
+                    <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 20 20" height="36px" viewBox="0 0 20 20" width="36px"></svg>
                     <div id="theme_list" class="clr_theme_list hidden"></div>
                 </div>
                 <div class="switcher-issue_form" onclick="switch_issue_report();">
@@ -111,9 +129,17 @@ function generate_rasp_page(group)
                                 <div class="switcher" onclick="Switch('setting_menu');">
                                     <svg name='special' xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 0 24 24" width="36px"></svg>
                                 </div>
-                                <div class="switcher-info" onclick="">
-                                    <label style='color: var(--color-halftone_text)'>Справка</label>
+                                <div class="switcher-info" onclick="document.getElementById('info_list').classList.toggle('hidden')">
+                                    <label>Справка</label>
                                     <svg xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 0 24 24" width="36px"></svg>
+                                    <div id="info_list" class="hidden">
+                                        <div class='info_div' onclick='open_info_panel("rasp_page")'><label>страница расписания - что здесь</label></div>
+                                        <div class='info_div' onclick='open_info_panel("filters")'><label>Как настраивать фильтры</label></div>
+                                        <div class='info_div' onclick='open_info_panel("print_version")'><label>Версия для печати - что здесь</label></div>
+                                        <div class='info_div' onclick='open_info_panel("filling_out_form")'><label>Как сообщить об ошибке</label></div>
+                                        <div class='info_div' onclick='open_info_panel("full_info_list")'><label>Полный список руководств</label></div>
+                                        <div class='info_div' onclick='open_info_panel("last_update")'><label>Обновление ${version}</label></div>
+                                    </div>
                                 </div>
                                 <div class="switcher-favorite" onclick="switch_favorite()">
                                     <label>Добавить в избранное</label>
@@ -128,10 +154,8 @@ function generate_rasp_page(group)
                                     <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 20 20" height="36px" viewBox="0 0 20 20" width="36px"></svg>
                                 </div>
                                 <div class="switcher-mode" onclick="switch_theme_list();">
-                                    <div>    
-                                        <label>Выбрать цветовую тему</label>
-                                        <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 20 20" height="36px" viewBox="0 0 20 20" width="36px"></svg>
-                                    </div>
+                                    <label>Выбрать цветовую тему</label>
+                                    <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 20 20" height="36px" viewBox="0 0 20 20" width="36px"></svg>
                                     <div id="theme_list" class="clr_theme_list hidden"></div>
                                 </div>
                                 <div class="switcher-print" onclick="open_print_page()">
@@ -165,6 +189,9 @@ function generate_rasp_page(group)
             <a class="asidebar-close" onclick="editbarClose();">
                 <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 0 24 24" width="18px"></svg>
             </a>
+            <a class="asidebar-help" onclick="open_info_panel('filters');">
+                <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 0 24 24" width="18px"></svg>
+            </a>
             <div class="editbar-main">
                 <div class="editbar-main-choice" id="EditOrder">
                 </div>
@@ -184,6 +211,9 @@ function generate_rasp_page(group)
         <aside class="filterbar hidden" id="Filterbar">
             <p class="filterbar-title">Пользовательские фильтры</p>
             <a class="asidebar-close" onclick="filterbarClose();">
+                <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 0 24 24" width="18px"></svg>
+            </a>
+            <a class="asidebar-help" onclick="open_info_panel('filters');">
                 <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 0 24 24" width="18px"></svg>
             </a>
             <div class="filterbar-main">
@@ -208,15 +238,20 @@ function generate_groups_list()
                 <div class="switcher" onclick="Switch('setting_menu');">
                     <svg name='special' xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 0 24 24" width="36px"></svg>
                 </div>
-                <div class="switcher-info" onclick="">
-                    <label style='color: var(--color-halftone_text)'>Справка</label>
+                <div class="switcher-info" onclick="document.getElementById('info_list').classList.toggle('hidden')">
+                    <label>Справка</label>
                     <svg xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 0 24 24" width="36px"></svg>
-                </div>
-                <div class="switcher-mode" onclick="switch_theme_list();">
-                    <div>    
-                        <label>Выбрать цветовую тему</label>
-                        <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 20 20" height="36px" viewBox="0 0 20 20" width="36px"></svg>
+                    <div id="info_list" class="hidden">
+                        <div class='info_div' onclick='open_info_panel("show_all")'><label>страница "показать всё" - что здесь</label></div>
+                        <div class='info_div' onclick='open_info_panel("decryption_show_all")'><label>Как правильно искать (списки)</label></div>
+                        <div class='info_div' onclick='open_info_panel("filling_out_form")'><label>Как сообщить об ошибке</label></div>
+                        <div class='info_div' onclick='open_info_panel("full_info_list")'><label>Полный список руководств</label></div>
+                        <div class='info_div' onclick='open_info_panel("last_update")'><label>Обновление ${version}</label></div>
                     </div>
+                </div>
+                <div class="switcher-mode" onclick="switch_theme_list();"> 
+                    <label>Выбрать цветовую тему</label>
+                    <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 20 20" height="36px" viewBox="0 0 20 20" width="36px"></svg>
                     <div id="theme_list" class="clr_theme_list hidden"></div>
                 </div>
                 <div class="switcher-issue_form" onclick="switch_issue_report();">
@@ -241,8 +276,8 @@ function generate_print_preview()
     <div id="Printable_Group_Rasp">
     </div>
     <aside id="print_panel" class="print_aside_form">
-        <div class="switcher-print" style='text-align: left'>
-            <div onclick="print()">
+        <div class="switcher-print">
+            <div class="switcher-print" style='text-align: left' onclick="print()">
                 <svg xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 0 24 24" width="36px"></svg>
                 <label style='margin-left: 0px;'>Печать</label>
             </div>
@@ -342,6 +377,12 @@ function add_aside_bars () {
         <div id='AW_content'><p></p></div>
         <div id='AW_OK'><button onclick='document.getElementById("aside_warning").classList.add("hidden")'>хорошо</button></div>
     </aside>
+    <aside id='help_list' class='hidden'>
+        <div id='help_bg' onclick='document.getElementById("help_list").classList.add("hidden")'>
+        </div>
+        <div id='help_panel'>
+        </div>
+    </list>
     `
     dragElement(document.getElementById('theme_editor'))
 }
