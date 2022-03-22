@@ -143,7 +143,7 @@ async function load_print_page (group_name) {
     
     generate_css_classes()
     set_clr_theme('light', true, false)
-    dragElement(document.getElementById('print_panel'))
+    dragElement(document.getElementById('print_panel'), 'PP_rec')
 
     let styles = document.getElementsByTagName('style')
     for (style of styles) {
@@ -201,4 +201,9 @@ function check_for_cookies () {
             }
         else return false
     }
+}
+
+function adapt_search_text () {
+    let input = document.getElementsByClassName('search-form-input')[0]
+    input.value = input.value.replaceAll(' ', '_')
 }
