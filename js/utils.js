@@ -52,3 +52,13 @@ function convert_from_to (value, from, to) {
 
 function bin (value) {return convert_10_to_sys(value, 2 )}
 function hex (value) {return convert_10_to_sys(value, 16)}
+
+function decode_win1251(s){
+    var win1251 = new TextDecoder("windows-1251"),
+    s = 
+    s = s.replace(/(?:%[0-9A-F]{2})+/g,
+    s => win1251.decode(new Uint8Array(
+    s.replace(/%/g, ",0x").slice(1).split(",")
+    )))
+    return s
+}

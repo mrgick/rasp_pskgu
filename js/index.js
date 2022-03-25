@@ -22,6 +22,12 @@ async function loadBlank()
 // Поисковая страница
 async function loadSearch(find_name)
 {
+    let from = (new URLSearchParams(window.location.search)).get("from");
+    if (from == "vk.com"){
+        find_name = window.location.href.split('find_group_name=')[1].split('&')[0];
+        find_name = decode_win1251(find_name)
+    }
+
     generate_search_page(find_name);
 
     let list_names = await get_list_groups();
