@@ -27,7 +27,6 @@ async function loadSearch(find_name)
         find_name = window.location.href.split('find_group_name=')[1].split('&')[0];
         find_name = decode_win1251(find_name)
     }
-
     generate_search_page(find_name);
 
     let list_names = await get_list_groups();
@@ -85,8 +84,10 @@ async function loadGroup(group_name)
     renew_table_time_status()
     insert_date_of_last_update(last_date, new Date(group.last_updated))
     if (check_is_favorite()) is_favorite()
+    prepare_for_week_cal()
     dragElement(document.getElementById('Editbar'), 0)
     dragElement(document.getElementById('Filterbar'), 0)
+    dragElement(document.getElementById('Weekbar'))
     
     if (document.location.hash != '')
     {
