@@ -112,6 +112,7 @@
     font-size: 14px;
     color: var(--color-halftone_text);
     background-color: var(--color-background);
+    border: 0px;
 }
 
 
