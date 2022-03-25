@@ -159,8 +159,8 @@ const recomended_styles = {
 	},
 }
 
-const ignored_styles = ['style_base', 'style_svgs', 'style_highlight']
-const ignored_style_tags = ['base', 'svgs', 'highlight']
+const ignored_styles = ['style_base', 'style_svgs', 'style_highlight', 'style_cal_filters']
+const ignored_style_tags = ['base', 'svgs', 'highlight', 'cal_filters']
 
 function insert_recomended_styles () {
 	let rec_list = document.getElementById('rec_list')
