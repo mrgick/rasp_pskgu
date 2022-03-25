@@ -47,6 +47,13 @@ function getCurrentWeek(first_date)
     return todate - mondate + 1;
 }
 
+function weeks_between (first_date, second_date)
+{
+    let mondate = getYearWeek(new Date(get_monday(first_date)));
+    let todate = getYearWeek(new Date(get_monday(second_date)));
+    return todate - mondate + 1;
+}
+
 function try_insert_ago (period, interval, difference) {
     let result = Math.floor(difference/interval)
     if (result > 0) return `${result} ${was_updated[period][result == 1? 0 : (result < 5? 1 : 2)]} назад)`
