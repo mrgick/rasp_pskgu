@@ -1,8 +1,8 @@
 .switcher-weekbar {
-    position: fixed;
-    background-color: var(--color-background);
+    position: absolute;
     left: 5px;
-    top: 60px;
+    top: calc(100% + 5px);
+    background-color: var(--color-background);
     border-radius: 10px;
 }
 
@@ -39,15 +39,68 @@
     text-decoration: underline;
 }
 
+/*------------------------ week list ------------------------*/
 
+#week_list {
+    margin: 10px;
+    text-align: center;
+}
+
+#week_list > label > span {
+    font-style: bold;
+    cursor: pointer;
+}
+
+#Weekbar_List {
+    font-size: 16px;
+    line-height: 20px;
+    text-align: left;
+    padding-left: 20px;
+    margin-top: 5px;
+    list-style-type: decimal;
+}
+
+#Weekbar_List tr {
+    cursor: pointer;
+    color: var(--color-link);
+}
+
+#Weekbar_List tr:hover {
+    color: var(--color-link_hover);
+}
+
+#Weekbar_List td {
+    color: inherit;
+    padding-left: 4px;
+}
+
+#Weekbar_List td:first-child {
+    color: var(--color-text);
+    padding-right: 8px;
+    text-align: right;
+}
+
+#Weekbar_List td:nth-child(2), 
+#Weekbar_List td:nth-child(5) {
+    font-weight: bold;
+    text-align: right;
+}
+
+/*------------------------ week calendar ------------------------*/
 
 #week_cal {
     margin: 10px;
+    margin-right: 0px;
     border: 2px solid var(--color-text);
+    float: left;
 }
 
 #week_cal caption {
     margin-bottom: 5px;
+}
+#week_cal caption span {
+    font-style: bold;
+    cursor: pointer;
 }
 
 #week_cal td {
@@ -79,7 +132,7 @@
     border: 2px solid var(--color-text);
 }
 
-#week_cal tbody td[this_week] {
+#week_cal tbody tr[this_week] {
     background-color: var(--color-light);
 }
 #week_cal tbody td[active] {
@@ -101,20 +154,129 @@
     border: none;
 }
 
+/*------------------------ monthes of week calendar ------------------------*/
 
-#Weekbar > label {
+@media (max-width: 450px) {
+    #week_cal-monthes {display: none}
+    #week_cal {margin-right: 10px}
+}
+
+#week_cal-monthes {
     margin: 10px;
+    margin-left: 0px;
+    border: 2px solid var(--color-background);
+}
+
+#week_cal-monthes caption {
+    color: var(--color-background);
+    margin-bottom: 5px;
+}
+
+#week_cal-monthes td {
+    width: fit-content;
+    min-width: 70px;
+    height: 40px;
+    border: 1px solid var(--color-background);
+}
+
+
+#week_cal-monthes thead label {
+    font-weight: 500;
+    font-size: 130%;
+    color: var(--color-background);
+}
+
+
+#week_cal-monthes tbody {
+    border: 2px solid var(--color-background);
+    font-size: 14px;
+}
+
+#week_cal-monthes tbody td[month_top] {
+    border-top: 3px solid var(--color-error);
+    vertical-align: top;
+}
+
+#week_cal-monthes tbody td[month_bottom] {
+    border-bottom: 3px solid var(--color-error);
+    vertical-align: bottom;
+}
+#week_cal-monthes tbody td[month_imitate] {
+    border-top: 3px solid var(--color-background);
+}
+
+
+#week_cal-monthes tfoot td {
+    height: 15px;
+    border: none;
+}
+
+/*------------------------ filters of week calendar ------------------------*/
+
+#WC_filters > label {
     margin-right: 0px;
     font-size: 14px;
     color: var(--color-halftone_text);
 }
-#Weekbar > select {
+#WC_filters > select {
     font-size: 14px;
     color: var(--color-halftone_text);
     background-color: var(--color-background);
     border: 0px;
 }
 
+/*------------------------ extra filters of week calendar ------------------------*/
+
+#WC_extra_filters {
+    min-height: 20px;
+}
+
+#WC_extra_filters > div {
+    width: 332px;
+    height: 20px;
+    line-height: 20px;
+    position: relative;
+}
+
+#WC_extra_filters > div > span {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 20px;
+    cursor: pointer;
+    transform-origin: center;
+    transition: 0.5s;
+}
+
+#WC_extra_filters > div > span[delete] {
+    transform: rotate(0deg);
+    color: var(--color-error);
+}
+
+
+#WC_extra_filters > div > span[new] {
+    transform: rotate(45deg);
+    color: var(--color-link);
+}
+
+
+#WC_extra_filters > div > div {
+    position: absolute;
+    top: 0;
+    left: 20px;
+    width: calc(100% - 10px);
+}
+#WC_extra_filters > div > div > select {
+    width: calc((100% - 60px) / 2);
+    height: 20px;
+    font-size: 16px;
+    color: var(--color-text);
+    background-color: var(--color-background);
+    border: 0px;
+}
+
+/*------------------------ other ------------------------*/
 
 .temporary_highlighted {
     animation-name: anim_temporary_highlighted;
