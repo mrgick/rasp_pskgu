@@ -178,7 +178,7 @@ function insert_recomended_styles () {
 function clear_current_styles () {
 	let styles = document.getElementsByTagName('style')
 	for (style of styles) {
-		if (style_tag.getAttribute('id') === null || !style_tag.getAttribute('id').startsWith('style_')) continue
+		if (style.getAttribute('id') === null || !style.getAttribute('id').startsWith('style_')) continue
 		if (ignored_styles.indexOf(style.getAttribute('id')) !== -1) continue
 		style.innerHTML  = `.${style.getAttribute('id').replace('style_', '')} { }`
 	}
