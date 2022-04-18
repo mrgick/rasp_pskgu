@@ -53,6 +53,90 @@ function convert_from_to (value, from, to) {
 function bin (value) {return convert_10_to_sys(value, 2 )}
 function hex (value) {return convert_10_to_sys(value, 16)}
 
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function get_current_page () {
+    let url = new URL(document.location.href)
+    if      (url.searchParams.has('group_name')      ) return 'rasp'
+    else if (url.searchParams.has('print_group_name')) return 'print'
+    else if (url.searchParams.has('find_group_name') ) return 'search'
+    else if (url.searchParams.has('list')            ) return 'list'
+    else return 'main'
+}
+
+function get_rasp_element_from (day_or_lesson, id, elem, return_existence = false) {
+    elem = adapt_for_html(elem)
+    let result = {}
+
+    switch (day_or_lesson) {
+        case 'day':
+            if (typeof id != 'string') id = id.children[0].getAttribute('id')
+            for (let day = 1; day <= 7; day++) {
+                let lesson = document.getElementById(id + '-' + day)
+
+                for (let i = 0; i < lesson.childElementCount; i++) {
+                    let block = lesson.children[i]
+                    
+                    for (let i2 = 0; i2 < block.childElementCount; i2++) {
+                        let class_name = block.children[i2].getAttribute('class').split(' ')[1]
+    
+                        if (class_name.split('-')[0] == elem || 
+                            class_name.split('-')[1] == elem || 
+                            class_name == elem) {
+                                if (!result[id + '-' + day]) result[id + '-' + day] = {}
+                                if (!result[id + '-' + day]['block_' + i]) result[id + '-' + day]['block_' + i] = [class_name]
+                                else result[id + '-' + day]['block_' + i].push(class_name)
+                            }
+                    }
+                }
+            }
+            if (return_existence) return (Object.keys(result[id]).length > 0? true : false)
+            else return result
+
+        case 'lesson':
+            if (typeof id != 'string') id = id.getAttribute('id')
+            result[id] = {}
+            let lesson = document.getElementById(id)
+
+            for (let i = 0; i < lesson.childElementCount; i++) {
+                let block = lesson.children[i]
+                
+                for (let i2 = 0; i2 < block.childElementCount; i2++) {
+                    let class_name = block.children[i2].getAttribute('class').split(' ')[1]
+
+                    if (class_name.split('-')[0] == elem || 
+                        class_name.split('-')[1] == elem || 
+                        class_name == elem) {
+                            if (!result[id]['block_' + i]) result[id]['block_' + i] = [class_name]
+                            else result[id]['block_' + i].push(class_name)
+                        }
+                }
+            }
+            if (return_existence) return (Object.keys(result[id]).length > 0? true : false)
+            else return result
+    }
+}
+
+function open_url (url, as_new_page = false, without_confirm = true) {
+    if (as_new_page && (without_confirm || confirm('Открыть ' + url + ' в отдельной вкладке?'))) {
+        window.open(url, '_blank');
+    }
+    else if (without_confirm || confirm('Открыть ' + url + ' в этой вкладке?')) {   
+        document.location.href = url 
+    }
+}
+
+function open_url_evented (url, event, without_confirm = true) {
+    if (event.ctrlKey && (without_confirm || confirm('Открыть ' + url + ' в отдельной вкладке?'))) {
+        window.open(url, '_blank');
+    }
+    else if (without_confirm || confirm('Открыть ' + url + ' в этой вкладке?')) {   
+        document.location.href = url 
+    }
+}
+
 function decode_win1251(s){
     var win1251 = new TextDecoder("windows-1251"),
     s = 
