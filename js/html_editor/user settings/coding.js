@@ -4,6 +4,7 @@
 
 function compact_colour (hex_colour) {
 	if (hex_colour[0] == '#') hex_colour = hex_colour.slice(1)
+	else if (hex_colour.startsWith('var')) hex_colour = document.documentElement.style.getPropertyValue(hex_colour.slice(4, -1)).slice(1)
 	hex_colour = hex_colour.toLowerCase()
 	hex_colour = (Math.round(convert_sys_to_10(hex_colour.slice(0,2),16)/51)*36 +
 				  Math.round(convert_sys_to_10(hex_colour.slice(2,4),16)/51)*6  +
