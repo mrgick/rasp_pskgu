@@ -100,6 +100,7 @@ function save_settings () {
 
 	let styles = document.getElementsByTagName('style')
 	for (style_tag of styles) {
+		if (style_tag.getAttribute('id') === null || !style_tag.getAttribute('id').startsWith('style_')) continue
 		let full_class_name = style_tag.getAttribute('id').replace('style_', '')
 		if (ignored_style_tags.indexOf(full_class_name) !== -1) continue
 		let subclass_name = full_class_name.split('-')[1]
