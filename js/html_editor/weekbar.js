@@ -336,7 +336,7 @@ const cal_filters_functions = {
     },
     
     'variety': {
-        'name': 'Места проведения',
+        'name': 'места проведения',
         'function': day => {
             let pre_rooms = get_rasp_element_from('day', day, 'room')
             let rooms = {}
