@@ -1,7 +1,9 @@
 
-async function main(find_name, group_name, print_group_name) {
+async function main(event_name, find_name, group_name, print_group_name) {
 
-    if (find_name) {
+    if (event_name) {
+        return await add_event_from_link(event_name);
+    } else if (find_name) {
         return await loadSearch(find_name);
     } else if (group_name) {
         return await loadGroup(group_name);
@@ -98,6 +100,8 @@ async function loadGroup(group_name)
         document.getElementById(`Week_${getCurrentWeek(first_date)}`).scrollIntoView();
     }
     catch {}
+    load_events_from_cookie()
+    load_invitation_preset()
 }
 
 async function loadList()
@@ -179,7 +183,10 @@ window.onload = async function ()
         return;
     }
     const params = new URLSearchParams(window.location.search);
-    await main(params.get("find_group_name"), params.get("group_name"), params.get("print_group_name"));
+    await main(params.get("event"), 
+               params.get("find_group_name"), 
+               params.get("group_name"), 
+               params.get("print_group_name"));
     
     if (need_up_warning) up_warning('Пользуясь данным сайтом, вы автоматически соглашаетесь с ' + 
                                     'политикой использования Cookie файлов на этом сайте. ' + 
