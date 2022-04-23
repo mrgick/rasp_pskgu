@@ -137,7 +137,7 @@ function open_url_evented (url, event, without_confirm = true) {
     }
 }
 
-function decode_win1251(s){
+function decode_win1251 (s) {
     var win1251 = new TextDecoder("windows-1251"),
     s = 
     s = s.replace(/(?:%[0-9A-F]{2})+/g,
@@ -145,6 +145,8 @@ function decode_win1251(s){
     s.replace(/%/g, ",0x").slice(1).split(",")
     )))
     return s
+}
+
 function componentToHex (c) {
     var hex = c.toString(16);
     return hex.length == 1 ? "0" + hex : hex;
@@ -161,4 +163,4 @@ function hex_to_rgb (hex) {
       g: parseInt(result[2], 16),
       b: parseInt(result[3], 16)
     } : null;
-  }
+}
