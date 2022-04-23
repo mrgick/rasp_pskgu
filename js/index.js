@@ -183,7 +183,8 @@ window.onload = async function ()
         return;
     }
     const params = new URLSearchParams(window.location.search);
-    await main(params.get("event"), 
+    let event_search = document.location.search
+    await main(event_search.startsWith('?event=')? event_search.split('&')[0] : null, 
                params.get("find_group_name"), 
                params.get("group_name"), 
                params.get("print_group_name"));
