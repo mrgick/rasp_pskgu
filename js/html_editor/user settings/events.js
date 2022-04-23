@@ -152,8 +152,8 @@ class user_event {
     decode_hash (hash) {
         try {
             hash = hash.split('-')
-            this.editor_ref.children[0].children[0].value = hash[0]
-            this.editor_ref.children[1].children[0].value = hash[1]
+            this.editor_ref.children[0].children[0].value = convert_hash_to_str(hash[0])
+            this.editor_ref.children[1].children[0].value = convert_hash_to_str(hash[1])
             this.editor_ref.children[0].children[1].value = unpack_colour(hash[2][0])
             this.editor_ref.children[2].children[0].value = `${hash[2].slice(2,6)}-${hash[2].slice(6,8)}-${hash[2].slice(8,10)}`
             this.editor_ref.children[2].children[1].children[Number(hash[2].slice(10)) - 1].selected = true
