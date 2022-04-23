@@ -410,20 +410,20 @@ function make_invitation (usr_event) {
 }
 
 const event_hash_convertations = [
-    [' ', '$S'],
-    ['\\','$l'],
-    ['/', '$r'],
-    ['.', '$p'],
-    ['!', '$e'],
-    ['?', '$q'],
-    [',', '$с'],
-    [':', '$d'],
-    ['-', '$L'],
-    ['=', '$Q'],
-    ['@', '$A'],
-    ['#', '$h'],
-    ['&', '$a'],
-    ['\n','$n'],
+    [' ', '%S'],
+    ['\\','%l'],
+    ['/', '%r'],
+    ['.', '%p'],
+    ['!', '%e'],
+    ['?', '%q'],
+    [',', '%с'],
+    [':', '%d'],
+    ['-', '%L'],
+    ['=', '%Q'],
+    ['@', '%A'],
+    ['#', '%h'],
+    ['&', '%a'],
+    ['\n','%n'],
 ]
 function convert_str_to_hash (str) {
     for (conv of event_hash_convertations) str = str.replaceAll(conv[0], conv[1])
