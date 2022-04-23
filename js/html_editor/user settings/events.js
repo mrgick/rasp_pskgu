@@ -445,7 +445,7 @@ function add_event (event_content = null) {
 
 function add_event_from_link (event_content) {
     generate_new_event_page()
-    add_event(event_content)
+    add_event(decode_win1251(event_content))
     user_events[user_event_id-1].editor_ref.children[4].children[0].setAttribute('onclick', `user_events[${user_event_id-1}].save_as_new_event(true)`)
     user_events[user_event_id-1].save_as_new_event()
 }
