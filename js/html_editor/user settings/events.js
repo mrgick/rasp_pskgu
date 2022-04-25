@@ -141,7 +141,7 @@ class user_event {
         return (
         `${convert_str_to_hash(this.heading)}-` +
         `${convert_str_to_hash(this.description)}-` +
-        `${convert_sys_to_10(compact_colour(this.event_colour))}` +
+        `${convert_sys_to_10(compact_colour(this.event_colour)).toString().padStart(3, '0')}` +
         `${this.hide_lessons ? 'T' : 'F'}` +
         `${this.date.replaceAll('-', '')}` +
         `${this.lesson}-` +
