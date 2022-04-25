@@ -141,7 +141,7 @@ class user_event {
         return (
         `${convert_str_to_hash(this.heading)}-` +
         `${convert_str_to_hash(this.description)}-` +
-        `${compact_colour(this.event_colour)}` +
+        `${convert_sys_to_10(compact_colour(this.event_colour))}` +
         `${this.hide_lessons ? 'T' : 'F'}` +
         `${this.date.replaceAll('-', '')}` +
         `${this.lesson}-` +
@@ -154,10 +154,10 @@ class user_event {
             hash = hash.split('-')
             this.editor_ref.children[0].children[0].value = convert_hash_to_str(hash[0])
             this.editor_ref.children[1].children[0].value = convert_hash_to_str(hash[1])
-            this.editor_ref.children[0].children[1].value = unpack_colour(hash[2][0])
-            this.editor_ref.children[2].children[0].value = `${hash[2].slice(2,6)}-${hash[2].slice(6,8)}-${hash[2].slice(8,10)}`
-            this.editor_ref.children[2].children[1].children[Number(hash[2].slice(10)) - 1].selected = true
-            this.editor_ref.children[2].children[2].checked = (hash[2][1] == 'T'? true : false)
+            this.editor_ref.children[0].children[1].value = unpack_colour(convert_10_to_sys(hash[2].slice(0, 3)))
+            this.editor_ref.children[2].children[0].value = `${hash[2].slice(4,8)}-${hash[2].slice(8,10)}-${hash[2].slice(10,12)}`
+            this.editor_ref.children[2].children[1].children[Number(hash[2].slice(12)) - 1].selected = true
+            this.editor_ref.children[2].children[2].checked = (hash[2][3] == 'T'? true : false)
             this.editor_ref.children[3].children[1].children[hash[3]].selected = true
 
             this.editor_ref.children[4].children[0].classList.add('hidden')
@@ -178,12 +178,12 @@ class user_event {
         hash = hash.split('-')
 
         if (hash.length != 4 ||
-            'TF'.search(hash[2][1]) === -1 ||
-            hash[2].length < 10 ||
-            !unpack_colour(hash[2][0]).match(/#[0-9a-f]{6}/ig)[0] ||
-            hash[3] > 3 ||
+            'TF'.search(hash[2][3]) === -1 ||
+            hash[2].length < 12 ||
+            !unpack_colour(convert_10_to_sys(hash[2].slice(0, 3))).match(/#[0-9a-f]{6}/ig)[0] ||
             isNaN(Number(hash[3])) ||
-            isNaN(Number(hash[2].slice(10)))) return false
+            Number(hash[3]) > 3 ||
+            isNaN(Number(hash[2].slice(12)))) return false
         else return true
     }
 
@@ -380,7 +380,7 @@ function make_invitation (usr_event) {
 
             case 'link':
             case "ссылка":
-                invitation_str = invitation_str.replace(matched[special], document.location.href.replace(document.location.search, '?event='+usr_event.get_hash()))
+                invitation_str = invitation_str.replace(matched[special], document.location.href.replace(document.location.search, '?event='+encode_event_hash(usr_event.get_hash())))
                 break
 
             case 'delete':
@@ -411,6 +411,7 @@ function make_invitation (usr_event) {
 
 const event_hash_convertations = [
     [' ', '%S'],
+    ['_', '%u'],
     ['\\','%l'],
     ['/', '%r'],
     ['.', '%p'],
@@ -445,9 +446,56 @@ function add_event (event_content = null) {
 
 function add_event_from_link (event_content) {
     generate_new_event_page()
-    add_event(decode_win1251(event_content))
+    add_event(decode_event_hash(event_content))
     user_events[user_event_id-1].editor_ref.children[4].children[0].setAttribute('onclick', `user_events[${user_event_id-1}].save_as_new_event(true)`)
     user_events[user_event_id-1].save_as_new_event()
+}
+
+const encoding_chars = '0123456789abcdefghijclmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+function encode_event_hash (hash) {
+    let encoded_str = ''
+    for (char of hash) {
+        if      (char.search(/[0-9]/) === 0) encoded_str += '0' + char
+        else if (char == '%') encoded_str += '0a'
+        else if (char == '-') encoded_str += '0b'
+        else if (char.search(/[а-я]/) === 0) encoded_str += 'r' + encoding_chars[char.charCodeAt(0) - 'а'.charCodeAt(0)]
+        else if (char.search(/[А-Я]/) === 0) encoded_str += 'R' + encoding_chars[char.charCodeAt(0) - 'А'.charCodeAt(0)]
+        else if (char.search(/[a-z]/) === 0) encoded_str += 'e' + char
+        else if (char.search(/[A-Z]/) === 0) encoded_str += 'E' + char
+    }
+    return encoded_str
+}
+
+function decode_event_hash (encoded_str) {
+    let hash = ''
+    let char = 0
+    while (char < encoded_str.length) {
+        switch (encoded_str[char]) {
+            case '0':
+                if      (encoded_str[char+1] == 'a') hash += '%'
+                else if (encoded_str[char+1] == 'b') hash += '-'
+                else hash += encoded_str[char+1]
+                break
+
+            case 'r':
+                hash += String.fromCharCode('а'.charCodeAt(0) + encoding_chars.indexOf(encoded_str[char+1]))
+                break
+
+            case 'R':
+                hash += String.fromCharCode('А'.charCodeAt(0) + encoding_chars.indexOf(encoded_str[char+1]))
+                break
+
+            case 'e':
+                hash += encoded_str[char+1]
+                break
+
+            case 'E':
+                hash += encoded_str[char+1]
+                break
+        }
+        char += 2
+    }
+    return hash
 }
 
 function load_events_from_cookie () {
