@@ -1,4 +1,4 @@
-const version = '1.2.0 beta'
+const version = '1.2.0'
 
 function generate_main_page()
 {
@@ -21,6 +21,7 @@ function generate_main_page()
                         <div class='info_div' onclick='open_info_panel("search_page")'><label>страница поиска - что здесь</label></div>
                         <div class='info_div' onclick='open_info_panel("correct_searching")'><label>Как правильно искать</label></div>
                         <div class='info_div' onclick='open_info_panel("cookies")'><label>Для чего используются Cookies</label></div>
+                        <div class='info_div' onclick='open_info_panel("user_events")'><label>Использование событий</label></div>
                         <div class='info_div' onclick='open_info_panel("filling_out_form")'><label>Как сообщить об ошибке</label></div>
                         <div class='info_div' onclick='open_info_panel("full_info_list")'><label>Полный список руководств</label></div>
                         <div class='info_div' onclick='open_info_panel("last_update")'><label>Обновление ${version}</label></div>
