@@ -406,7 +406,7 @@ function make_invitation (usr_event) {
                 break
         }
     }
-    return invitation_str.replaceAll('$n', '\n')
+    return invitation_str
 }
 
 const event_hash_convertations = [
