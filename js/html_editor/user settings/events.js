@@ -306,7 +306,7 @@ const base_invitation_preset = (
 let invitation_preset = base_invitation_preset
 
 function load_invitation_preset () {
-    let loaded = readCookie('event_invitation')
+    let loaded = readCookie('event_invitation').replace('&n', '\n')
     if (loaded) invitation_preset = loaded
     document.getElementById('invitation_editor').children[1].value = invitation_preset
 }
@@ -314,13 +314,13 @@ function load_invitation_preset () {
 function save_new_invitation (block) {
     block.classList.add('hidden')
     invitation_preset = document.getElementById('invitation_editor').children[1].value
-    createCookie('event_invitation', invitation_preset, 180)
+    createCookie('event_invitation', invitation_preset.replace('\n', '&n'), 180)
 }
 function set_base_invitation (block) {
     block.classList.add('hidden')
     invitation_preset = base_invitation_preset
     document.getElementById('invitation_editor').children[1].value = invitation_preset
-    createCookie('event_invitation', invitation_preset, 180)
+    createCookie('event_invitation', invitation_preset.replace('\n', '&n'), 180)
 }
 function invitation_changed () {
     document.getElementById('invitation_editor').children[4].classList.remove('hidden')
