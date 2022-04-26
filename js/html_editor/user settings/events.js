@@ -306,8 +306,9 @@ const base_invitation_preset = (
 let invitation_preset = base_invitation_preset
 
 function load_invitation_preset () {
-    let loaded = readCookie('event_invitation').replaceAll('&n', '\n')
-    if (loaded) invitation_preset = loaded
+    let loaded = readCookie('event_invitation')
+    if (loaded) invitation_preset = loaded.replaceAll('&n', '\n')
+    else invitation_preset = base_invitation_preset
     document.getElementById('invitation_editor').children[1].value = invitation_preset
 }
 
