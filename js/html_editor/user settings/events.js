@@ -452,7 +452,7 @@ function add_event_from_link (event_content) {
     user_events[user_event_id-1].save_as_new_event()
 }
 
-const encoding_chars = '0123456789abcdefghijclmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+const encoding_chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
 function encode_event_hash (hash) {
     let encoded_str = ''
     for (char of hash) {
