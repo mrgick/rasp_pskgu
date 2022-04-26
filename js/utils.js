@@ -137,7 +137,7 @@ function open_url_evented (url, event, without_confirm = true) {
     }
 }
 
-function decode_win1251(s){
+function decode_win1251 (s) {
     var win1251 = new TextDecoder("windows-1251"),
     s = 
     s = s.replace(/(?:%[0-9A-F]{2})+/g,
@@ -145,4 +145,22 @@ function decode_win1251(s){
     s.replace(/%/g, ",0x").slice(1).split(",")
     )))
     return s
+}
+
+function componentToHex (c) {
+    var hex = c.toString(16);
+    return hex.length == 1 ? "0" + hex : hex;
+}
+  
+function rgb_to_hex (r, g, b) {
+    return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+}
+
+function hex_to_rgb (hex) {
+    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result ? {
+      r: parseInt(result[1], 16),
+      g: parseInt(result[2], 16),
+      b: parseInt(result[3], 16)
+    } : null;
 }

@@ -89,6 +89,10 @@ function close_issue_report () {
     return false;
 }
 
+function switch_event_list () {
+    document.getElementById("EventList").classList.toggle("hidden");
+}
+
 auto_alt_click = false
 function switch_alt_click () {
     auto_alt_click = !auto_alt_click

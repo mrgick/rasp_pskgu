@@ -1,4 +1,4 @@
-const version = '1.1.0'
+const version = '1.2.0'
 
 function generate_main_page()
 {
@@ -136,6 +136,7 @@ function generate_rasp_page(group)
                                         <div class='info_div' onclick='open_info_panel("rasp_page")'><label>страница расписания - что здесь</label></div>
                                         <div class='info_div' onclick='open_info_panel("filters")'><label>Как настраивать фильтры</label></div>
                                         <div class='info_div' onclick='open_info_panel("print_version")'><label>Версия для печати - что здесь</label></div>
+                                        <div class='info_div' onclick='open_info_panel("user_events")'><label>Использование событий</label></div>
                                         <div class='info_div' onclick='open_info_panel("filling_out_form")'><label>Как сообщить об ошибке</label></div>
                                         <div class='info_div' onclick='open_info_panel("full_info_list")'><label>Полный список руководств</label></div>
                                         <div class='info_div' onclick='open_info_panel("last_update")'><label>Обновление ${version}</label></div>
@@ -157,6 +158,10 @@ function generate_rasp_page(group)
                                     <label>Выбрать цветовую тему</label>
                                     <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 20 20" height="36px" viewBox="0 0 20 20" width="36px"></svg>
                                     <div id="theme_list" class="clr_theme_list hidden"></div>
+                                </div>
+                                <div class="switcher-events" onclick="switch_event_list();">
+                                    <label>Настройка событий</label>
+                                    <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 20 20" height="36px" viewBox="0 0 20 20" width="36px"></svg>
                                 </div>
                                 <div class="switcher-print" onclick="open_print_page()">
                                     <label>Распечатать</label>
@@ -220,6 +225,51 @@ function generate_rasp_page(group)
                 <div class="filterbar-main-choice" id="Filters_List">
                 </div>
             </div>
+        </aside>
+        <aside id="EventList" class="event_list hidden">
+            <div id='help_bg' onclick='document.getElementById("EventList").classList.add("hidden")'>
+            </div>
+            <div id='event_panel'>
+                <div>
+                </div>
+                <div style='width: 100%; text-align: center'>
+                    <button class='event_panel_button-add' onclick='add_event()'>добавить</button>
+                    <br>
+                    <button class='event_panel_button' style='float: left' onclick='document.getElementById("invitation_editor").classList.toggle("hidden")'>изменить приглашение</button>
+                    <div class='event_blank hidden' style='margin-top: 40px; text-align: left' id='invitation_editor'>
+                        <label>Настройка формы приглашения</label>
+                        <textarea style='height: 150px; margin: 5px 0px' onchange='invitation_changed()'></textarea>
+                        <label>Специальные параметры:</label>
+                        <ul style='margin-bottom: 20px'>
+                            <li><b>{заголовок}</b> - подставляет на это место заголовок события</li>
+                            <li><b>{описание}</b> - подставляет описание события</li>
+                            <li><b>{дата|формат}</b> - подставляет дату события в указанном формате. Заменяет:</li>
+                            <ul>
+                                <li>"дд" на день события</li>
+                                <li>"мм" на месяц в числовом формате</li>
+                                <li>"месяц" на месяц в именительном падеже (январь, февраль и т.д.)</li>
+                                <li>"месяца" на месяц в родительном падеже (января, февраля и т.д.)</li>
+                                <li>"гггг" на полный год события</li>
+                                <li>"гг" на последние 2 цифры года</li>
+                            </ul>
+                            <li><b>{замещение|если да|если нет}</b> - если поставлена галочка "вместо занятий", подставляет текст из второй колонки ("если да"), иначе из третей ("если нет")</li>
+                            <li><b>{занятие}</b> - подставляет выбранный номер занятия (1-7)</li>
+                            <li><b>{ссылка}</b> - подставляет ссылку для добавления этого события на сайт расписания другими пользователями</li>
+                            <li><b>{удаление}</b> - подставляет, после чего будет удалено событие (или никогда)</li>
+                            <li><b>{цвет}</b> - подставляет цвет в формате hex (#rrggbb) события</li>
+                            <li><b>{{}</b> - подставляет открывающую фигурную скобку {</li>
+                            <li><b>{}}</b> - подставляет закрывающую фигурную скобку }</li>
+                            <li><b>$n</b> - подставляет переход на новую строку (например, внутри фигурных скобок)</li>
+                        </ul>
+                        <button class='event_panel_button' onclick='save_new_invitation(this)'>сохранить изменения</button>
+                        <button class='event_panel_button' onclick='set_base_invitation(this)'>базовове приглашение</button>
+                    </div>
+                </div>
+                <a class="asidebar-close" onclick='document.getElementById("EventList").classList.add("hidden")'>
+                    <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 0 24 24" width="18px"></svg>
+                </a>
+            </div>
+        </aside>
         </aside>
         <div id="Group_Rasp">
         </div>
@@ -366,6 +416,17 @@ function generate_print_preview()
     `
 }
 
+function generate_new_event_page () {
+    document.getElementById("MAIN").innerHTML = `
+    <h1 class="new_event_title" id="new_event_page-heading"></h1>
+    <div id='event_panel' class='new_event_panel' style='border: none'><div></div></div>
+    <div style='width: 100%; text-align: center'>
+        <h2 class="new_event_subtitle">При желании, Вы можете отредактировать событие здесь, или сразу перейти на главную страницу</h2>
+        <button onclick='open_url(document.location.href.replace(document.location.search, ""))' class='new_event-button_back'>перейти на главную</button>
+    </div>
+    `
+}
+
 function add_aside_bars () {
     document.getElementById("MAIN").innerHTML += `
     <aside id="theme_editor" class="theme_aside_editor hidden">
@@ -382,7 +443,7 @@ function add_aside_bars () {
         </div>
         <div id='help_panel'>
         </div>
-    </list>
+    </aside>
     `
     dragElement(document.getElementById('theme_editor'))
 }
