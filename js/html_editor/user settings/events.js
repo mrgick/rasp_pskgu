@@ -5,8 +5,8 @@ class user_event {
     constructor (hash = null) {
         if (hash) {
             let splited = hash.split('-')
-            let event_date = `${splited[2].slice(2,6)}-${splited[2].slice(6,8)}-${splited[2].slice(8,10)}`
-            let event_lesson = splited[2].slice(10)
+            let event_date = `${splited[2].slice(4,8)}-${splited[2].slice(8,10)}-${splited[2].slice(10,12)}`
+            let event_lesson = splited[2].slice(12)
             let heading = document.getElementById('new_event_page-heading')
             switch (splited[3]) {
                 case '0': // after event
