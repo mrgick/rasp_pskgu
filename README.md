@@ -23,7 +23,7 @@ ________________________________________________________________________________
   - [Версия 1.1.0](https://github.com/mrgick/rasp_pskgu#версия-110)
   - [Версия 1.2.0](https://github.com/mrgick/rasp_pskgu#версия-120)
     - [Версия 1.2.1](https://github.com/mrgick/rasp_pskgu#версия-121) 
-    - [Версия 1.2.2](https://github.com/mrgick/rasp_pskgu#версия-122) 
+  - [Версия 1.3.0](https://github.com/mrgick/rasp_pskgu#версия-130) 
     
 ## Версия 1.2.2
 
