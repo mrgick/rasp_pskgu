@@ -4,11 +4,11 @@ function generate_main_page()
 {
     document.getElementById("MAIN").innerHTML=`
     <div id='favorite_list' onclick='open_favorite_list()'>
-        <svg xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 0 24 24" width="36px"></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 0 24 24" width="36px" style="cursor: pointer"></svg>
         <div id='favorite_content' class='hidden'></div>
     </div>
     <div class="enable_setting_menu" style='position: absolute; top: 6px; right: 6px;'>
-        <svg name='special' onclick="Switch('setting_menu');" xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 0 24 24" width="36px"></svg>
+        <svg name='special' onclick="Switch('setting_menu');" xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 0 24 24" width="36px" style="cursor: pointer"></svg>
         <div class="background_of_setting_menu hidden" id='setting_menu'>
             <div class="setting_menu">
                 <div class="switcher" onclick="Switch('setting_menu');">
@@ -35,6 +35,10 @@ function generate_main_page()
                     <label>Сообщить об ошибке</label>
                     <svg xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 0 24 24" width="36px"></svg>
                 </div>
+                <div class="switcher-collect_data${collecting_data? '' : '--rejected'}" onclick="switch_collecting_data();">
+                    <label>Разрешить сбор информации</label>
+                    <svg xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 0 24 24" width="36px"></svg>
+                </div>
             </div>
         </div>
     </div>
@@ -47,15 +51,8 @@ function generate_main_page()
         </form>
         <a class="search-showall" href="?list">Показать всё</a>
     </div>
-    <footer class="footer">
-        <a class="footer-link" href="http://rasp.pskgu.ru">Оригинал расписания</a> 
-        <div class="footer-authors">
-            © MrGick, KGlebB, WhiteRain7
-            <br>
-            <a class="footer-authors-link" href="https://github.com/mrgick/rasp_pskgu">сайт</a> создан с использованием <a class="footer-authors-link" href="https://github.com/mrgick/pskgu_api">API</a>
-        </div>
-    </footer>
     `
+    add_footer(to = document.getElementById('MAIN'), as_block = false)
     add_aside_bars()
 }
 
@@ -275,6 +272,7 @@ function generate_rasp_page(group)
         </div>
     </container>
     `
+    add_footer(to = document.getElementById('MAIN'), as_block = true)
     add_aside_bars()
 }
 
@@ -427,16 +425,14 @@ function generate_new_event_page () {
     `
 }
 
+
 function add_aside_bars () {
     document.getElementById("MAIN").innerHTML += `
     <aside id="theme_editor" class="theme_aside_editor hidden">
     </aside>
     <aside id="issue_form" class="aside_form hidden">
     </aside>
-    <aside id='aside_warning' class='hidden'>
-        <div id='AW_header'><h1></h1></div>
-        <div id='AW_content'><p></p></div>
-        <div id='AW_OK'><button onclick='document.getElementById("aside_warning").classList.add("hidden")'>хорошо</button></div>
+    <aside id="aside_warning_list">
     </aside>
     <aside id='help_list' class='hidden'>
         <div id='help_bg' onclick='document.getElementById("help_list").classList.add("hidden")'>
@@ -446,4 +442,34 @@ function add_aside_bars () {
     </aside>
     `
     dragElement(document.getElementById('theme_editor'))
+}
+
+function add_footer (to, as_block = true) {
+    to.innerHTML += `
+    <footer class="footer" style="${as_block? 'margin-top: 50px' : 'position: absolute; bottom: 0;'}">
+        <ul class="footer-list">
+            <li>© MrGick, KGlebB, WhiteRain7</li>
+            <li><a class="footer-link" href="https://github.com/mrgick/rasp_pskgu">Исходный код сайта</a></li>
+            <li><a class="footer-link" href="https://github.com/mrgick/rasp_pskgu/blob/main/LICENSE">MIT лицензия</a></li>
+            <li><a class="footer-link" href="https://github.com/mrgick/pskgu_api">API сайта</a></li>
+        </ul>
+
+        <div style='border-left: 1px solid var(--color-halftone_text); margin: 10px; opacity: 0.5'></div>
+
+        <ul class="footer-list">
+            <li>Ссылки</li>
+            <li><a class="footer-link" href="http://rasp.pskgu.ru">Оригинал расписания ПсковГУ</a></li>
+            <li><a class="footer-link" href="https://vk.com/pskgu_bot">Группа Вконтакте</a></li>
+        </ul>
+
+        <div style='border-left: 1px solid var(--color-halftone_text); margin: 10px; opacity: 0.5'></div>
+
+        <ul class="footer-list">
+            <li>Прочее</li>
+            <li><a class="footer-link" onclick='open_info_panel()'>Как пользоваться сайтом</a></li>
+            <li><a class="footer-link" onclick='open_info_panel("cookies")'>Использование Cookies</a></li>
+            <li><a class="footer-link" onclick='open_info_panel("data")'>Сбор данных</a></li>
+        </ul>
+    </footer>
+    `
 }

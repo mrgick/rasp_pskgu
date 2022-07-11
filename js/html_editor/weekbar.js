@@ -18,7 +18,7 @@ function prepare_for_week_cal () {
     document.getElementsByTagName('head')[0].appendChild(style)
 
     fill_cal_filters()
-    generate_weekbar()
+    generate_weekbar(weekbar_type)
 }
 
 let cal_filters = ['', '', '', '', '', '', '']
@@ -39,7 +39,14 @@ function fill_cal_filters () {
     }
 }
 
+const available_weekbar_types = ['cal', 'list']
+
 function generate_weekbar (generate = 'cal') {
+    if (available_weekbar_types.indexOf(generate) === -1) generate = 'cal'
+
+    weekbar_type = generate
+    save_mode_to_cookie()
+
     if (generate == 'list') {
         document.getElementById('Weekbar').innerHTML = `
         <div id='week_list'>
@@ -360,7 +367,23 @@ const cal_filters_functions = {
         'tips': ['0', '1', '2', '3', '4', '5', '6+'],
         'extra_tip': 'Разных мест проведения (корпусов и т.п.): ',
         'extra_filters': true
-    }
+    },
+
+    'events': {
+        'name': 'события',
+        'function': day => {
+            let day_workload = 0
+            for (let lesson = 1; lesson < day.childElementCount; lesson++) {
+                if (day.children[lesson].childElementCount > 0 &&
+                    day.children[lesson].lastChild.classList.contains('block_event')) day_workload++
+            }
+            if (day_workload > 6) day_workload = 6
+            return day_workload
+        },
+        'tips': ['0', '1', '2', '3', '4', '5', '6+'],
+        'extra_tip': 'Количество событий: ',
+        'extra_filters': true
+    },
 }
 
 function set_cal_filter (input) {

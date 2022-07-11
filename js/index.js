@@ -41,7 +41,7 @@ async function loadSearch(find_name)
     else if (groups_found.length > 1)
     {
         document.getElementById("Groups_List").innerHTML='';
-        generate_list(groups_found, document.getElementById('Groups_List'));
+        generate_list(groups_found);
     }
     else
     {
@@ -114,6 +114,8 @@ async function loadList()
 
 
 async function load_print_page (group_name) {
+    send_action('Открыта страница для печати', group_name)
+
     let group = await get_group_info(group_name)
 
     document.documentElement.style.setProperty('--table-inline', '1')
@@ -165,15 +167,48 @@ async function load_print_page (group_name) {
 
 
 var STRUCT;
-var tracking_status;
+var tracking_status = true;
+var collecting_data = true;
+var weekbar_type = 'cal';
+
+function load_mode_from_cookie () {
+    let result = readCookie("mode")
+    if (result) {
+        let settings = result.split('|')
+        switch (settings.length) {
+            case 4:
+                weekbar_type = settings[3]
+                if (available_weekbar_types.indexOf(weekbar_type) === -1) weekbar_type = 'cal'
+
+            case 3:
+                collecting_data = settings[2]
+                if (collecting_data == 'false') collecting_data = false
+                else collecting_data = true
+
+            case 2:
+                tracking_status = settings[1]
+                if (tracking_status == 'false') tracking_status = false
+                else tracking_status = true
+
+            case 1:
+                MODE = settings[0]
+                if (!rec_themes[MODE]) MODE = 'light'
+        }
+    }
+}
+
+function save_mode_to_cookie () {
+    createCookie("mode", MODE+'|'+
+                         tracking_status.toString()+'|'+
+                         collecting_data.toString()+'|'+
+                         weekbar_type, 90);
+}
+
 window.onload = async function ()
 {
     need_up_warning = check_for_cookies();
-    let settings = readCookie("mode")
-    if (settings) tracking_status = settings.split('|')[1];
-    else tracking_status = 'false'
-    if (tracking_status == 'false') tracking_status = false
-    else tracking_status = true
+    load_mode_from_cookie()
+    save_mode_to_cookie()
 
     set_clr_theme(MODE, true)
 
@@ -193,19 +228,53 @@ window.onload = async function ()
                                     'политикой использования Cookie файлов на этом сайте. ' + 
                                     'Они используются для хранения Ваших персональных настроек.', 
                                     'Cookies');
+
+    if (!readCookie('unique') && collecting_data) 
+        up_warning('Для повышения качества сайта ведётся сбор некоторой ' +
+                   'неперсонализированной информации об использовании функций.\n ' +
+                   'Подробнее о собираемой информации можно узнать в [где?].\n ' +
+                   'Если Вы не хотите, чтобы сайт собирал информацию, ' +
+                   'отключить её можно в меню действий в пункте "Разрешить ' + 
+                   'сбор информации"');
+
+    send_action('')
 }
 
 function change_tracking_status () {
     tracking_status = !tracking_status
-    createCookie("mode", MODE+'|'+tracking_status.toString(), 30);
+    save_mode_to_cookie()
     renew_table_time_status()
 }
 
-function up_warning (warning_text, warning_header = 'Предупреждение') {
-    document.getElementById('AW_header').innerHTML = `<h1>${warning_header}</h1>`
-    document.getElementById('AW_content').innerHTML = `<p>${warning_text}</p>`
-    document.getElementById("aside_warning").classList.remove("hidden")
+function switch_collecting_data () {
+    if (collecting_data) {
+        document.getElementsByClassName('switcher-collect_data'
+             )[0].setAttribute('class', 'switcher-collect_data--rejected')
+    }
+    else {
+        document.getElementsByClassName('switcher-collect_data--rejected'
+             )[0].setAttribute('class', 'switcher-collect_data')
+    }
+    collecting_data = !collecting_data
+    save_mode_to_cookie()
 }
+
+let warning_id = 0
+let active_warnings_id = []
+
+function up_warning (warning_text, warning_header = 'Предупреждение') {
+    document.getElementById("aside_warning_list").innerHTML += `
+        <div class='aside_warning' id='aside_warning_${warning_id}'>
+            <div class='AW_header'><h1>${warning_header}</h1></div>
+            <div class='AW_content'><p>${warning_text.replaceAll('\n', '</p><p>')}</p></div>
+            <div class='AW_OK'><button onclick='close_warning(${warning_id})'>хорошо</button></div>
+        </div>
+        `
+    active_warnings_id.push(warning_id)
+    warning_id++
+}
+
+function close_warning (wid) { document.getElementById("aside_warning_" + wid).remove() }
 
 function check_for_cookies () {
     if (readCookie('Cookies_enabled')) return false
@@ -221,4 +290,86 @@ function check_for_cookies () {
 function adapt_search_text () {
     let input = document.getElementsByClassName('search-form-input')[0]
     input.value = input.value.replaceAll(' ', '_')
+}
+
+
+const tracking_form_url = 'https://docs.google.com/forms/u/0/d/e/1FAIpQLSf-c1T4dl9eKHMawEL4Mv1nodbI6H93aFEwdhB6M6qMXkefWw/formResponse'
+let sended_actions = 0
+
+function send_action (heading, text = '') {
+    if (!collecting_data) return
+
+    let u_check = ''
+    let d_check = ''
+    let o_check = ''
+
+    let user_theme = -1
+
+    if (heading == '') {
+        if (!readCookie('unique')) {u_check = 'checked'; createCookie('unique', '6'   , 365*5       )}
+        if (!readCookie('day'   )) {d_check = 'checked'; createCookie('day'   , 'true', 1           )}
+        if (!readCookie('opened')) {o_check = 'checked'; createCookie('opened', 'true', 1/24/60 * 15)}
+        if (u_check == '' && d_check == '' && o_check == '') return
+
+        if (d_check === 'checked') {
+            let value = readCookie('unique')
+            switch (value) {
+                case '-1': break
+
+                case '0':
+                    user_theme = Object.keys(rec_themes).indexOf(MODE)
+                    createCookie('unique', '-1', 365*5)
+                    break
+
+                default:
+                    createCookie('unique', (value - 1).toString(), 365*5)
+                    break
+            }
+        }
+    }
+    
+    sended_actions++
+
+    let imit_form = document.createElement('div')
+    imit_form.setAttribute('id', 'tracking_form_div_' + sended_actions)
+    imit_form.setAttribute('style', 'display: none')
+    imit_form.innerHTML = `
+    <iframe name="dummyframe" id="dummyframe" style="display: none"></iframe>
+    <form
+    id='tracking_form_${sended_actions}'
+    action="${tracking_form_url}"
+    method="POST"
+    target="dummyframe"
+    style='display: none'
+    >
+        <input id='tracking_form_${sended_actions}_submit' type="submit" value="отправить"/> 
+
+        <fieldset>
+            <input type='checkbox' name='entry.1581939518' ${u_check} value='уникальное посещение'>
+            <input type='checkbox' name='entry.1581939518' ${d_check} value='дневное посещение'>
+            <input type='checkbox' name='entry.1581939518' ${o_check} value='открытие сайта'>
+        </fieldset>
+
+        <fieldset>
+            <input type='checkbox' name='entry.1610034384' ${user_theme == 0? 'checked' : ''} value='светлая'>
+            <input type='checkbox' name='entry.1610034384' ${user_theme == 1? 'checked' : ''} value='розовая'>
+            <input type='checkbox' name='entry.1610034384' ${user_theme == 2? 'checked' : ''} value='чёрная'>
+            <input type='checkbox' name='entry.1610034384' ${user_theme == 3? 'checked' : ''} value='тёмная'>
+            <input type='checkbox' name='entry.1610034384' ${user_theme == 4? 'checked' : ''} value='пользовательская'>
+        </fieldset>
+
+        <fieldset>
+            <input type='checkbox' name='entry.1262453540' checked value='__other_option__'>
+            <input type='text' name='entry.1262453540.other_option_response' value='${heading}'>
+        </fieldset>
+
+        <fieldset>
+            <textarea name='entry.546127804'>${text}</textarea>
+        </fieldset>
+    </form>
+    `
+
+    document.getElementsByTagName('body')[0].appendChild(imit_form)
+    imit_form.children[1].submit()
+    //imit_form.remove()
 }

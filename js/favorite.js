@@ -86,5 +86,5 @@ function is_not_favorite () {
 }
 
 function go_to_favorite_url (group) {
-    document.location.href = document.location.href + '?group_name=' + group.replaceAll(' ', '_')
+    document.location.href = '?group_name=' + group.replaceAll(' ', '_')
 }

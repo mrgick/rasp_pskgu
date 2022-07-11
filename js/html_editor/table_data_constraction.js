@@ -319,7 +319,6 @@ function divide (input, RE_list) {
             }
         }
         if (cut_off_excess(uncuted) != '') {
-            console.log(uncuted)
             content.concat(divide_old(uncuted, RE_list)[0])
         }
 

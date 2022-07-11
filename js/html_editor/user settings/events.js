@@ -41,9 +41,11 @@ class user_event {
         this.eid = user_event_id
         this.heading = ''
         this.description = ''
-        this.event_colour = '#888888'
+        this.event_colour = '#999999'
         this.date = date_to_str(new Date())
-        this.lesson = 1
+        this.lesson = get_lesson_number_at('now') + 1
+        if (this.lesson < 1) this.lesson = 1
+        if (this.lesson > Math.floor(lessons_time.length/2)) this.lesson = Math.floor(lessons_time.length/2)
         this.hide_lessons = false
         this.delete_after = 0
 
@@ -63,23 +65,23 @@ class user_event {
             <div>
                 <input type='date' value='${this.date}'>
                 <select>
-                    <option value='1'>(1) :  8:30 - 10:00</option>
-                    <option value='2'>(2) : 10:15 - 11:45</option>
-                    <option value='3'>(3) : 12:30 - 14:00</option>
-                    <option value='4'>(4) : 14:15 - 15:45</option>
-                    <option value='5'>(5) : 16:00 - 17:30</option>
-                    <option value='6'>(6) : 18:00 - 19:30</option>
-                    <option value='7'>(7) : 19:40 - 21:10</option>
+                    <option value='1' ${this.lesson == 1? 'selected' : ''}>(1) :  8:30 - 10:00</option>
+                    <option value='2' ${this.lesson == 2? 'selected' : ''}>(2) : 10:15 - 11:45</option>
+                    <option value='3' ${this.lesson == 3? 'selected' : ''}>(3) : 12:30 - 14:00</option>
+                    <option value='4' ${this.lesson == 4? 'selected' : ''}>(4) : 14:15 - 15:45</option>
+                    <option value='5' ${this.lesson == 5? 'selected' : ''}>(5) : 16:00 - 17:30</option>
+                    <option value='6' ${this.lesson == 6? 'selected' : ''}>(6) : 18:00 - 19:30</option>
+                    <option value='7' ${this.lesson == 7? 'selected' : ''}>(7) : 19:40 - 21:10</option>
                 </select>
                 <input type='checkbox' name='instead'>
                 <label for='instead' title='занятия в это время будут чуть скрыты'>вместо занятий</label>
             </div>
             <div>
-                <label>Удалить после: </label>
+                <label>Автоматически удалить после: </label>
                 <select>
                     <option value='0'>завершения события</option>
-                    <option value='1'>завершения дня</option>
-                    <option value='2'>завершения недели</option>
+                    <option value='1'>завершения дня с событием</option>
+                    <option value='2'>завершения недели с событием</option>
                     <option value='3'>никогда</option>
                 </select>
             </div>
@@ -440,14 +442,16 @@ function check_text_area (textarea) {
     textarea.value = textarea.value.replaceAll(/[^0-9a-zа-я _\(\)\.!?,:\-=/@#&\n]/ig, '')
 }
 
-function add_event (event_content = null) {
+function add_event (event_content = null, from_link = false) {
     if (Object.values(user_events).length < 10) user_events[user_event_id] = new user_event(event_content)
     user_event_id++
+    if (!from_link) send_action('создано событие', '')
 }
 
 function add_event_from_link (event_content) {
     generate_new_event_page()
-    add_event(decode_event_hash(event_content))
+    send_action('Событие открыто по ссылке', '')
+    add_event(decode_event_hash(event_content), from_link = true)
     user_events[user_event_id-1].editor_ref.children[4].children[0].setAttribute('onclick', `user_events[${user_event_id-1}].save_as_new_event(true)`)
     user_events[user_event_id-1].save_as_new_event()
 }

@@ -54,6 +54,7 @@
     text-align: center;
     font-weight: 500;
     font-size: 96px;
+    cursor: default;
 }
 .title--top {
     margin: 0;

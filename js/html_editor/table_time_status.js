@@ -44,18 +44,28 @@ const lessons_time =   ['08:30', '10:00',
                         '16:00', '17:30', 
                         '18:00', '19:30', 
                         '19:40', '21:10']
-function check_lesson_time (lesson) {
-    lesson--
-    let crnt_time = new Date()
-    //let crnt_time = new Date(2022, 1, 22, 8, 0)
-    crnt_time = crnt_time.getHours().toString().padStart(2, '0') + ':' + 
-                crnt_time.getMinutes().toString().padStart(2, '0')
+
+function get_lesson_number_at (time = 'now') {
+    if (time == 'now') {
+        time = new Date()
+        time = time.getHours().toString().padStart(2, '0') + ':' + 
+               time.getMinutes().toString().padStart(2, '0')
+    }
+
+    if (time < lessons_time[0]) return -1
 
     for (let lsi = 0; lsi < lessons_time.length-1; lsi++) {
-        if (lessons_time[lsi] <= crnt_time && crnt_time < lessons_time[lsi+1]) {
-            return (lesson == Math.floor(lsi/2))
+        if (lessons_time[lsi] <= time && time < lessons_time[lsi+1]) {
+            return Math.floor(lsi/2)
         }
     }
+
+    return Math.floor(lessons_time.length/2)
+}
+
+function check_lesson_time (lesson) {
+    lesson--
+    return lesson == get_lesson_number_at('now')
 }
 function day_not_started () {
     let crnt_time = new Date()
