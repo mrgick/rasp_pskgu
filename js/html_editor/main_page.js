@@ -49,7 +49,7 @@ function generate_main_page()
             <input class="search-form-input" name="find_group_name" type="search" autocomplete="off" placeholder="группа/преподаватель" />
             <button class="search-form-button" onclick="adapt_search_text()" type="submit">Поиск</button>
         </form>
-        <a class="search-showall" href="?list">Показать всё</a>
+        <!--a class="search-showall" href="?list">Показать всё</a-->
     </div>
     `
     add_footer(to = document.getElementById('MAIN'), as_block = false)
