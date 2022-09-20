@@ -19,11 +19,18 @@ ________________________________________________________________________________
 ### полный список обновлений:
 - [Версия 1.0.0](https://github.com/mrgick/rasp_pskgu#версия-100)
   - Версия 1.0.0
-    - [Версия 1.0.1](https://github.com/mrgick/rasp_pskgu#версия-101) 
+    - [Версия 1.0.1](https://github.com/mrgick/rasp_pskgu#версия-101)
   - [Версия 1.1.0](https://github.com/mrgick/rasp_pskgu#версия-110)
   - [Версия 1.2.0](https://github.com/mrgick/rasp_pskgu#версия-120)
-    - [Версия 1.2.1](https://github.com/mrgick/rasp_pskgu#версия-121) 
-  - [Версия 1.3.0](https://github.com/mrgick/rasp_pskgu#версия-130) 
+    - [Версия 1.2.1](https://github.com/mrgick/rasp_pskgu#версия-121)
+  - [Версия 1.3.0](https://github.com/mrgick/rasp_pskgu#версия-130)
+    - [Версия 1.3.1](https://github.com/mrgick/rasp_pskgu#версия-131)
+
+## Версия 1.3.1
+
+### Исправления ошибок
+
+- исправлена ошибка с пропажей некоторых кабинетов в расписаниях.
     
 ## Версия 1.3.0
 
