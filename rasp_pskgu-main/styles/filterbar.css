@@ -1,0 +1,35 @@
+.filterbar {
+    position: fixed;
+    top: 75px;
+    left: 15px;
+    width: fit-content;
+    max-width: calc(100% - 450px);
+    background-color: var(--color-background);
+    border: 1px solid var(--color-text);
+    border-radius: 15px;
+    padding: 5px;
+    z-index: 3;
+}
+
+.filterbar-title {
+    font-size: 16px;
+    color: var(--color-text);
+    font-weight: 500;
+    margin: 5px;
+    cursor: default;
+}
+
+.filterbar-main-choice__item {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.filterbar-main-choice td:first-child {
+    border-left: 3px solid var(--color-background);
+}
+
+.filterbar-main-choice td:first-child:hover {
+    border-left: 3px solid var(--color-special);
+    background-color: var(--color-unchoiced);
+}

@@ -1,0 +1,197 @@
+.editbar {
+    position: fixed;
+    top: 75px;
+    left: calc(100% - 15px);
+    transform: translateX(-100%);
+    height: fit-content;
+    background-color: var(--color-background);
+    border: 1px solid var(--color-text);
+    border-radius: 15px;
+    padding: 5px;
+    z-index: 3;
+}
+.editbar--hidden {
+    display: none;
+}
+
+.editbar-title {
+    font-size: 16px;
+    color: var(--color-text);
+    font-weight: 500;
+    margin: 5px;
+    cursor: default;
+}
+
+.editbar-main {
+    display: flex;
+    justify-content: space-between;
+    padding-right: 20px;
+}
+
+.editbar-main-menu {
+    display: flex;
+    flex-direction: column;
+}
+
+.editbar-main-menu__button {
+    width: 100%;
+    border: 1px solid var(--color-additionaly);
+    background-color: var(--color-background);
+    border-radius: 10px;
+    padding: 5px;
+    margin-top: 5px;
+    height: 18px;
+    text-align: center;
+    font-weight: 500;
+}
+.editbar-main-menu__button:hover {
+    cursor: pointer;
+    box-shadow: 0 0 2px;
+}
+.editbar-main-menu__button:active {
+    background-color: var(--color-additionaly);
+}
+.editbar-main-menu__button--disabled {
+    color: var(--color-halftone_text);
+    background-color: var(--color-background);
+}
+.editbar-main-menu__button--disabled:hover {
+    cursor: not-allowed;
+}
+
+.editbar-main-menu__button--accept:hover {
+    color: var(--color-special);
+}
+
+.editbar-main-menu__button--clear:hover {
+    color: var(--color-error);
+}
+
+.editbar-main-menu__button--recommendations {
+    z-index: 1;
+    position: relative;
+}
+
+.editbar-main-menu__rec_list {
+    position: absolute;
+    top: 100%;
+    right: 4px;
+    width: max-content;
+    min-width: 95%;
+    border: 1px solid var(--color-text);
+    background-color: var(--color-background);
+    transform-origin: 50% 0px;
+    transform: scaleY(0);
+    transition: .25s;
+}
+.editbar-main-menu__button--recommendations:hover .editbar-main-menu__rec_list {
+    transform: scaleY(1);
+}
+
+.editbar-main-menu__rec {
+    height: 18px;
+    background-color: var(--color-background);
+    padding: 5px;
+    transition: .5s;
+}
+.editbar-main-menu__rec:hover {
+    cursor: pointer;
+    background-color: var(--color-hover_1);
+}
+.editbar-main-menu__rec:active {
+    background-color: var(--color-hover_1);
+}
+
+.editbar-main-choice__item {
+    display: flex;
+    padding: 0px;
+    margin: 5px;
+    text-align: center;
+    vertical-align: middle;
+    justify-content: space-between;
+    border: 1px solid var(--color-text);
+    background-color: var(--color-additionaly);
+    position: relative;
+    width: 180px;
+    height: 28px;
+}
+.editbar-main-choice__item:hover {
+    cursor: pointer;
+    box-shadow: 0 0 2px;
+}
+
+.editbar-main-choice__item_up {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    font-size: 14px;
+    width: 14px;
+    height: 14px;
+    margin: 0px;
+    background-color: var(--color-background);
+    color: var(--color-text);
+}
+.editbar-main-choice__item_up:hover {
+    background-color: var(--color-hover_1);
+}
+.editbar-main-choice__item_up:active {
+    background-color: var(--color-hover_2);
+}
+
+.editbar-main-choice__item_down {
+    position: absolute;
+    top: 14px;
+    left: 0px;
+    font-size: 14px;
+    width: 14px;
+    height: 14px;
+    margin: 0px;
+    background-color: var(--color-background);
+    color: var(--color-text);
+}
+.editbar-main-choice__item_down:hover {
+    background-color: var(--color-hover_1);
+}
+.editbar-main-choice__item_down:active {
+    background-color: var(--color-hover_2);
+}
+
+.editbar-main-choice__item_content {
+    position: absolute;
+    top: 0px;
+    left: 14px;
+    right: 28px;
+    height: 28px;
+    margin: 0px;
+    text-align: right;
+    vertical-align: middle;
+}
+
+.editbar-main-choice__item-name {
+    padding-top: 7px;
+    padding-bottom: 7px;
+    vertical-align: middle;
+    font-size: 14px;
+    color: var(--color-text);
+}
+
+.editbar-main-choice__item_svg {
+    padding: 0px;
+    width: 28px;
+    height: 28px;
+    position: relative;
+}
+
+.editbar-main-choice__item_svg svg {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    right: 2px;
+    bottom: 2px;
+}
+
+.editbar_outdated {
+    position: fixed;
+    right: 25px;
+    height: 100%;
+}
