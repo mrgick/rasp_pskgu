@@ -1,6 +1,23 @@
-function Switch(id)
+function Switch(id, to = null)
 {
-    document.getElementById(id).classList.toggle('hidden');
+    switch (to) {
+        case true:
+        case 'true':
+        case 'enabled':
+            document.getElementById(id).classList.remove('hidden');
+            break
+
+        case false:
+        case 'false':
+        case 'disabled':
+            document.getElementById(id).classList.add('hidden');
+            break
+
+        default:
+            document.getElementById(id).classList.toggle('hidden');
+            break
+    }
+
     return false;
 }
 
@@ -28,6 +45,12 @@ function Switch_editbar() {
         editbarClose()
         filterbarClose()
     }
+}
+
+function switch_comparing() {
+    let comparing_panel = document.getElementById("ComparePanel")
+    if (comparing_panel.classList.contains('hidden')) Switch('setting_menu', to = false);
+    comparing_panel.classList.toggle("hidden")
 }
 
 function editbarOpen()

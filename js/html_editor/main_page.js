@@ -160,6 +160,10 @@ function generate_rasp_page(group)
                                     <label>Настройка событий</label>
                                     <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 20 20" height="36px" viewBox="0 0 20 20" width="36px"></svg>
                                 </div>
+                                <div class="switcher-comparing" onclick="switch_comparing();">
+                                    <label>Сравнить расписания</label>
+                                    <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 20 20" height="36px" viewBox="0 0 20 20" width="36px"></svg>
+                                </div>
                                 <div class="switcher-print" onclick="open_print_page()">
                                     <label>Распечатать</label>
                                     <svg xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 0 24 24" width="36px"></svg>
@@ -181,11 +185,13 @@ function generate_rasp_page(group)
             <svg xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 0 24 24" width="36px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none"/></svg>
         </div>
     </header>
+
     <container class="rpage">
         <aside class="weekbar hidden" id="Weekbar">
             <p class="weekbar-title">Список недель:</p>
             <div class="weekbar-list" id="Weekbar_List"></div>
         </aside>
+
         <aside class="editbar hidden" id="Editbar">
             <p class="editbar-title">Настройки отображения пар</p>
             <a class="asidebar-close" onclick="editbarClose();">
@@ -210,6 +216,7 @@ function generate_rasp_page(group)
                 </div>
             </div>
         </aside>
+
         <aside class="filterbar hidden" id="Filterbar">
             <p class="filterbar-title">Пользовательские фильтры</p>
             <a class="asidebar-close" onclick="filterbarClose();">
@@ -223,7 +230,8 @@ function generate_rasp_page(group)
                 </div>
             </div>
         </aside>
-        <aside id="EventList" class="event_list hidden">
+
+        <aside class="event_list hidden" id="EventList">
             <div id='help_bg' onclick='document.getElementById("EventList").classList.add("hidden")'>
             </div>
             <div id='event_panel'>
@@ -267,9 +275,24 @@ function generate_rasp_page(group)
                 </a>
             </div>
         </aside>
+
+        <aside class="compare_panel hidden" id="ComparePanel">
+            <p class="compare_panel-title">Сравнение расписания</p>
+            <a class="asidebar-close" onclick='switch_comparing()'>
+                <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 0 24 24" width="18px"></svg>
+            </a>
+            <table id="ComparePanel-table">
+                <tbody>
+                </tbody>
+            </table>
+            <div id='ComparePanel-add'>
+                <input type='text' placeholder='Введите имя...' id='compare_name_input' onchange='document.getElementById("compare_name_enter").removeAttribute("class")'>
+                <input type='button' value='добавить' id='compare_name_enter' onclick='main_rasp.compare_to(document.getElementById("compare_name_input").value)'>
+            </div>
+            <input type='button' value='скопировать ссылку' onclick='main_rasp.clipboard_link()'>
         </aside>
-        <div id="Group_Rasp">
-        </div>
+
+        <div id="Group_Rasp"></div>
     </container>
     `
     add_footer(to = document.getElementById('MAIN'), as_block = true)

@@ -27,6 +27,7 @@ const all_REs =     {'lesson_type': ['Тип занятия', {//VVV subtype VVV
                                     }],
                         'subgroup': ['Подгруппа', {
                                       '!get_digit':['!convert', [/\(?\d* ?п\/г\S* ?\d*\)?/i]],
+                                      '!get_digit':['!convert', [/\dподгр/i]]
                                     }],
                             'room': ['Место проведения', {
                                       '!R|online'        :['!Slice2', [/о-?о?нлайн ?\([a-z0-9 ил]*\)/i                                ]],
@@ -136,6 +137,7 @@ const group_block_seps = [/лайн\d* /ig,
 // see 'try_convert' function
 const convert_result = {'|О-?нлайн\\d\\d*|i': 'Онлайн',
                         '!get_digit|\\(?\\d* ?п\\/г\\S* ?\\d*\\)?|i':'п/г D',
+                        '!get_digit|\\dподгр|i': 'п/г D'
                         }
 
 // see 'nearest_word_sep' function

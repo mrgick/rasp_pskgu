@@ -1,16 +1,39 @@
 
-async function main(event_name, find_name, group_name, print_group_name) {
+async function parse_params () {
+    let params = new URLSearchParams(window.location.search)
 
-    if (event_name) {
-        return await add_event_from_link(event_name);
-    } else if (find_name) {
-        return await loadSearch(find_name);
-    } else if (group_name) {
-        return await loadGroup(group_name);
-    } else if (print_group_name) {
-        return await load_print_page(print_group_name);
-    } else {
-        return await loadBlank();
+    switch (params.get("from")) {
+        case "vk.com":
+            window.location.search
+            window.location = decode_win1251(window.location.toString().replace('from=vk.com', ''))
+            params = new URLSearchParams(window.location.search)
+            break
+    }
+
+    switch ('string') {
+        case typeof params.get('list'            ): load = 'list'  ; break
+        case typeof params.get('event'           ): load = 'event' ; break
+        case typeof params.get('find_group_name' ): load = 'search'; break
+        case typeof params.get('group_name'      ): load = 'rasp'  ; break
+        case typeof params.get('print_group_name'): load = 'print' ; break
+
+        default: load = 'blank'
+    }
+
+    await main(load, params)
+}
+
+async function main(page, params = null) {
+    if (params === null) params = new URLSearchParams(window.location.search)
+
+    switch (page) {
+        case 'list'  : await loadList(); break
+        case 'event' : await add_event_from_link(params.get('event')); break
+        case 'search': await loadSearch(params.get('find_group_name')); break
+        case 'rasp'  : await loadGroup(params.get('group_name'), params.get('compare_to')); break
+        case 'print' : await load_print_page(params.get('print_group_name')); break
+
+        default: await loadBlank()
     }
 }
 
@@ -18,17 +41,12 @@ async function main(event_name, find_name, group_name, print_group_name) {
 async function loadBlank()
 {
     generate_main_page();
-    insert_themes()
+    insert_themes();
 }
 
 // Поисковая страница
 async function loadSearch(find_name)
 {
-    let from = (new URLSearchParams(window.location.search)).get("from");
-    if (from == "vk.com"){
-        find_name = window.location.href.split('find_group_name=')[1].split('&')[0];
-        find_name = decode_win1251(find_name)
-    }
     generate_search_page(find_name);
 
     let list_names = await get_list_groups();
@@ -50,8 +68,12 @@ async function loadSearch(find_name)
     insert_themes()
 }
 
+let main_rasp = null
+let first_day = '9999-01-01'
+let last_day = '2000-01-01'
+
 // Страница расписания
-async function loadGroup(group_name)
+async function loadGroup(group_name, compare_to = null)
 {
     let group = await get_group_info(group_name)
 
@@ -69,37 +91,36 @@ async function loadGroup(group_name)
     }
 
     // Генерация таблиц
-    let first_date = Object.keys(group.days)[0]
-    let last_date = new Date(Object.keys(group.days)[days_length - 1])
-    let day = get_monday(first_date)
+    main_rasp = new full_rasp(group)
 
-    let week = 0;
-    
-    while (new Date(day) <= last_date) {
-        generate_table(group, day, ++week);
-        day = get_next_day(day, 7);
+    first_day = main_rasp.first_day
+    last_day  = main_rasp.last_day
+
+    create_class('compare', '')
+    if (compare_to != null) {
+        for (let group of compare_to.split(',')) main_rasp.compare_to(group)
+        switch_comparing()
     }
     
+    used_class_names = create_used_class_names()
     insert_themes()
     generate_css_classes()
     insert_recomended_styles()
     renew_table_time_status()
-    insert_date_of_last_update(last_date, new Date(group.last_updated))
+    insert_date_of_last_update(new Date(main_rasp.last_day), new Date(group.last_updated))
     if (check_is_favorite()) is_favorite()
     prepare_for_week_cal()
     dragElement(document.getElementById('Editbar'), 0)
     dragElement(document.getElementById('Filterbar'), 0)
     dragElement(document.getElementById('Weekbar'))
+    dragElement(document.getElementById('ComparePanel'), 0)
     
-    if (document.location.hash != '')
-    {
+    if (document.location.hash != '') try {
         document.getElementById(document.location.hash.split('#')[1]).scrollIntoView();
-    }
-    else try
-    {
-        document.getElementById(`Week_${getCurrentWeek(first_date)}`).scrollIntoView();
-    }
-    catch {}
+    } catch {}
+    else try {
+        main_rasp.get_table_now().html.scrollIntoView();
+    } catch {}
     load_events_from_cookie()
     load_invitation_preset()
 }
@@ -193,7 +214,7 @@ function load_mode_from_cookie () {
             case 1:
                 MODE = settings[0]
                 if (!rec_themes[MODE]) MODE = 'light'
-        }
+        } 
     }
 }
 
@@ -206,23 +227,13 @@ function save_mode_to_cookie () {
 
 window.onload = async function ()
 {
-    need_up_warning = check_for_cookies();
+    let need_up_warning = check_for_cookies();
     load_mode_from_cookie()
     save_mode_to_cookie()
 
     set_clr_theme(MODE, true)
 
-    if (window.location.search == "?list")
-    {
-        await loadList();
-        return;
-    }
-    const params = new URLSearchParams(window.location.search);
-    let event_search = document.location.search
-    await main(event_search.startsWith('?event=')? event_search.split('&')[0].replace('?event=', '') : null, 
-               params.get("find_group_name"), 
-               params.get("group_name"), 
-               params.get("print_group_name"));
+    await parse_params()
     
     if (need_up_warning) up_warning('Пользуясь данным сайтом, вы автоматически соглашаетесь с ' + 
                                     'политикой использования Cookie файлов на этом сайте. ' + 
@@ -283,7 +294,7 @@ function check_for_cookies () {
         createCookie('Cookies_enabled', 'true', 180)
         if (readCookie('Cookies_enabled')) {
             return true
-            }
+        }
         else return false
     }
 }
@@ -298,6 +309,7 @@ const tracking_form_url = 'https://docs.google.com/forms/u/0/d/e/1FAIpQLSf-c1T4d
 let sended_actions = 0
 
 function send_action (heading, text = '') {
+    return
     if (!collecting_data) return
 
     let u_check = ''
