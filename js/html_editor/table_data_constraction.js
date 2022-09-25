@@ -892,8 +892,10 @@ class rasp_table {
                             }
                         }
 
-                        if (same) div.innerText = 'полностью аналогично'
-                        continue
+                        if (same) {
+                            div.innerText = 'полностью аналогично'
+                            continue
+                        }
                     }
                     catch {}
                 }
