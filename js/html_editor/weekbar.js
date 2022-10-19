@@ -223,7 +223,7 @@ function add_to_cal_week (week_number) {
     tr.setAttribute('id', 'week_cal_' + week_number)
 
     let td = document.createElement('td')
-    if (out_of_rasp) td.setAttribute('style', 'opacity: .5')
+    if (out_of_rasp) tr.setAttribute('style', 'opacity: .3')
     else td.setAttribute('onclick', `move_to_week("${week_number}")`)
     if (week_number == weeks_between(main_rasp.first_day, now)) {
         td.setAttribute('active', '')

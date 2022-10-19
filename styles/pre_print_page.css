@@ -87,6 +87,7 @@ input[id$='padding_setter-range'] {
     width: 75%;
     height: 24px;
     vertical-align: bottom;
+    accent-color: var(--color-special_hover);
 }
 
 input[id$='padding_setter-input'] {
@@ -116,6 +117,7 @@ input[id$='padding_setter-input'] {
     height: 20px;
     margin: 0px;
     vertical-align: bottom;
+    accent-color: var(--color-special_hover);
 }
 
 #width_of_page, #height_of_page, 

@@ -1,3 +1,5 @@
+let group_rasp_id = 'Group_Rasp'
+let group_rasp_id_table = 'rasp'
 
 async function parse_params () {
     let params = new URLSearchParams(window.location.search)
@@ -11,11 +13,13 @@ async function parse_params () {
     }
 
     switch ('string') {
-        case typeof params.get('list'            ): load = 'list'  ; break
-        case typeof params.get('event'           ): load = 'event' ; break
-        case typeof params.get('find_group_name' ): load = 'search'; break
-        case typeof params.get('group_name'      ): load = 'rasp'  ; break
-        case typeof params.get('print_group_name'): load = 'print' ; break
+        case typeof params.get('list'             ): load = 'list'  ; break
+        case typeof params.get('event'            ): load = 'event' ; break
+        case typeof params.get('import'           ): load = 'import'; break
+        case typeof params.get('find_group_name'  ): load = 'search'; break
+        case typeof params.get('group_name'       ): load = 'rasp'  ; break
+        case typeof params.get('print_group_name' ): load = 'print' ; break
+        case typeof params.get('simple_group_name'): load = 'simple'; break
 
         default: load = 'blank'
     }
@@ -29,9 +33,11 @@ async function main(page, params = null) {
     switch (page) {
         case 'list'  : await loadList(); break
         case 'event' : await add_event_from_link(params.get('event')); break
+        case 'import': await read_exported_filters(params.get('import'), true); break
         case 'search': await loadSearch(params.get('find_group_name')); break
         case 'rasp'  : await loadGroup(params.get('group_name'), params.get('compare_to')); break
         case 'print' : await load_print_page(params.get('print_group_name')); break
+        case 'simple': await loadSimpleGroupPage(params.get('simple_group_name'), params.get('compare_to')); break
 
         default: await loadBlank()
     }
@@ -114,6 +120,8 @@ async function loadGroup(group_name, compare_to = null)
     dragElement(document.getElementById('Filterbar'), 0)
     dragElement(document.getElementById('Weekbar'))
     dragElement(document.getElementById('ComparePanel'), 0)
+    dragElement(document.getElementById('ExportPanel'), 0)
+    dragElement(document.getElementById('ImportPanel'), 0)
     
     if (document.location.hash != '') try {
         document.getElementById(document.location.hash.split('#')[1]).scrollIntoView();
@@ -150,6 +158,9 @@ async function load_print_page (group_name) {
     document.documentElement.style.setProperty('--table-top_padding'   , '5mm')
     document.documentElement.style.setProperty('--table-bottom_padding', '5mm')
 
+    group_rasp_id = 'Printable_Group_Rasp'
+    group_rasp_id_table = 'Printable_rasp'
+
     generate_print_preview(group);
 
     let days_length = Object.keys(group.days).length
@@ -162,19 +173,25 @@ async function load_print_page (group_name) {
     }
 
     // Генерация таблиц
-    let first_date = Object.keys(group.days)[0]
-    let last_date = new Date(Object.keys(group.days)[days_length - 1])
-    let day = get_monday(first_date)
+    main_rasp = new full_rasp(group)
 
-    let week = 0;
-    
-    while (new Date(day) <= last_date) {
-        generate_printable_table(group, day, ++week);
-        day = get_next_day(day, 7);
+    first_day = main_rasp.first_day
+    last_day  = main_rasp.last_day
+
+    for (let table_in_rasp of main_rasp.tables) {
+        let prev_tag = table_in_rasp.html.children[0]
+        let div = document.createElement('div')
+        div.appendChild(prev_tag)
+        div.innerHTML += `
+            <h3 class="rasp-group">${main_rasp.name}</h3>
+        `
+        table_in_rasp.html.insertAdjacentElement('AfterBegin', div)
     }
-    try {document.getElementById('Week_' + week).setAttribute('style', 'margin-bottom: 0px')}
+
+    try {main_rasp.tables.at(-1).html.setAttribute('style', 'margin-bottom: 0px')}
     catch {}
     
+    used_class_names = create_used_class_names()
     generate_css_classes()
     set_clr_theme('light', true, false)
     dragElement(document.getElementById('print_panel'), 'PP_rec')
@@ -184,6 +201,57 @@ async function load_print_page (group_name) {
         if (ignored_styles.indexOf(style.getAttribute('id')) !== -1) continue
         style.setAttribute('media', '1')
     }
+}
+
+async function loadSimpleGroupPage (group_name, compare_to = null) {
+    let group = await get_group_info(group_name)
+
+    generate_simple_rasp_page(group);
+    // Вставка имени группы
+
+    let days_length = Object.keys(group.days).length
+
+    // Проверка на пустоту
+    if (days_length == 0) {
+        rasp_add_empty()
+        used_class_names = create_used_class_names()
+        insert_date_of_last_update('', new Date(group.last_updated))
+        return
+    }
+
+    // Генерация таблиц
+    main_rasp = new simple_rasp(group)
+
+    first_day = main_rasp.first_day
+    last_day  = main_rasp.last_day
+
+    /*create_class('compare', '')
+    if (compare_to != null) {
+        for (let group of compare_to.split(',')) main_rasp.compare_to(group)
+        switch_comparing()
+    }*/
+    
+    used_class_names = create_used_class_names()
+    insert_themes()
+    generate_css_classes()
+    insert_recomended_styles()
+    renew_table_time_status()
+    insert_date_of_last_update(new Date(main_rasp.last_day), new Date(group.last_updated))
+    if (check_is_favorite()) is_favorite()
+    //prepare_for_week_cal()
+    dragElement(document.getElementById('Editbar'), 0)
+    dragElement(document.getElementById('Filterbar'), 0)
+    dragElement(document.getElementById('Weekbar'))
+    dragElement(document.getElementById('ComparePanel'), 0)
+    
+    if (document.location.hash != '') try {
+        document.getElementById(document.location.hash.split('#')[1]).scrollIntoView();
+    } catch {}
+    else try {
+        main_rasp.get_table_now().html.scrollIntoView();
+    } catch {}
+    load_events_from_cookie()
+    load_invitation_preset()
 }
 
 
@@ -309,7 +377,6 @@ const tracking_form_url = 'https://docs.google.com/forms/u/0/d/e/1FAIpQLSf-c1T4d
 let sended_actions = 0
 
 function send_action (heading, text = '') {
-    return
     if (!collecting_data) return
 
     let u_check = ''
@@ -385,4 +452,11 @@ function send_action (heading, text = '') {
     document.getElementsByTagName('body')[0].appendChild(imit_form)
     imit_form.children[1].submit()
     //imit_form.remove()
+}
+
+function add_compare_group_by_enter (key) {
+    if (key.toLowerCase() == "enter") {
+        document.getElementById("compare_name_enter").removeAttribute("class")
+        document.getElementById("compare_name_enter").click()
+    }
 }

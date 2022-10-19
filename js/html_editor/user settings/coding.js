@@ -188,7 +188,7 @@ function decode_style (str) {
 	return `{ ${style_content.join('; ')}; }`
 }
 
-function try_debug (code) {
+function try_debug (code) {	
 	if (code.length == 3) return code + encode_style(base_style_classes[MODE])
 	else if (code.length == 6) return code + '0'
 	else return '___0000'
@@ -199,18 +199,13 @@ function load_settings () {
 	there_are_changes = false
 	let head = document.getElementsByTagName('head')[0]
 
+	encode_all_subclass_names()
+
 	for (class_text in used_class_names) {
 		if (Object.keys(used_class_names[class_text]).length == 0) continue
 		let class_name = used_class_names[class_text][Object.keys(used_class_names[class_text])[0]].split('-')[0]
 		let loaded_cookie = readCookie(class_name)
 		if (loaded_cookie) {
-			let encoded_subclass_names = {}
-			
-			for (subclass_text in used_class_names[class_text]) {
-				let subclass_name = used_class_names[class_text][subclass_text].split('-')[1]
-				encoded_subclass_names[encode_subclass_name(subclass_name)] = subclass_name
-			}
-
 			let decoded_styles = {}
 			for (code of Object.values(loaded_cookie.split('|'))) {
 				if (code.length != 7) code = try_debug(code)
@@ -246,4 +241,207 @@ function load_settings () {
  
 	genEditOrder()
 	if (current_filter_list) genFilterList(current_filter_list)
+}
+
+let encoded_subclass_names = {}
+function encode_all_subclass_names (force = false) {
+	if (!force && Object.values(encoded_subclass_names).length != 0) return;
+	encoded_subclass_names = {}
+
+	for (class_text in used_class_names) {
+		for (subclass_text in used_class_names[class_text]) {
+			let subclass_name = used_class_names[class_text][subclass_text].split('-')[1]
+			encoded_subclass_names[encode_subclass_name(subclass_name)] = subclass_name
+		}
+	}
+}
+
+
+
+//============================================================ import and export
+
+function fill_export_panel () {
+	let table = document.getElementById('export_panel-table')
+	table.querySelector('tbody').remove()
+	let tbody = document.createElement('tbody')
+	table.appendChild(tbody)
+
+	document.getElementById('export_textarea').classList.add('hidden')
+	
+	for (key in all_REs) {
+		let tr = document.createElement('tr')
+		tr.setAttribute('id', 'export_tr_' + key)
+
+		tr.innerHTML += `
+			<td>
+				<input type='checkbox' checked name='export_key-${key}' onchange='export_switch_class("${key}")'>
+				<label for='export_key-${key}'>${all_REs[key][0]}</label>
+			</td>
+			<td>
+			</td>
+		`
+
+		let subclass_names = used_class_names[all_REs[key][0]]
+
+		let loaded = readCookie(key)
+
+		if (loaded) {
+			let td = tr.children[1]
+			let parsed = loaded.split('|')
+
+			encode_all_subclass_names()
+			
+			for (parsed_style of parsed) {
+				let subclass_name = ''
+				if (parsed_style.length != 7) parsed_style = try_debug(parsed_style)
+
+				for (skey in encoded_subclass_names) if (parsed_style.slice(0, 3) == skey) {
+					let ans = encoded_subclass_names[skey]
+
+					for (subclass_text in subclass_names) {
+						if (subclass_names[subclass_text] == key + '-' + ans) {
+							subclass_name = subclass_text
+							break
+						}
+					}
+					break
+				}
+
+				let div = document.createElement('div')
+				div.classList.add('export_elem')
+				div.classList.add('ee_selected')
+				div.setAttribute('export_value', parsed_style)
+				div.setAttribute('onclick', 'export_switch_elem(this)')
+				div.innerText = subclass_name
+				td.appendChild(div)
+			}
+		}
+
+		tbody.appendChild(tr)
+	}
+}
+
+function export_switch_class (key) {
+	let tr = document.getElementById('export_panel-table').querySelector('tbody > tr#export_tr_' + key)
+	tr.style.opacity = tr.children[0].children[0].checked? '1' : '.3'
+}
+
+function export_switch_elem (elem) {
+	if (!elem.innerText) {
+		for (div of elem.parentElement.children) {
+			if (!div.innerText) div.classList.toggle('ee_selected')
+		}
+	}
+	else elem.classList.toggle('ee_selected')
+}
+
+function export_filters () {
+	let tbody = document.getElementById('export_panel-table').querySelector('tbody')
+
+	let export_string = ''
+
+	for (tr of tbody.children) {
+		if (tr.querySelector('td:first-child > input').checked) {
+
+			export_string += '!' + tr.id.replace('export_tr_', '') + ':'
+
+			let td = tr.querySelector('td:last-child')
+			let export_values = []
+			for (div of td.children) {
+				if (div.classList.contains('ee_selected')) {
+					export_values.push(div.getAttribute('export_value'))
+				}
+			}
+			export_string += export_values.join('|')
+		}
+	}
+
+	let eta = document.getElementById('export_textarea')
+	eta.value = export_string
+	eta.classList.remove('hidden')
+
+	send_action('Экспорт фильтров')
+
+	return export_string
+}
+
+function safe_export () {
+	let export_string = export_filters()
+	let new_export_string = '666SAFE'
+
+	let convert = true
+
+	for (char of export_string) {
+		switch (char) {
+			case '!':
+				new_export_string += '888'
+				convert = false
+				break
+
+			case ':':
+				new_export_string += '999'
+				convert = true
+				break
+
+			case '|':
+				new_export_string += '777'
+				break
+
+			case '_':
+				new_export_string += '_'
+				break
+
+			default:
+				if (convert) {
+					new_export_string += convert_sys_to_10(char).toString().padStart(3, '0')
+				}
+				else new_export_string += char
+				break
+		}
+	}
+
+	let export_url = new URL(document.location)
+	export_url.search = 'import=' + new_export_string
+
+	let eta = document.getElementById('export_textarea')
+	eta.value = export_url.toString()
+	eta.classList.remove('hidden')
+
+	return new_export_string
+}
+
+function import_filters (clear_before = false) {
+	if (clear_before) {
+		set_clear_styles()
+		save_settings()
+	}
+	read_exported_filters(document.getElementById('import_textarea').value)
+}
+
+function read_exported_filters (code, to_base_page = false) {
+	if (code.startsWith('http')) document.location = code
+	if (code.startsWith('666SAFE')) code = safe_to_usual_decode (code)
+
+	for (let cookie of code.split('!')) {
+		if (!cookie) continue
+		let parsed = cookie.split(':')
+		createCookie(parsed[0], parsed[1], 180)
+	}
+
+	send_action('Импорт фильтров')
+	if (to_base_page) document.location.search = ''
+	else document.location.reload()
+}
+
+function safe_to_usual_decode (code) {
+	code = code.replace('666SAFE', '')
+			   .replaceAll('888', '!')
+			   .replaceAll('999', ':')
+			   .replaceAll('777', '|')
+
+	for (let matched of code.matchAll(/\d\d\d/g)) {
+		code = code.replace(matched[0], convert_10_to_sys(matched[0]))
+	}
+
+	return code
 }

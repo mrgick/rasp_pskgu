@@ -3,7 +3,6 @@
     top: 75px;
     left: 15px;
     width: fit-content;
-    max-width: calc(100% - 450px);
     background-color: var(--color-background);
     border: 1px solid var(--color-text);
     border-radius: 15px;

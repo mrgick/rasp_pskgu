@@ -31,6 +31,7 @@ const sys_256 = '0123456789'+ // 10
                 'ĠġĢģĤĥĦħĨĩĪīĬĭĮįİıĲĳĴĵĶķĸĹĺĻļĽľĿ'  // 256
 
 function convert_10_to_sys (num, system = 256) {
+    if (num == 0) return '0'
     let result = ''
     while (num > 0) {
         result = sys_256[num%system] + result
