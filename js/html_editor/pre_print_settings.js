@@ -20,8 +20,8 @@ function set_table_padding (side, input) {
     document.getElementById(side+'_padding_setter-input').value = input.value
 }
 
-function switch_theme_using (input) {
-    if (input.checked) set_clr_theme('light', true, false)
+function switch_theme_using (checked) {
+    if (checked) set_clr_theme('light', true, false)
     else {
         MODE = readCookie('mode')
         if (MODE) MODE = MODE.split('|')[0]
@@ -30,10 +30,10 @@ function switch_theme_using (input) {
     }
 }
 
-function switch_filters_using (input) {
+function switch_filters_using (checked) {
     let styles = document.getElementsByTagName('style')
 
-    if (input.checked) for (style of styles) {
+    if (checked) for (style of styles) {
         if (ignored_styles.indexOf(style.getAttribute('id')) !== -1) continue
         style.removeAttribute('media')
     }
@@ -43,10 +43,10 @@ function switch_filters_using (input) {
     }
 }
 
-function switch_group_name_display (input) {
+function switch_group_name_display (checked) {
     let group_names = document.getElementsByClassName('rasp-group')
 
-    if (input.checked) for (group of group_names) group.classList.remove('rasp-group--hidden')
+    if (checked) for (group of group_names) group.classList.remove('rasp-group--hidden')
     else for (group of group_names) group.classList.add('rasp-group--hidden')
 }
 

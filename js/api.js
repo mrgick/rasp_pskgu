@@ -10,8 +10,19 @@ async function get_json(url) {
 
 async function get_list_groups(type = 'list') {
     if (type == 'list' || type == 'structure') {
-        res = await get_json(API_URL + 'groups?list_of_names=' + type)
-        return res['list_of_names']
+        res = (await get_json(API_URL + 'groups?list_of_names=' + type))['list_of_names']
+
+        //=================================================================
+        if (type == 'structure') try {
+            let abc = res['Расписание преподавателей']['Прочее']['прочее']
+            delete res['Расписание преподавателей']
+            res['Расписание преподавателей'] = abc
+            console.log(res['Расписание преподавателей'])
+        } catch {}
+        // after delete also modify: fullist.js -> line 60
+        //=================================================================
+
+        return res
     }
 }
 

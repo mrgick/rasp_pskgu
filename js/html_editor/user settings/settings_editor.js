@@ -22,7 +22,7 @@ function change_editor_status () {
 			<br>
 			<label>Text colour</label>
 			<br>
-			<input type='color' value='${base_styles[MODE]['color'           ]}' id='txt_clr_changer' onchange='set_new_txt_colour()'/>
+			<input type='color' value='${base_styles[MODE]['color']}' id='txt_clr_changer' onchange='set_new_txt_colour()'/>
 			<br>
 			<label>Border colour</label>
 			<br>

@@ -71,6 +71,9 @@ function new_clr_input (width, style_class, attrib, with_checkbox = false, Lmarg
             attrib_colour = get_css_attribute(attrib, style_class).split(' ')[2]
             id_str = 'brdclr_of_' + style_class
             break
+        default:
+            attrib_colour = style_class
+            id_str = attrib
     }
 
     let td = document.createElement('td')
@@ -133,7 +136,7 @@ function new_clr_input (width, style_class, attrib, with_checkbox = false, Lmarg
         checkbox.setAttribute('style'   , '')
         checkbox.style['position'     ] = 'absolute'
         checkbox.style['left'         ] = Lmargin+'px'
-	checkbox.style['top'          ] = '0px'
+	    checkbox.style['top'          ] = '0px'
         checkbox.style['margin'       ] = '0px'
         checkbox.style['margin-top'   ] = '1px'
         checkbox.style['margin-bottom'] = '1px'

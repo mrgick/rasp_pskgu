@@ -134,7 +134,7 @@ function special_text (pattern, matched) {
 }
 
 function adapt_for_html (text) {
-    return text.replaceAll(/([ ,-/]|\(|\)|\\)/g, '_').replaceAll(/[.]/g, '．').replaceAll('@', 'A') // ⋅．•
+    return text.replaceAll(/([ ,-/]|\(|\)|\\)/g, '_').replaceAll(/['"`:;\.]/g, '．').replaceAll('@', 'A') // ⋅．•
 }
 
 /* 
@@ -262,6 +262,7 @@ function divide (input, RE_list) {
                         other_as_lesson = true
                         continue
                     }
+
                     else {
                         let found_smth = false
                         for (subtype in RE_list[type][1]) {
@@ -339,7 +340,7 @@ function divide_old (text, RE_list) {
     let index = final_index = 0 // need to find where program must insert uncuted part (lesson)
 
     //===========================================================================================
-
+    
     if (RE_list == group_REs) { // if timetable for group
         let matched = []
         for (re in group_block_seps) {                    //
@@ -445,8 +446,8 @@ function clear_highlight () {
     style.innerHTML = ''
 }
 
-function highlight_same (event, class_name) {
-    if (event.altKey || auto_alt_click) {
+function highlight_same (altKey, class_name) {
+    if (altKey || auto_alt_click) {
         let style = document.getElementById('style_highlight')
         if (style.innerHTML.indexOf(class_name) !== -1) clear_highlight()
         else {
@@ -454,68 +455,6 @@ function highlight_same (event, class_name) {
             style.innerHTML = `.${class_name} {border: 2px dashed var(--color-error); width: ${size.width-4}px; height: ${size.height-4}px; background-color: var(--color-background); color: var(--color-error)}`
         }
     }
-}
-
-let first_day = '9999-01-01'
-let last_day  = '2022-01-01'
-function gen_row_data(table, day, day_content, prefix) { // prefixes: ЗФО|ОФО|Преподаватель
-    let required_REs = prefix.toLowerCase() == 'преподаватель'? teacher_REs : group_REs
-
-    if (day < first_day) first_day = day
-    else if (day > last_day) last_day = day
-
-    let tr = document.createElement('tr');
-    add_td(
-        `<p class="rasp-table-day-date">${new Date(day).getDate()} ${monthNames[new Date(day).getMonth()]}</p>
-        <p class="rasp-table-day-weekdate">${weekNames[new Date(day).getDay()]}</p>`,
-        tr, "rasp-table-day", day
-    )
- 
-    //renew_pre_used_class_names() doesn't work
-  
-    if (day_content) {
-        for (let i = 1; i <= 7; i++) { // for each 'пара'
-            if (day_content[i]) {
-                let td = document.createElement('td')
-                td.classList.add("rasp-table-pair")
-                td.setAttribute('id', day+'-'+i)
-                tr.appendChild(td)
-
-                content = divide(day_content[i], required_REs)
-
-                for (lesson in content) { // for each block (lesson)
-                    let div = document.createElement('div')
-                    div.setAttribute('class', 'block_'+lesson)
-                    td.appendChild(div)
-
-                    for (sub_div of content[lesson]) { // for each div in block
-                        let text_div = document.createElement('div')
-                        text_div.setAttribute('class', 'base ' + sub_div[0])
-
-                        if (['teacher', 'group'].indexOf(sub_div[0].split('-')[0]) !== -1) {
-                            text_div.setAttribute('style', 'cursor: pointer')
-                            text_div.setAttribute('onclick', `go_to_link(event, '${sub_div[1]}', '${sub_div[0]}')`)
-                        }
-                        else text_div.setAttribute('onclick', `highlight_same(event, '${sub_div[0]}')`)
-
-                        text_div.innerText = sub_div[1]
-                        div.appendChild(text_div)
-                    }
-                }
-            }
-            else { // if empty 'пара'
-                add_td('', tr, "rasp-table-pair", day+'-'+i)
-            }
-        }
-    }
-    else { // if empty day
-        for (let i = 1; i <= 7; i++) {
-            add_td('', tr, "rasp-table-pair", day+'-'+i)
-        }
-    }
-    //console.log(day);
-    table.appendChild(tr)
-    return
 }
 
 let used_class_names = {}
@@ -529,3 +468,12 @@ function create_used_class_names (placement = global_placement) {
     }
     return used_class_names
 }
+
+const auto_colouring_compared_groups = [
+    '#006699', 
+    '#AA4400', 
+    '#007744',
+    '#339922',
+    '#993366',
+    '#662299'
+]

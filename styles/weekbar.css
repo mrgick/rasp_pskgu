@@ -24,6 +24,7 @@
     font-size: 16px;
     line-height: 140%;
     color: var(--color-text);
+    cursor: default;
 }
 .weekbar-list__item {
     display: block;
@@ -49,6 +50,10 @@
 #week_list > label > span {
     font-style: bold;
     cursor: pointer;
+}
+
+#week_list > table {
+    margin-top: 5px;
 }
 
 #Weekbar_List {
@@ -96,7 +101,8 @@
 }
 
 #week_cal caption {
-    margin-bottom: 5px;
+    margin-bottom: 10px;
+    cursor: default;
 }
 #week_cal caption span {
     font-style: bold;
@@ -170,7 +176,7 @@
 
 #week_cal-monthes caption {
     color: var(--color-background);
-    margin-bottom: 5px;
+    margin-bottom: 10px;
 }
 
 #week_cal-monthes td {
@@ -290,4 +296,3 @@
     25% {background-color: var(--color-special);}
     to {background-color: var(--color-background);}
 }
-

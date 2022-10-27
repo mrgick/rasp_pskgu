@@ -9,8 +9,8 @@ const cal_monthes = [               'январь' , 'февраль',
                         'декабрь' ]
 
 function prepare_for_week_cal () {
-    wco_min_value = 3 - weeks_between(first_day, new Date())
-    wco_max_value = weeks_between(new Date(), last_day) - 3
+    wco_min_value = -2 - weeks_between(main_rasp.first_day, new Date())
+    wco_max_value = weeks_between(new Date(), main_rasp.last_day) - -2
 
     let style = document.createElement('style')
     style.setAttribute('type', 'text/css')
@@ -62,16 +62,21 @@ function generate_weekbar (generate = 'cal') {
         </div>
         `
         let list = document.getElementById("Weekbar_List")
-        let week_count = weeks_between(first_day, last_day)
-        let day = new Date(first_day)
-        for (let week_number = 1; week_number <= week_count; week_number++) {
-            const dayDate = day.getDate();
-            const dayMonth = monthNames[day.getMonth()];
-            const nextDayDate = new Date(get_next_day(day, 6)).getDate();
-            const nextDayMonth = monthNames[new Date(get_next_day(day, 6)).getMonth()];
+
+        let week_count = main_rasp.tables.length
+
+        for (let week = 0; week < week_count; week++) {
+            let first_week_day = new Date(main_rasp.tables[week].first_day)
+            let last_week_day  = new Date(main_rasp.tables[week].last_day )
+
+            const dayDate = first_week_day.getDate();
+            const dayMonth = monthNames[first_week_day.getMonth()];
+            const nextDayDate = last_week_day.getDate();
+            const nextDayMonth = monthNames[last_week_day.getMonth()];
+
             list.innerHTML += `
-            <tr onclick='move_to_week("${week_number}")'>
-                <td>${week_number}:</td>
+            <tr onclick='move_to_week("${week + 1}")'>
+                <td>${week + 1}:</td>
                 <td>${dayDate}</td>
                 <td>${dayMonth}</td>
                 <td>-</td>
@@ -79,9 +84,8 @@ function generate_weekbar (generate = 'cal') {
                 <td>${nextDayMonth}</td>
             </tr>
             `
-            day.setDate(day.getDate() + 7)
         }
-        try {list.children[getCurrentWeek(first_day)-1].setAttribute('style', 'font-weight: bold')}
+        try {list.children[main_rasp.week_now - 1].setAttribute('style', 'font-weight: bold')}
         catch {}
     }
 
@@ -105,7 +109,7 @@ function generate_weekbar (generate = 'cal') {
                     <td title='воскресенье' ><label>вс</label></td>
                 </tr>
             </thead>
-            <tbody></tbody>
+            <tbody onwheel='try_offset_cal(event)'></tbody>
             <tfoot>
                 <tr>
                     <td style='position: relative; width: 30px; height: 15px;'>
@@ -159,7 +163,7 @@ function generate_weekbar (generate = 'cal') {
             filter_list.appendChild(option)
         }
 
-        let crnt_week = weeks_between(first_day, new Date()) + week_cal_offset
+        let crnt_week = main_rasp.week_now + week_cal_offset
         add_to_cal_week(crnt_week-2)
         add_to_cal_week(crnt_week-1)
         add_to_cal_week(crnt_week  )
@@ -206,22 +210,22 @@ function clear_week_cal () {
 }
 
 function add_to_cal_week (week_number) {
-    if (week_number < 1 || week_number > weeks_between(first_day, last_day)) return
+    let out_of_rasp = (week_number < 1 || week_number > main_rasp.tables.length)
 
     let need_insert_month = 0
 
     let table = document.getElementById('week_cal').children[2]
-    table.setAttribute('onwheel', 'try_offset_cal(event)')
-    let current_day = new Date(first_day)
-    current_day.setDate(current_day.getDate() + (week_number - 1)*7 - 1)
+
+    let current_day = new Date(get_next_day(main_rasp.first_day, (week_number - 1)*7 - 1))
+    let now = new Date()
 
     let tr = document.createElement('tr')
     tr.setAttribute('id', 'week_cal_' + week_number)
 
-
     let td = document.createElement('td')
-    td.setAttribute('onclick', `move_to_week("${week_number}")`)
-    if (week_number == weeks_between(first_day, new Date())) {
+    if (out_of_rasp) tr.setAttribute('style', 'opacity: .3')
+    else td.setAttribute('onclick', `move_to_week("${week_number}")`)
+    if (week_number == weeks_between(main_rasp.first_day, now)) {
         td.setAttribute('active', '')
         tr.setAttribute('this_week', '')
     }
@@ -233,8 +237,8 @@ function add_to_cal_week (week_number) {
         current_day.setDate(current_day.getDate() + 1)
         td = document.createElement('td')
 
-        td.setAttribute('onclick', `move_to_week("${week_number}", "${i}")`)
-        if (date_to_str(current_day) == date_to_str(new Date())) td.setAttribute('active', '')
+        if (!out_of_rasp) td.setAttribute('onclick', `move_to_week("${week_number}", "${i}")`)
+        if (date_to_str(current_day) == date_to_str(now)) td.setAttribute('active', '')
 
         if (current_day.getDate()-1 < 7) {
             td.style.borderTop = '3px solid var(--color-error)'

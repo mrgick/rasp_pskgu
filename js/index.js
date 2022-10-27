@@ -1,16 +1,45 @@
+let group_rasp_id = 'Group_Rasp'
+let group_rasp_id_table = 'rasp'
 
-async function main(event_name, find_name, group_name, print_group_name) {
+async function parse_params () {
+    let params = new URLSearchParams(window.location.search)
 
-    if (event_name) {
-        return await add_event_from_link(event_name);
-    } else if (find_name) {
-        return await loadSearch(find_name);
-    } else if (group_name) {
-        return await loadGroup(group_name);
-    } else if (print_group_name) {
-        return await load_print_page(print_group_name);
-    } else {
-        return await loadBlank();
+    switch (params.get("from")) {
+        case "vk.com":
+            window.location.search
+            window.location = decode_win1251(window.location.toString().replace('from=vk.com', ''))
+            params = new URLSearchParams(window.location.search)
+            break
+    }
+
+    switch ('string') {
+        case typeof params.get('list'             ): load = 'list'  ; break
+        case typeof params.get('event'            ): load = 'event' ; break
+        case typeof params.get('import'           ): load = 'import'; break
+        case typeof params.get('find_group_name'  ): load = 'search'; break
+        case typeof params.get('group_name'       ): load = 'rasp'  ; break
+        case typeof params.get('print_group_name' ): load = 'print' ; break
+        case typeof params.get('simple_group_name'): load = 'simple'; break
+
+        default: load = 'blank'
+    }
+
+    await main(load, params)
+}
+
+async function main(page, params = null) {
+    if (params === null) params = new URLSearchParams(window.location.search)
+
+    switch (page) {
+        case 'list'  : await loadList(); break
+        case 'event' : await add_event_from_link(params.get('event')); break
+        case 'import': await read_exported_filters(params.get('import'), true); break
+        case 'search': await loadSearch(params.get('find_group_name')); break
+        case 'rasp'  : await loadGroup(params.get('group_name'), params.get('compare_to')); break
+        case 'print' : await load_print_page(params.get('print_group_name')); break
+        case 'simple': await loadSimpleGroupPage(params.get('simple_group_name'), params.get('compare_to')); break
+
+        default: await loadBlank()
     }
 }
 
@@ -18,17 +47,12 @@ async function main(event_name, find_name, group_name, print_group_name) {
 async function loadBlank()
 {
     generate_main_page();
-    insert_themes()
+    insert_themes();
 }
 
 // Поисковая страница
 async function loadSearch(find_name)
 {
-    let from = (new URLSearchParams(window.location.search)).get("from");
-    if (from == "vk.com"){
-        find_name = window.location.href.split('find_group_name=')[1].split('&')[0];
-        find_name = decode_win1251(find_name)
-    }
     generate_search_page(find_name);
 
     let list_names = await get_list_groups();
@@ -50,8 +74,12 @@ async function loadSearch(find_name)
     insert_themes()
 }
 
+let main_rasp = null
+let first_day = '9999-01-01'
+let last_day = '2000-01-01'
+
 // Страница расписания
-async function loadGroup(group_name)
+async function loadGroup(group_name, compare_to = null)
 {
     let group = await get_group_info(group_name)
 
@@ -69,37 +97,38 @@ async function loadGroup(group_name)
     }
 
     // Генерация таблиц
-    let first_date = Object.keys(group.days)[0]
-    let last_date = new Date(Object.keys(group.days)[days_length - 1])
-    let day = get_monday(first_date)
+    main_rasp = new full_rasp(group)
 
-    let week = 0;
-    
-    while (new Date(day) <= last_date) {
-        generate_table(group, day, ++week);
-        day = get_next_day(day, 7);
+    first_day = main_rasp.first_day
+    last_day  = main_rasp.last_day
+
+    create_class('compare', '')
+    if (compare_to != null) {
+        for (let group of compare_to.split(',')) main_rasp.compare_to(group)
+        switch_comparing()
     }
     
+    used_class_names = create_used_class_names()
     insert_themes()
     generate_css_classes()
     insert_recomended_styles()
     renew_table_time_status()
-    insert_date_of_last_update(last_date, new Date(group.last_updated))
+    insert_date_of_last_update(new Date(main_rasp.last_day), new Date(group.last_updated))
     if (check_is_favorite()) is_favorite()
     prepare_for_week_cal()
     dragElement(document.getElementById('Editbar'), 0)
     dragElement(document.getElementById('Filterbar'), 0)
     dragElement(document.getElementById('Weekbar'))
+    dragElement(document.getElementById('ComparePanel'), 0)
+    dragElement(document.getElementById('ExportPanel'), 0)
+    dragElement(document.getElementById('ImportPanel'), 0)
     
-    if (document.location.hash != '')
-    {
+    if (document.location.hash != '') try {
         document.getElementById(document.location.hash.split('#')[1]).scrollIntoView();
-    }
-    else try
-    {
-        document.getElementById(`Week_${getCurrentWeek(first_date)}`).scrollIntoView();
-    }
-    catch {}
+    } catch {}
+    else try {
+        main_rasp.get_table_now().html.scrollIntoView();
+    } catch {}
     load_events_from_cookie()
     load_invitation_preset()
 }
@@ -129,6 +158,9 @@ async function load_print_page (group_name) {
     document.documentElement.style.setProperty('--table-top_padding'   , '5mm')
     document.documentElement.style.setProperty('--table-bottom_padding', '5mm')
 
+    group_rasp_id = 'Printable_Group_Rasp'
+    group_rasp_id_table = 'Printable_rasp'
+
     generate_print_preview(group);
 
     let days_length = Object.keys(group.days).length
@@ -141,19 +173,25 @@ async function load_print_page (group_name) {
     }
 
     // Генерация таблиц
-    let first_date = Object.keys(group.days)[0]
-    let last_date = new Date(Object.keys(group.days)[days_length - 1])
-    let day = get_monday(first_date)
+    main_rasp = new full_rasp(group)
 
-    let week = 0;
-    
-    while (new Date(day) <= last_date) {
-        generate_printable_table(group, day, ++week);
-        day = get_next_day(day, 7);
+    first_day = main_rasp.first_day
+    last_day  = main_rasp.last_day
+
+    for (let table_in_rasp of main_rasp.tables) {
+        let prev_tag = table_in_rasp.html.children[0]
+        let div = document.createElement('div')
+        div.appendChild(prev_tag)
+        div.innerHTML += `
+            <h3 class="rasp-group">${main_rasp.name}</h3>
+        `
+        table_in_rasp.html.insertAdjacentElement('AfterBegin', div)
     }
-    try {document.getElementById('Week_' + week).setAttribute('style', 'margin-bottom: 0px')}
+
+    try {main_rasp.tables.at(-1).html.setAttribute('style', 'margin-bottom: 0px')}
     catch {}
     
+    used_class_names = create_used_class_names()
     generate_css_classes()
     set_clr_theme('light', true, false)
     dragElement(document.getElementById('print_panel'), 'PP_rec')
@@ -163,6 +201,57 @@ async function load_print_page (group_name) {
         if (ignored_styles.indexOf(style.getAttribute('id')) !== -1) continue
         style.setAttribute('media', '1')
     }
+}
+
+async function loadSimpleGroupPage (group_name, compare_to = null) {
+    let group = await get_group_info(group_name)
+
+    generate_simple_rasp_page(group);
+    // Вставка имени группы
+
+    let days_length = Object.keys(group.days).length
+
+    // Проверка на пустоту
+    if (days_length == 0) {
+        rasp_add_empty()
+        used_class_names = create_used_class_names()
+        insert_date_of_last_update('', new Date(group.last_updated))
+        return
+    }
+
+    // Генерация таблиц
+    main_rasp = new simple_rasp(group)
+
+    first_day = main_rasp.first_day
+    last_day  = main_rasp.last_day
+
+    /*create_class('compare', '')
+    if (compare_to != null) {
+        for (let group of compare_to.split(',')) main_rasp.compare_to(group)
+        switch_comparing()
+    }*/
+    
+    used_class_names = create_used_class_names()
+    insert_themes()
+    generate_css_classes()
+    insert_recomended_styles()
+    renew_table_time_status()
+    insert_date_of_last_update(new Date(main_rasp.last_day), new Date(group.last_updated))
+    if (check_is_favorite()) is_favorite()
+    //prepare_for_week_cal()
+    dragElement(document.getElementById('Editbar'), 0)
+    dragElement(document.getElementById('Filterbar'), 0)
+    dragElement(document.getElementById('Weekbar'))
+    dragElement(document.getElementById('ComparePanel'), 0)
+    
+    if (document.location.hash != '') try {
+        document.getElementById(document.location.hash.split('#')[1]).scrollIntoView();
+    } catch {}
+    else try {
+        main_rasp.get_table_now().html.scrollIntoView();
+    } catch {}
+    load_events_from_cookie()
+    load_invitation_preset()
 }
 
 
@@ -193,7 +282,7 @@ function load_mode_from_cookie () {
             case 1:
                 MODE = settings[0]
                 if (!rec_themes[MODE]) MODE = 'light'
-        }
+        } 
     }
 }
 
@@ -206,23 +295,13 @@ function save_mode_to_cookie () {
 
 window.onload = async function ()
 {
-    need_up_warning = check_for_cookies();
+    let need_up_warning = check_for_cookies();
     load_mode_from_cookie()
     save_mode_to_cookie()
 
     set_clr_theme(MODE, true)
 
-    if (window.location.search == "?list")
-    {
-        await loadList();
-        return;
-    }
-    const params = new URLSearchParams(window.location.search);
-    let event_search = document.location.search
-    await main(event_search.startsWith('?event=')? event_search.split('&')[0].replace('?event=', '') : null, 
-               params.get("find_group_name"), 
-               params.get("group_name"), 
-               params.get("print_group_name"));
+    await parse_params()
     
     if (need_up_warning) up_warning('Пользуясь данным сайтом, вы автоматически соглашаетесь с ' + 
                                     'политикой использования Cookie файлов на этом сайте. ' + 
@@ -283,7 +362,7 @@ function check_for_cookies () {
         createCookie('Cookies_enabled', 'true', 180)
         if (readCookie('Cookies_enabled')) {
             return true
-            }
+        }
         else return false
     }
 }
@@ -373,4 +452,25 @@ function send_action (heading, text = '') {
     document.getElementsByTagName('body')[0].appendChild(imit_form)
     imit_form.children[1].submit()
     //imit_form.remove()
+}
+
+function add_compare_group_by_enter (key) {
+    if (key.toLowerCase() == "enter") {
+        document.getElementById("compare_name_enter").removeAttribute("class")
+        document.getElementById("compare_name_enter").click()
+    }
+}
+
+let nums = []
+let unparsed_nums = []
+function debug_check () {
+    nums = ['101А', '210НК11', '309ТМ', '408ТМ', '101БД', '210ТМ', '310ДО11', '409РАС', '101ГД', '211ДО11', '311АТПП', '410АТПП', '101ГХ', '311РАС', '414С', '101Д', '211Э', '312Т', '415С', '101ДО11', '211Э11', '317С', '420ГХ', '101ИС', '212РАС', '318С', '421ГХ', '101КСиК', '213Т', '322ГХ', '429Д', '101НК11', '214Т', '324ГХ', '434А', '101РАС', '215Т11', '327БД', '436ТО', '101С', '219С', '328ГС', '437ТО', '101Т', '220С', '330Д', '438ПО', '101Э', '223ГХ', '331Б', '439ПО', '101ЭБ', '227БД11', '336А', '102А11', '229Б', '337А', '102ГД11', '229БД', '338ТО', '102ГХ', '231Б11', '341ПО', '102ИС', '231Д', '341ПО11', '102КСиК', '238А', '342ПО', '102С', '244КСиК', '343ПО', '102Т', '244КСиК11', '102ЭБ', '245КСиК', '103ИС11', '103КСиК11', '103Т11', '110ТМ']
+
+    let re = /\d{3}[\dа-яА-Я]*/
+
+    for (let num of nums) {
+        let res = num.match(re)
+        console.log(num, res)
+        if (res != num) unparsed_nums.push(num)
+    }
 }

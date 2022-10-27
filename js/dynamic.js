@@ -1,6 +1,23 @@
-function Switch(id)
+function Switch(id, to = null)
 {
-    document.getElementById(id).classList.toggle('hidden');
+    switch (to) {
+        case true:
+        case 'true':
+        case 'enabled':
+            document.getElementById(id).classList.remove('hidden');
+            break
+
+        case false:
+        case 'false':
+        case 'disabled':
+            document.getElementById(id).classList.add('hidden');
+            break
+
+        default:
+            document.getElementById(id).classList.toggle('hidden');
+            break
+    }
+
     return false;
 }
 
@@ -18,6 +35,12 @@ function open_theme_editor () {
 function close_theme_editor () {
     document.getElementById("theme_editor").classList.add("hidden");
     return false
+}
+
+function switch_comparing() {
+    let comparing_panel = document.getElementById("ComparePanel")
+    if (comparing_panel.classList.contains('hidden')) Switch('setting_menu', to = false);
+    comparing_panel.classList.toggle("hidden")
 }
 
 function Switch_editbar() {
@@ -49,6 +72,45 @@ function editbarClose()
     }
     document.getElementById("Editbar").classList.add("hidden");
     document.getElementById("Filterbar").classList.add("hidden");
+    return false;
+}
+
+function SwitchImportPanel() {
+    if (document.getElementById("ImportPanel").classList.contains("hidden")) {
+        ImportPanelOpen()
+    }
+    else ImportPanelClose()
+}
+
+function ImportPanelOpen()
+{
+    document.getElementById("ImportPanel").classList.remove("hidden");
+    return false;
+}
+
+function ImportPanelClose()
+{
+    document.getElementById("ImportPanel").classList.add("hidden");
+    return false;
+}
+
+function ExportPanelOpen()
+{
+    if (there_are_changes) {
+        if (confirm('Вы не применили последние изменения и они не будут внесены ' + 
+                    'в строку для экспорта. Применить сейчас?')) {
+            save_settings()
+            there_are_changes = false
+        }
+    }
+    fill_export_panel()
+    document.getElementById("ExportPanel").classList.remove("hidden");
+    return false;
+}
+
+function ExportPanelClose()
+{
+    document.getElementById("ExportPanel").classList.add("hidden");
     return false;
 }
 

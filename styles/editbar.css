@@ -19,6 +19,7 @@
     color: var(--color-text);
     font-weight: 500;
     margin: 5px;
+    cursor: default;
 }
 
 .editbar-main {

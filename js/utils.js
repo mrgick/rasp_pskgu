@@ -31,6 +31,7 @@ const sys_256 = '0123456789'+ // 10
                 'ĠġĢģĤĥĦħĨĩĪīĬĭĮįİıĲĳĴĵĶķĸĹĺĻļĽľĿ'  // 256
 
 function convert_10_to_sys (num, system = 256) {
+    if (num == 0) return '0'
     let result = ''
     while (num > 0) {
         result = sys_256[num%system] + result
@@ -163,4 +164,47 @@ function hex_to_rgb (hex) {
       g: parseInt(result[2], 16),
       b: parseInt(result[3], 16)
     } : null;
+}
+
+function merge_clrs (clr_1, clr_2, ratio = '1:1', to = 'hex') {
+    if (typeof clr_1 == 'string') clr_1 = hex_to_rgb(clr_1)
+    if (typeof clr_2 == 'string') clr_2 = hex_to_rgb(clr_2)
+
+    try {
+        ratio = ratio.split(':')
+        ratio = [Number(ratio[0]), Number(ratio[1])]
+    }
+    catch { ratio = [1, 1] }
+
+    let result = {'r': Math.floor((clr_1['r']*ratio[0] + clr_2['r']*ratio[1]) / (ratio[0] + ratio[1])),
+                  'g': Math.floor((clr_1['g']*ratio[0] + clr_2['g']*ratio[1]) / (ratio[0] + ratio[1])),
+                  'b': Math.floor((clr_1['b']*ratio[0] + clr_2['b']*ratio[1]) / (ratio[0] + ratio[1])),
+    }
+
+    switch (to) {
+        case 'hex': return rgb_to_hex(result['r'], result['g'], result['b'])
+        case 'rgb_arr': return [result['r'], result['g'], result['b']]
+        
+        case 'rgb': 
+        default:
+            return result
+    }
+}
+
+function copy_to_CB (text) {
+    var textArea = document.createElement("textarea");
+    textArea.value = text;
+
+    // Avoid scrolling to bottom
+    textArea.style.top = "0";
+    textArea.style.left = "0";
+    textArea.style.position = "fixed";
+
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+
+    try { document.execCommand('copy')} catch {}
+
+    document.body.removeChild(textArea);
 }

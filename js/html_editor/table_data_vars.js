@@ -26,22 +26,23 @@ const all_REs =     {'lesson_type': ['Тип занятия', {//VVV subtype VVV
                                       'test_2'    :['Зачёт с оценкой', [/Зач?О/i, /ЗчО/i]],
                                     }],
                         'subgroup': ['Подгруппа', {
-                                      '!get_digit':['!convert', [/\(?\d* ?п\/г\S* ?\d*\)?/i]],
+                                      '!get_digit|i1':['!convert', [/\(?\d* ?п\/г\S* ?\d*\)?/i]],
+                                      '!get_digit|i2':['!convert', [/\dподгр/i]]
                                     }],
                             'room': ['Место проведения', {
-                                      '!R|online'        :['!Slice2', [/о-?о?нлайн ?\([a-z0-9 ил]*\)/i                                ]],
-                                      'online'           :['Онлайн' , [/о-?о?нлайн\d*/i                                               ]],
-                                      '!result|< |S-1'   :['!Slice1', [/(^|[ ЛсС])[тКСПЗ12348]-\d\d*( ?[а-дА-Д]|"[а-дА-Д]"| ?\(\d\))?/]],
-                                      '!R|online|1'      :['Онлайн' , [/\S\S?-?\S?нлайн( ?\(.*\)|\d*)/i                               ]], // debug
-                                      'DLS'              :['СДО'    , [/СДО\d? ПсковГУ/i                                              ]],
-                                      '!result|i1'       :['!result', [/event\d*@pskgu\.ru/i                                          ]],
-                                      'Л2'               :['!Slice1', [/Л2-(СЗ|цифровой парк( \d уровень)?)/i                         ]],
-                                      'С'                :['!Slice1', [/(С|К)-СЗ/i                                                    ]],
-                                      '!result|i2'       :['!result', [/ПОКБ\d?/i                         , // debug
+                                      '!R|online'        :['!Slice2'        , [/о-?о?нлайн ?\([a-z0-9 ил]*\)/i                                ]],
+                                      'online'           :['Онлайн'         , [/о-?о?нлайн\d*/i                                               ]],
+                                      '!result|< |S-1'   :['!Slice1'        , [/(^|[ ЛсС])[тКСПЗ12348]-\d\d*( ?[а-дА-Д]|"[а-дА-Д]"| ?\(\d\))?/]],
+                                      '!R|online|1'      :['Онлайн'         , [/\S\S?-?\S?нлайн( ?\(.*\)|\d*)/i                               ]], // debug
+                                      'DLS'              :['СДО'            , [/СДО\d? ПсковГУ/i                                              ]],
+                                      '!result|i1'       :['!result'        , [/event\d*@pskgu\.ru/i                                          ]],
+                                      'Л2'               :['!Slice1'        , [/Л2-(СЗ|цифровой парк( \d уровень)?)/i                         ]],
+                                      'С'                :['!Slice1'        , [/(С|К)-СЗ/i                                                    ]],
+                                      '!result|i2'       :['Яндекс-телемост', [/О-Яндекс\.Телемост\d*/i                                       ]],
+                                      '!result|i3'       :['Pruffme'        , [/О-Pruffme\d*/i                                                ]],
+                                      '!result|i4'       :['!result', [/ПОКБ\d?/i                         , // debug
                                                                        /Я\.Фабрициуса,\s?\d-\d+/i         ,
                                                                        /О-BigBlueButton\d*/i              ,
-                                                                       /О-Pruffme\d*/i                    ,
-                                                                       /О-Яндекс\.Телемост\d*/i           ,
                                                                        /ПОИБ\d?/i                         ,
                                                                        /Сим\.центр\d?/i                   ,
                                                                        /лаборатория\d?/i                  ,
@@ -62,11 +63,13 @@ const all_REs =     {'lesson_type': ['Тип занятия', {//VVV subtype VVV
                                                                        /Корр ОУ/i                         ,
                                                                        /Некр\.\d*/i                       ,
                                                                        /Ф-\d*-\d*(a|а)?/i                 ,
+                                                                       /Ф-СЗ/i                            ,
                                                                        /LMS Moodle/i                      ,
                                                                        /Медико-реабилитационный центр ПсковГУ, ул. Розы Люксембург, д.6б/i]],
                                     }],
                            'group': ['Группа', {
-                                      '!result|C':['!result', [/\d{4}-\d{2}(\(|\)|[а-яА-Я0-9])*(\s|,|$)/]],
+                                      '!result|C':['!result', [/\d{4}-\d{2}(\(|\)|[а-яА-Я0-9])*(\s|,|$)/, 
+                                                               /\d{3}[\dа-яА-Я]*/]],
                                       '!result'  :['!result', [/Иностр\.студенты\([А-Я, ]*\)/i, // debug
                                                                /Начальный 1 к\./i             ,
                                                                /Начальный к\./i               ]],
@@ -115,7 +118,7 @@ let group_excepts   = ['group'  ]
 let teacher_excepts = ['teacher']
 
 // What must to be deleted from final lesson text
-const delete_from_lesson = [/п\/гр? ?[1-4]/ig]
+const delete_from_lesson = [/\(?\d* ?п\/г\S* ?\d*\)?/ig]
 
 // If text contains several lessons, it will be divided by these regexps
 const group_block_seps = [/лайн\d* /ig, 
@@ -136,6 +139,7 @@ const group_block_seps = [/лайн\d* /ig,
 // see 'try_convert' function
 const convert_result = {'|О-?нлайн\\d\\d*|i': 'Онлайн',
                         '!get_digit|\\(?\\d* ?п\\/г\\S* ?\\d*\\)?|i':'п/г D',
+                        '!get_digit|\\dподгр|i': 'п/г D'
                         }
 
 // see 'nearest_word_sep' function

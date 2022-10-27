@@ -11,24 +11,27 @@ class user_event {
             switch (splited[3]) {
                 case '0': // after event
                     if (new Date() > new Date(event_date + ' ' + lessons_time[event_lesson*2 - 1])) {
-                        this.remove()
                         if (heading) heading.innerHTML = 'Событие<br>истекло по времени'
+                        add_button_on_expires()
+                        this.remove()
                         return
                     }
                     break
 
                 case '1': // after day
                     if ((new Date() - new Date(event_date))/(1000*60*60*24) > 1) {
-                        this.remove()
                         if (heading) heading.innerHTML = 'Событие<br>истекло по времени'
+                        add_button_on_expires()
+                        this.remove()
                         return
                     }
                     break
 
                 case '2': // after week
                     if ((new Date() - new Date(get_monday(event_date)))/(1000*60*60*24) > 7) {
-                        this.remove()
                         if (heading) heading.innerHTML = 'Событие<br>истекло по времени'
+                        add_button_on_expires()
+                        this.remove()
                         return
                     }
                     break
@@ -49,6 +52,12 @@ class user_event {
         this.hide_lessons = false
         this.delete_after = 0
 
+        let allowed_symbols = ''
+        for (let allowed_symbol of event_hash_convertations) allowed_symbols += allowed_symbol[0]
+        allowed_symbols = allowed_symbols.replace('\n', '')
+        allowed_symbols = allowed_symbols.replace('\'', '')
+        allowed_symbols = allowed_symbols.replace('\"', '')
+
         let event_div = document.createElement('div')
         event_div.setAttribute('class', 'event_blank')
         event_div.setAttribute('style', '')
@@ -60,34 +69,34 @@ class user_event {
                 <input type='color' value='${this.event_colour}' oninput='user_events[${user_event_id}].redraw(this.value)'>
             </div>
             <div>
-                <textarea placeholder='Описание события. Не более 300 символов.\nРазрешены символы: 0-9 a-z а-я _().!?,:-=/@#&' maxlength='300' oninput='check_text_area(this)'></textarea>
+                <textarea placeholder='Описание события. Не более 300 символов.\nРазрешены символы: 0-9 a-z а-я ${allowed_symbols}' maxlength='300' oninput='check_text_area(this)'></textarea>
             </div>
             <div>
                 <input type='date' value='${this.date}'>
                 <select>
-                    <option value='1' ${this.lesson == 1? 'selected' : ''}>(1) :  8:30 - 10:00</option>
-                    <option value='2' ${this.lesson == 2? 'selected' : ''}>(2) : 10:15 - 11:45</option>
-                    <option value='3' ${this.lesson == 3? 'selected' : ''}>(3) : 12:30 - 14:00</option>
-                    <option value='4' ${this.lesson == 4? 'selected' : ''}>(4) : 14:15 - 15:45</option>
-                    <option value='5' ${this.lesson == 5? 'selected' : ''}>(5) : 16:00 - 17:30</option>
-                    <option value='6' ${this.lesson == 6? 'selected' : ''}>(6) : 18:00 - 19:30</option>
-                    <option value='7' ${this.lesson == 7? 'selected' : ''}>(7) : 19:40 - 21:10</option>
+                    <option value='1' ${this.lesson == 1? 'selected' : ''}>[1] 08:30 - 10:00</option>
+                    <option value='2' ${this.lesson == 2? 'selected' : ''}>[2] 10:15 - 11:45</option>
+                    <option value='3' ${this.lesson == 3? 'selected' : ''}>[3] 12:30 - 14:00</option>
+                    <option value='4' ${this.lesson == 4? 'selected' : ''}>[4] 14:15 - 15:45</option>
+                    <option value='5' ${this.lesson == 5? 'selected' : ''}>[5] 16:00 - 17:30</option>
+                    <option value='6' ${this.lesson == 6? 'selected' : ''}>[6] 18:00 - 19:30</option>
+                    <option value='7' ${this.lesson == 7? 'selected' : ''}>[7] 19:40 - 21:10</option>
                 </select>
                 <input type='checkbox' name='instead'>
                 <label for='instead' title='занятия в это время будут чуть скрыты'>вместо занятий</label>
             </div>
             <div>
-                <label>Автоматически удалить после: </label>
+                <label>Автоматически удалить: </label>
                 <select>
-                    <option value='0'>завершения события</option>
-                    <option value='1'>завершения дня с событием</option>
-                    <option value='2'>завершения недели с событием</option>
+                    <option value='0'>после завершения события</option>
+                    <option value='1'>на следующий день</option>
+                    <option value='2'>в конце недели с событием</option>
                     <option value='3'>никогда</option>
                 </select>
             </div>
             <div style='margin-bottom: 0'>
-                <button class='event_panel_button' onclick='user_events[${user_event_id}].save()'>сохранить изменения</button>
-                <button class='event_panel_button' onclick='user_events[${user_event_id}].invitation()'>создать приглашение</button>
+                <button class='event_panel_button' onclick='user_events[${user_event_id}].save()'>Cохранить изменения</button>
+                <button class='event_panel_button' onclick='user_events[${user_event_id}].invitation()'>Cоздать приглашение</button>
                 <textarea class='hidden' style='margin-top: 10px'></textarea>
             </div>
             <a class="asidebar-close" onclick='user_events[${user_event_id}].remove()'>
@@ -192,9 +201,16 @@ class user_event {
     redraw (clr) {
         let rgb = hex_to_rgb(clr)
         this.editor_ref.style.backgroundColor = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.1)`
-        this.editor_ref.style.borderColor = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.4)`
+        this.editor_ref.style.borderColor = rgb
+        this.editor_ref.querySelector('input[type="checkbox"]').style.accentColor = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.4)`
         this.editor_ref.children[4].children[0].style.backgroundColor = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.4)`
         this.editor_ref.children[4].children[1].style.backgroundColor = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.4)`
+
+        this.editor_ref.children[0].children[0].style.backgroundColor = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.2)`
+        this.editor_ref.children[1].children[0].style.backgroundColor = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.2)`
+        this.editor_ref.children[2].children[0].style.backgroundColor = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.2)`
+        this.editor_ref.children[2].children[1].style.backgroundColor = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.2)`
+        this.editor_ref.children[3].children[1].style.backgroundColor = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.2)`
     }
 
     changed () {this.editor_ref.children[4].children[0].classList.remove('hidden')}
@@ -361,14 +377,18 @@ function make_invitation (usr_event) {
                 
             case 'date':
             case "дата":
-                let dd = usr_event.date.split('-')[2]
-                let mm = usr_event.date.split('-')[1]
+                let dd      = usr_event.date.split('-')[2]
+                let weekday = weekNames[new Date(usr_event.date).getDay()]
+                let wd      = weekNamesShort[new Date(usr_event.date).getDay()]
+                let mm      = usr_event.date.split('-')[1]
                 let ofmonth = monthNames[Number(mm)-1]
-                let month = cal_monthes[Number(mm)-1]
-                let yyyy = usr_event.date.split('-')[0]
-                let yy = yyyy.slice(2)
+                let month   = cal_monthes[Number(mm)-1]
+                let yyyy    = usr_event.date.split('-')[0]
+                let yy      = yyyy.slice(2)
                 invitation_str = invitation_str.replace(matched[special], 
                     params[1]? params[1].replaceAll('дд', dd)
+                                        .replaceAll('день', weekday)
+                                        .replaceAll('дн', wd)
                                         .replaceAll('мм', mm)
                                         .replaceAll('месяца', ofmonth)
                                         .replaceAll('месяц', month)
@@ -420,16 +440,23 @@ const event_hash_convertations = [
     ['.', '%p'],
     ['!', '%e'],
     ['?', '%q'],
+    ['`', '%U'],
+    ['\'','%m'],
+    ['\"','%M'],
     [',', '%с'],
     [':', '%d'],
+    [';', '%s'],
     ['-', '%L'],
     ['=', '%Q'],
     ['@', '%A'],
     ['#', '%h'],
     ['&', '%a'],
+    ['(', '%i'],
+    [')', '%I'],
     ['\n','%n'],
 ]
 function convert_str_to_hash (str) {
+    if (!str) return ''
     for (conv of event_hash_convertations) str = str.replaceAll(conv[0], conv[1])
     return str
 }
@@ -439,7 +466,7 @@ function convert_hash_to_str (hash) {
 }
 
 function check_text_area (textarea) {
-    textarea.value = textarea.value.replaceAll(/[^0-9a-zа-я _\(\)\.!?,:\-=/@#&\n]/ig, '')
+    textarea.value = textarea.value.replaceAll(/[^0-9a-zа-я _\(\)\.!?`'",:;\\\-=/@#&\n]/ig, '')
 }
 
 function add_event (event_content = null, from_link = false) {
@@ -513,4 +540,22 @@ function load_events_from_cookie () {
         let events = loaded.split('|')
         for (event_hash of events) add_event(event_hash)
     }
+}
+
+function add_button_on_expires () {
+    let buttons = document.getElementsByClassName('new_event_subtitle')
+    let back_button = null
+    if (buttons.length == 0) return
+    else back_button = buttons[0]
+
+    let new_location = document.location.toString().slice(0, -1) + '3'
+
+    let button = document.createElement('button')
+    button.setAttribute('class', 'new_event-button_back')
+    button.setAttribute('onclick', `document.location="${new_location}"`)
+    button.innerText = 'Нажмите здесь, чтобы добавить это событие всё равно'
+    back_button.insertAdjacentElement('BeforeBegin', button)
+
+    let br = document.createElement('br')
+    back_button.insertAdjacentElement('BeforeBegin', br)
 }
