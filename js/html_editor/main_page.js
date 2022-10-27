@@ -1,4 +1,4 @@
-const version = '1.3.0'
+const version = '1.4.0'
 
 function generate_main_page()
 {
