@@ -11,8 +11,26 @@ class full_rasp {
         this.group_json = group_json
 
         this.name = group_json.name
-        this.prefix = group_json.prefix[0].toLowerCase() == 'преподаватель'? 'Преподаватель' : 'Группа'
-        this.REs = this.prefix == 'Преподаватель'? teacher_REs : group_REs
+
+        this.prefix = null
+        switch(group_json.prefix[0].toLowerCase()) {
+            case 'преподаватель':
+                this.prefix = 'Преподаватель'
+                break;
+
+            case 'колледж':
+                this.prefix = group_json.prefix[1].toLowerCase() == 'преподаватель'? 
+                    'Преподаватель' : 'Группа'
+                break;
+
+            case 'ОФО':
+            case 'ЗФО':
+            default:
+                this.prefix = 'Группа'
+                break;
+        }
+
+        this.REs = (this.prefix == 'Преподаватель'? teacher_REs : group_REs)
 
         this.html = document.getElementById(group_rasp_id)
         
@@ -143,13 +161,29 @@ class full_rasp {
 
             this.compared_with.push(group)
 
-            this.REs = group_json.prefix[0].toLowerCase() == 'преподаватель'? teacher_REs : group_REs
+            let cmp_prefix = null
+            switch(group_json.prefix[0].toLowerCase()) {
+                case 'преподаватель':
+                    cmp_prefix = 'Преподаватель'
+                    break;
+
+                case 'колледж':
+                    cmp_prefix = group_json.prefix[1].toLowerCase() == 'преподаватель'? 
+                        'Преподаватель' : 'Группа'
+                    break;
+
+                case 'ОФО':
+                case 'ЗФО':
+                default:
+                    cmp_prefix = 'Группа'
+                    break;
+            }
+
+            this.REs = cmp_prefix == 'Преподаватель'? teacher_REs : group_REs
 
             for (let day in group_json.days) {
                 this.insert_day(day, group_json.days[day], group)
             }
-            
-            this.REs = this.prefix == 'преподаватель'? teacher_REs : group_REs
 
             let index = this.compared_with.indexOf(group)
             if (index < auto_colouring_compared_groups.length) {
