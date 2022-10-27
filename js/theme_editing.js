@@ -71,7 +71,7 @@ const rec_themes = {
             '--color-special_hover': '#116622',
 
             '--color-unchoiced'    : '#74806B',
-            '--color-time_tracking': '#7788BB',
+            '--color-time_tracking': '#559966',
         }
     },
     'dark': {
