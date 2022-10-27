@@ -57,7 +57,7 @@ function genPossibilities(structLink, id, cid = 0)
             }
             else
             {
-                if (length == 4)
+                if (length == 2) // 4 // after change also modify: api.js -> get_list_groups
                 {
                     document.getElementById(id).insertAdjacentHTML("beforeend",`
                         <a class="possible_list__item" href="?group_name=${struct[key]}">${struct[key].replace("_", " ")}</a>
