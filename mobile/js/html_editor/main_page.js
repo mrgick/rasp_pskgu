@@ -247,7 +247,7 @@ function generate_rasp_page(group)
         </div>
     </div>
     `
-    #add_footer(to = document.getElementById('MAIN'), as_block = true)
+    //add_footer(to = document.getElementById('MAIN'), as_block = true)
     add_aside_bars()
 }
 
