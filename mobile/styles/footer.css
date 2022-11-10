@@ -1,0 +1,32 @@
+.footer-list {
+    margin:  20px;
+    display: inline-block;
+    font-size: 200%;
+}
+
+.footer-list > li:first-child {
+    color: var(--color-text);
+    margin-top: 0px;
+    margin-bottom: 10px;
+    font-weight: 400;
+    cursor: default;
+}
+
+.footer-list > li {
+    color: var(--color-halftone_text);
+    margin-top: 30px;
+}
+
+.footer-link {
+    cursor: pointer;
+    color: var(--color-halftone_text);
+}
+.footer-link:hover { color: var(--color-link) }
+
+.footer_hr {
+    width: 80%;
+    height: 1px;
+    margin: 10px 0 10px 20px;
+    color: var(--color-text);
+    background-color: var(--color-text);
+}

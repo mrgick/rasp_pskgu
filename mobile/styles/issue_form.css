@@ -1,0 +1,290 @@
+#pu_list.issue_form {
+    display: flex;
+    flex-flow: column;
+    overflow: hidden;
+}
+
+
+.AF_header {
+    width: 100%;
+    height: fit-content;
+    max-height: 50%;
+    overflow-y: auto;
+    background-color: var(--color-special);
+    margin: 0px;
+    flex: 0 1 auto;
+}
+
+.AF_header h2 {
+    margin: 0px;
+    padding: 10px;
+    font-size: 50px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 100;
+    max-width: calc(100% - 34px);
+    color: var(--color-header_text);
+}
+
+
+
+.AF_content {
+    background-color: var(--color-background);
+    color: var(--color-text);
+    margin: 0px;
+    padding: 5px;
+    padding-top: 20px;
+    padding-bottom: 10px;
+    position: relative;
+    align-items: center;
+    text-align: center;
+    overflow: auto;
+    flex: 1 1 auto;
+}
+
+#AF_table {
+    width: 90%;
+    margin: auto;
+    vertical-align: middle;
+}
+
+#AF_table tr { 
+    border-bottom: 20px solid var(--color-background);
+    background-color: var(--color-light);
+}
+
+#AF_table input[type='checkbox'] {
+    width: 30pt;
+    height: 30pt;
+    margin: 0px;
+    vertical-align: middle;
+}
+
+#AF_table p {
+    font-size: 30px;
+}
+
+#AF_table td {
+    padding: 20px;
+    vertical-align: middle;
+}
+
+.AF_content input[type="text"] {
+    width: 90%;
+    padding-left: 10px;
+    border: 0px;
+    background-color: var(--color-background);
+    font-size: 30px;
+}
+
+div[id^='AF_this_input_'] {
+    width: 90%;
+    min-width: 300px;
+    height: fit-content;
+    min-height: 50px;
+    margin: auto;
+    margin-bottom: 10px;
+    color: var(--color-text);
+    background-color: var(--color-light);
+    position: relative;
+}
+
+.AF_label {
+    display: inline-block;
+    font-size: 40px;
+    margin: 10px;
+    vertical-align: middle;
+    line-height: 50px;
+}
+
+div[id^='AF_this_input_']:hover {
+    cursor: pointer;
+    transition: 0.25s;
+    background-color: var(--color-hover_2);
+}
+
+input[id^='AF_this_chbx_'] {
+    height: 100%;
+    width: 100%;
+    margin: 0px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    opacity: 0;
+}
+
+.AF_content textarea {
+    width: 90%;
+    height: 90%;
+    padding: 2px;
+    margin: auto;
+    font-size: 30px;
+    background-color: var(--color-background);
+    border: 1px solid var(--color-text);
+    resize: vertical;
+}
+
+
+
+.AF_navigation {
+    background-color: var(--color-light);
+    margin: 0px;
+    padding: 20px;
+    border-top: 1px solid var(--color-text);
+    text-align: center;
+    flex: 0 1 50px;
+}
+
+#AF_prev_button_border {
+    width: 150px;
+    height: 50px;
+    margin: 0px;
+    background-color: var(--color-text);
+    border: 0px;
+    clip-path: polygon( 0px 25px, 
+                        25px 0px,
+                        100% 0px,
+                        100% 100%,
+                        25px 100%);
+    display: inline-block;
+    vertical-align: bottom;
+    position: relative;
+}
+#AF_prev_button {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    transition: 0.25s;
+    background-color: var(--color-special);
+    color: var(--color-header_text);
+    border: 0px;
+    clip-path: polygon( 1px 25px, 
+                        25px 1px,
+                        calc(100% - 1px) 1px,
+                        calc(100% - 1px) calc(100% - 1px),
+                        25px calc(100% - 1px));
+    font-size: 34px;
+}
+#AF_prev_button:hover {
+    background-color: var(--color-special_hover);
+}
+#AF_prev_button:disabled {
+    background-color: var(--color-additionaly);
+    color: var(--color-halftone_text);
+}
+
+#AF_progress_bar {
+    width: calc(100% - 300px - 60px);
+    min-width: 100px;
+    height: 48px;
+    margin: 0px;
+    background-color: var(--color-background);
+    border: 1px solid var(--color-text);
+    display: inline-block;
+    vertical-align: bottom;
+    position: relative;
+}
+#AF_progress_bar label {
+    display: block;
+    width: 100%;
+    font-size: 34px;
+    line-height: 48px;
+    color: var(--color-text);
+}
+
+#AF_next_button_border {
+    width: 150px;
+    height: 50px;
+    margin: 0px;
+    background-color: var(--color-text);
+    border: 0px;
+    clip-path: polygon( 100% 25px,
+                        calc(100% - 25px) 0px,
+                        0px 0px,
+                        0px 100%,
+                        calc(100% - 25px) 100%);
+    display: inline-block;
+    vertical-align: bottom;
+    position: relative;
+}
+#AF_next_button {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    transition: 0.25s;
+    background-color: var(--color-special);
+    color: var(--color-header_text);
+    border: 0px;
+    clip-path: polygon( calc(100% - 1px) 25px,
+                        calc(100% - 25px) 1px,
+                        1px 1px,
+                        1px calc(100% - 1px),
+                        calc(100% - 25px) calc(100% - 1px));
+    font-size: 34px;
+}
+#AF_next_button:hover {
+    background-color: var(--color-special_hover);
+}
+#AF_next_button:disabled {
+    background-color: var(--color-additionaly);
+    color: var(--color-halftone_text);
+}
+
+
+
+form[target='dummyframe'] {
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    position: absolute;
+}
+
+#form_submit {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+    transition: 0.25s;
+    background-color: var(--color-special);
+    color: var(--color-header_text);
+    font-size: 20px;
+}
+#form_submit:hover {
+    background-color: var(--color-special_hover);
+}
+#form_submit:disabled {
+    background-color: var(--color-additionaly);
+    color: var(--color-halftone_text);
+}
+
+.AF_content p {
+    font-size: 16px;
+}
+
+#AF_close {
+    width: 60%;
+    height: 48px;
+    margin: 0px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: var(--color-special);
+    color: var(--color-header_text);
+    border: 1px solid var(--color-text);
+    display: inline-block;
+    text-align: center;
+    vertical-align: bottom;
+    font-size: 34px;
+}
+#AF_close:hover {
+    background-color: var(--color-special_hover);
+}
