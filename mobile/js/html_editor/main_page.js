@@ -54,7 +54,7 @@ function generate_main_page()
             </div>
         </form>
         <div class="search-other">
-            <div class="search-other-param" onclick='document.location.pathname = ""'>
+            <div class="search-other-param" onclick='go_to_PC_version()'>
                 <label>ПК-версия</label>
             </div>
             <div class="search-other-param" style='transform: translateY(10px)' onclick='switch_rasp_type()'>
