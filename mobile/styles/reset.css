@@ -5,6 +5,7 @@
 	font-size: 100%;
 	font: inherit;
 	text-size-adjust: none;
+	-webkit-text-size-adjust: none;
 	vertical-align: baseline;
 }
 article, aside, details, figcaption, figure, 
