@@ -460,3 +460,7 @@ function add_compare_group_by_enter (key) {
         document.getElementById("compare_name_enter").click()
     }
 }
+
+function go_to_mobile_version () {
+    document.location.pathname = document.location.pathname.replace(/\/?(index)?(\.html)?$/i, '/mobile/index.html')
+}
