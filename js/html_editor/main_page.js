@@ -50,6 +50,7 @@ function generate_main_page()
             <button class="search-form-button" onclick="adapt_search_text()" type="submit">Поиск</button>
         </form>
         <a class="search-showall" href="?list">Показать всё</a>
+        <a class="search-showall" style="margin-right: 20px; cursor: pointer" onclick='go_to_mobile_version()'>Мобильная версия</a>
     </div>
     `
     add_footer(to = document.getElementById('MAIN'), as_block = false)
