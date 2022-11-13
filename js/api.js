@@ -1,6 +1,6 @@
 /*Файл для работы с апи*/
 
-const API_URL = 'https://api-rasp-pskgu.herokuapp.com/'
+const API_URL = 'https://pskgu-api.onrender.com/'
 
 async function get_json(url) {
     let response = await fetch(url);
