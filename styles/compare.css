@@ -1,0 +1,139 @@
+#ComparePanel {
+    position: fixed;
+    bottom: 15px;
+    right: 15px;
+    width: -moz-fit-content;
+    width: fit-content;
+    min-width: 250px;
+    max-width: 600px;
+    height: -moz-fit-content;
+    height: fit-content;
+    background-color: var(--color-background);
+    border: 1px solid var(--color-text);
+    border-radius: 15px;
+    padding: 5px;
+    z-index: 3;
+}
+
+.compare_panel-title {
+    font-size: 16px;
+    color: var(--color-text);
+    font-weight: 500;
+    margin: 5px;
+    cursor: default;
+}
+
+#ComparePanel-table {
+    margin: 5px;
+    margin-top: 10px;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+#ComparePanel-table tr {
+    border-left: 3px solid var(--color-background);
+    height: 18px;
+}
+
+#ComparePanel-table tr:hover {
+    border-left: 3px solid var(--color-special);
+    background-color: var(--color-unchoiced);
+    cursor: default;
+}
+
+#ComparePanel-table td {
+    height: 20px;
+    font-size: 18px;
+    vertical-align: middle;
+    border-bottom: 3px solid var(--color-background);
+}
+
+#ComparePanel-table td:first-child {
+    color: var(--color-error);
+    cursor: pointer;
+}
+
+#ComparePanel-table td:nth-child(2) {
+    padding: 0 5px;
+}
+
+#ComparePanel-table input[type='color'] {
+    width: 40px;
+    padding: 0;
+    background: none;
+    outline: none;
+    vertical-align: middle;
+}
+
+#ComparePanel-add {
+    margin: 10px;
+}
+
+#ComparePanel-add input[type='text'] {
+    width: 50%;
+    height: 20px;
+    background-color: var(--color-background);
+}
+
+#ComparePanel-add input[type='button'] {
+    width: -moz-fit-content;
+    width: fit-content;
+    height: 20px;
+    padding: 0 3px;
+    background-color: var(--color-background);
+    border: 1px solid var(--color-text);
+    cursor: pointer;
+}
+
+#ComparePanel input[type='button'] {
+    width: -moz-fit-content;
+    width: fit-content;
+    height: 20px;
+    padding: 0 3px;
+    margin: 10px;
+    background-color: var(--color-background);
+    border: 1px solid var(--color-text);
+    cursor: pointer;
+}
+
+.compare_accepted {
+    animation-name: anim_compare_accepted;
+    animation-duration: 1s;
+    animation-iteration-count: 1;
+}
+
+@keyframes anim_compare_accepted {
+    from {
+        border-color: #33AA66;
+        color: #33AA66;
+    }
+    25% {
+        border-color: #33AA66;
+        color: #33AA66;
+    }
+    to {
+        border-color: var(--color-text);
+        color: var(--color-text);
+    }
+}
+
+.compare_denied {
+    animation-name: anim_compare_denied;
+    animation-duration: 1s;
+    animation-iteration-count: 1;
+}
+
+@keyframes anim_compare_denied {
+    from {
+        border-color: var(--color-error);
+        color: var(--color-error);
+    }
+    25% {
+        border-color: var(--color-error);
+        color: var(--color-error);
+    }
+    to {
+        border-color: var(--color-text);
+        color: var(--color-text);
+    }
+}

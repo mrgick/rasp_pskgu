@@ -1,0 +1,163 @@
+#EventList {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    z-index: 500;
+}
+
+#event_panel {
+    position: fixed;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    max-width: 800px;
+    height: 80%;
+    background-color: var(--color-background);
+    border: 1px solid var(--color-text);
+    padding: 10px;
+    overflow: auto;
+    z-index: 502;
+}
+
+.new_event_panel {
+    position: relative !important;
+    top: auto !important;
+    height: -moz-fit-content !important;
+    height: fit-content !important;
+}
+.new_event_title {
+    text-align: center;
+    margin: 20px 0;
+    font-size: 30px;
+    cursor: default;
+}
+.new_event_subtitle {
+    text-align: center;
+    margin: 20px 0;
+    font-size: 16px;
+}
+.new_event-button_back {
+    font-size: 20px;
+    padding: 5px;
+    margin-top: 30px;
+    background-color: var(--color-hover_1);
+    transition: 0.25s;
+}
+.new_event-button_back:hover {
+    background-color: var(--color-hover_2);
+}
+
+.event_panel_button {
+    height: 24px;
+    min-width: 100px;
+    padding: 0px 4px;
+    margin: 5px;
+    border: 1px solid var(--color-text);
+    border-radius: 8px;
+    background-color: var(--color-hover_1);
+    transition: 0.25s;
+}
+.event_panel_button:hover {
+    background-color: var(--color-hover_2);
+}
+
+.event_panel_button-add {
+    min-width: 150px;
+    height: 30px;
+    padding: 0px 4px;
+    margin: 20px;
+    font-size: 22px;
+    border: 1px solid var(--color-text);
+    border-radius: 10px;
+    background-color: var(--color-hover_1);
+    transition: 0.25s;
+}
+.event_panel_button-add:hover {
+    background-color: var(--color-hover_2);
+}
+
+.event_blank {
+    position: relative;
+    padding: 15px;
+    margin: 10px;
+    background-color: var(--color-light);
+    border: 1px solid var(--color-halftone_text);
+    border-radius: 10px;
+}
+
+.event_blank > div {
+    margin-bottom: 5px;
+}
+
+.event_blank input[type='text'] {
+    width: 60%;
+    height: 28px;
+    padding-left: 3px;
+    vertical-align: top;
+    background-color: inherit;
+    border: 1px solid var(--color-halftone_text);
+}
+.event_blank input[type='color'] {
+    height: 30px;
+    vertical-align: top;
+    background-color: inherit;
+}
+
+.event_blank textarea {
+    width: 90%;
+    min-width: 20%;
+    max-width: 90%;
+    height: 150px;
+    min-height: 30px;
+    padding: 3px;
+    vertical-align: top;
+    background-color: inherit;
+    border: 1px solid var(--color-halftone_text);
+}
+
+.event_blank input[type='date'] {
+    height: 28px;
+    background-color: inherit;
+    border: 1px solid var(--color-halftone_text);
+    vertical-align: middle;
+} 
+.event_blank select {
+    height: 30px;
+    background-color: inherit;
+    border: 1px solid var(--color-halftone_text);
+    vertical-align: middle;
+}
+.event_blank input[type='checkbox'] {
+    width: 20px;
+    height: 20px;
+    background-color: inherit;
+    border: 1px solid var(--color-halftone_text);
+    vertical-align: middle;
+}
+
+.block_event {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+.block_event > div {
+    border-top: 1px solid var(--color-text);
+    cursor: pointer;
+}
+
+#invitation_editor ul {
+    font-size: 12pt;
+    line-height: 15pt;
+    text-align: left;
+    padding-left: 20pt;
+    list-style-type: disc;
+    margin-bottom: 5pt;
+}
+
+#invitation_editor ul b {
+    font-weight: bold;
+}

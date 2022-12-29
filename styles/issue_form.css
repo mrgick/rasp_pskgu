@@ -1,0 +1,305 @@
+.aside_form {
+    position: fixed;
+    top: 75px;
+    left: 25px;
+    max-width: 600px;
+    width: 90%;
+    height: -moz-fit-content;
+    height: fit-content;
+    background-color: var(--color-background);
+    border: 1px solid var(--color-special);
+    padding: 0px;
+    z-index: 10;
+}
+
+
+
+.AF_header {
+    width: 100%;
+    height: -moz-fit-content;
+    height: fit-content;
+    background-color: var(--color-special);
+    margin: 0px;
+}
+
+.AF_header h2 {
+    margin: 0px;
+    padding: 10px;
+    font-size: 18px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 100;
+    max-width: calc(100% - 34px);
+    color: var(--color-header_text);
+}
+
+.issue_report-close {
+    position: absolute;
+    right: 5px;
+    top: 0px;
+    font-size: 30px;
+    color: var(--color-header_text);
+}
+.issue_report-close:hover {
+    cursor: pointer;
+}
+
+
+
+.AF_content {
+    width: calc(100% - 10px);
+    height: -moz-fit-content;
+    height: fit-content;
+    min-height: 200px;
+    background-color: var(--color-background);
+    color: var(--color-text);
+    margin: 0px;
+    padding: 5px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    position: relative;
+}
+
+#AF_table {
+    vertical-align: middle;
+}
+
+#AF_table input[type='checkbox'] {
+    width: 19px;
+    height: 19px;
+    margin: 0px;
+    vertical-align: middle;
+}
+
+#AF_table p {
+    font-size: 14px;
+}
+
+#AF_table td {
+    padding: 2px;
+    padding-top: 4px;
+    vertical-align: middle;
+}
+
+.AF_content input[type='text'] {
+    width: 90%;
+    border: 0px;
+}
+
+div[id^='AF_this_input_'] {
+    max-width: 420px;
+    width: 100%;
+    height: -moz-fit-content;
+    height: fit-content;
+    min-height: 30px;
+    margin: 0px;
+    margin-bottom: 5px;
+    color: var(--color-text);
+    background-color: var(--color-light);
+    position: relative;
+}
+
+.AF_label {
+    display: inline-block;
+    font-size: 18px;
+    margin-left: 3px;
+    vertical-align: middle;
+    line-height: 30px;
+}
+
+div[id^='AF_this_input_']:hover {
+    cursor: pointer;
+    transition: 0.25s;
+    background-color: var(--color-hover_2);
+}
+
+input[id^='AF_this_chbx_'] {
+    height: 100%;
+    width: 100%;
+    margin: 0px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    opacity: 0;
+}
+
+.AF_content input[type="text"] {
+    background-color: var(--color-background);
+    font-size: 14px;
+    border: 0px;
+}
+
+.AF_content textarea {
+    width: 80%;  
+    max-width: calc(100% - 6px);
+    height: 200px; 
+    background-color: var(--color-background);
+    border: 1px solid var(--color-text);
+    padding: 2px;
+}
+
+
+
+.AF_navigation {
+    width: calc(100% - 20px);
+    height: -moz-fit-content;
+    height: fit-content;
+    background-color: var(--color-light);
+    margin: 0px;
+    padding: 10px;
+    text-align: center;
+}
+
+#AF_prev_button_border {
+    width: 100px;
+    height: 30px;
+    margin: 0px;
+    background-color: var(--color-text);
+    border: 0px;
+    clip-path: polygon( 0px 15px, 
+                        15px 0px,
+                        100% 0px,
+                        100% 100%,
+                        15px 100%);
+    display: inline-block;
+    vertical-align: bottom;
+    position: relative;
+}
+#AF_prev_button {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    transition: 0.25s;
+    background-color: var(--color-special);
+    color: var(--color-header_text);
+    border: 0px;
+    clip-path: polygon( 1px 15px, 
+                        15px 1px,
+                        calc(100% - 1px) 1px,
+                        calc(100% - 1px) calc(100% - 1px),
+                        15px calc(100% - 1px));
+    font-size: 20px;
+}
+#AF_prev_button:hover {
+    background-color: var(--color-special_hover);
+}
+#AF_prev_button:disabled {
+    background-color: var(--color-additionaly);
+    color: var(--color-halftone_text);
+}
+
+#AF_progress_bar {
+    width: calc(100% - 200px - 50px);
+    min-width: 100px;
+    height: 28px;
+    margin: 0px;
+    background-color: var(--color-background);
+    border: 1px solid var(--color-text);
+    display: inline-block;
+    vertical-align: bottom;
+    position: relative;
+}
+#AF_progress_bar label {
+    display: block;
+    width: 100%;
+    font-size: 22px;
+    line-height: 28px;
+    color: var(--color-text);
+}
+
+#AF_next_button_border {
+    width: 100px;
+    height: 30px;
+    margin: 0px;
+    background-color: var(--color-text);
+    border: 0px;
+    clip-path: polygon( 100% 15px,
+                        calc(100% - 15px) 0px,
+                        0px 0px,
+                        0px 100%,
+                        calc(100% - 15px) 100%);
+    display: inline-block;
+    vertical-align: bottom;
+    position: relative;
+}
+#AF_next_button {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    transition: 0.25s;
+    background-color: var(--color-special);
+    color: var(--color-header_text);
+    border: 0px;
+    clip-path: polygon( calc(100% - 1px) 15px,
+                        calc(100% - 15px) 1px,
+                        1px 1px,
+                        1px calc(100% - 1px),
+                        calc(100% - 15px) calc(100% - 1px));
+    font-size: 20px;
+}
+#AF_next_button:hover {
+    background-color: var(--color-special_hover);
+}
+#AF_next_button:disabled {
+    background-color: var(--color-additionaly);
+    color: var(--color-halftone_text);
+}
+
+
+
+form[target='dummyframe'] {
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    position: absolute;
+}
+
+#form_submit {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+    transition: 0.25s;
+    background-color: var(--color-special);
+    color: var(--color-header_text);
+    font-size: 20px;
+}
+#form_submit:hover {
+    background-color: var(--color-special_hover);
+}
+#form_submit:disabled {
+    background-color: var(--color-additionaly);
+    color: var(--color-halftone_text);
+}
+
+.AF_content p {
+    font-size: 16px;
+}
+
+#AF_close {
+    width: 60%;
+    height: 28px;
+    margin: 0px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: var(--color-special);
+    color: var(--color-header_text);
+    border: 1px solid var(--color-text);
+    display: inline-block;
+    text-align: center;
+    vertical-align: bottom;
+    font-size: 24px;
+}
+#AF_close:hover {
+    background-color: var(--color-special_hover);
+}
