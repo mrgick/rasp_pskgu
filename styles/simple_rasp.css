@@ -135,10 +135,10 @@
 }
 
 
-.simple_rasp-pair:last-child > td:first-child {
+.last_visible_tr > td:first-child {
     border-bottom-left-radius: 20px !important;
 }
-.simple_rasp-pair:last-child > td:last-child {
+.last_visible_tr > td:last-child {
     border-bottom-right-radius: 20px !important;
 }
 
