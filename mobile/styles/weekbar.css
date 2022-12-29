@@ -248,14 +248,20 @@
     display: inline-block;
     width: 60px;
     height: 250px;
-    line-height: 250px;
     margin-right: 30px;
     margin-bottom: 20px;
     background-color: var(--color-light);
     border-radius: 666px;
-    font-size: 100px;
-    text-align: center;
-    vertical-align: middle;
+    position: relative;
+}
+
+
+#week_cal-arrows > div > svg {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 /*------------------------ filters of week calendar ------------------------*/
