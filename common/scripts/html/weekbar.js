@@ -142,8 +142,12 @@ function generate_weekbar (generate = 'cal') {
 
             <caption style='position: relative'>
                 <div id='week_cal-arrows'>
-                    <div onclick='try_offset_cal(+1)'>↑</div>
-                    <div onclick='try_offset_cal(-1)'>↓</div>
+                    <div onclick='try_offset_cal(+1)'>
+                        <svg xmlns="http://www.w3.org/2000/svg" height="60px" width="60px" viewbox="0 0 48 48" fill="var(--color-text)"><path d="M22.5 44V9.7L12.1 20.1 10 18 24 4l14 14-2.1 2.1L25.5 9.7V44Z"/></svg>
+                    </div>
+                    <div onclick='try_offset_cal(-1)'>
+                        <svg xmlns="http://www.w3.org/2000/svg" height="60px" width="60px" viewbox="0 0 48 48" fill="var(--color-text)"><path d="M24 44 10 30l2.1-2.1 10.4 10.4V4h3v34.3l10.4-10.4L38 30Z"/></svg>
+                    </div>
                 </div>
 
                 <table id='week_cal-monthes'>
