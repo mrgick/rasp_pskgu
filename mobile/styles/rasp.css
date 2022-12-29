@@ -1,0 +1,82 @@
+.rasp {
+    max-width: 1200px;
+    margin-top: 70px !important;
+    margin: -50px auto 0;
+}
+
+.rasp-title {
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 120%;
+    color: var(--color-text);
+    margin: 0 0 5px;
+    display: inline-block;
+}
+
+.rasp-table {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+    border-radius: 20px;
+    border-style: hidden;
+    box-shadow: 0 0 0 3px var(--color-text);
+}
+
+.rasp-table td {
+    width: 100%;
+}
+
+.rasp-table .block_1, .block_2 {
+    border-top: 3px dashed var(--color-additionaly);
+}
+
+.rasp-table-date {
+    text-align: center;
+    font-weight: 500;
+    font-size: 24px;
+    border: 2px solid var(--color-additionaly);
+    vertical-align: middle;
+}
+
+.rasp-table-shedule {
+    padding: 5px 0;
+    text-align: center;
+    border: 1px solid var(--color-additionaly);
+    border-bottom: 2px solid var(--color-additionaly);
+}
+
+.rasp-table-shedule-pair, .rasp-table-day-date {
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--color-text);
+}
+
+.rasp-table-shedule-time, .rasp-table-day-weekdate {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-halftone_text);
+    margin-top: 5px;
+}
+
+.rasp-table-day {
+    padding: 5px 0;
+    text-align: center;
+    vertical-align: middle;
+    border: 1px solid var(--color-additionaly);
+    border-right: 2px solid var(--color-additionaly);
+}
+
+.rasp-table-pair {
+    position: relative;
+    text-align: center;
+    font-weight: 400;
+    font-size: 8pt;
+    line-height: 140%;
+    border: 1px solid var(--color-additionaly);
+    vertical-align: top;
+}
+@media (max-width: 1550px) {
+    .rasp {
+        margin: -50px 25px 0;
+    }
+}

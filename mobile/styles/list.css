@@ -1,0 +1,29 @@
+#Lists {
+    padding: 50px 50px 50px 42px;
+}
+
+.possible_list {
+    width: 100%;
+    margin: 20px 0;
+    border-left: 8px solid var(--color-special);
+}
+
+.possible_list__item {
+    display: block;
+    font-weight: 500;
+    font-size: 40px;
+    padding: 20px 30px 20px 10px;
+    background-color: var(--color-unchoiced);
+    border: 0px;
+    margin: 1px;
+    width: calc(100% - 30px);
+}
+.possible_list__item:hover {
+    cursor: pointer;
+    background-color: var(--color-special_hover);
+    color: var(--color-header_text);
+}
+.possible_list__item--active {
+    background-color: var(--color-special);
+    color: var(--color-header_text);
+}

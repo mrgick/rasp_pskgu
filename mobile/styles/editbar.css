@@ -1,0 +1,216 @@
+.editbar-main {
+    padding: 20px;
+    border-bottom: 2px solid var(--color-text);
+}
+
+.editbar-main-menu {
+    border-bottom: 3px solid var(--color-halftone_text);
+}
+
+.editbar-main-menu > div {
+    display: flex;
+    justify-content: space-between;
+}
+
+.editbar-main-menu__button {
+    width: 28%;
+    height: 36px;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 2px solid var(--color-text);
+    border-radius: 18px;
+    background-color: var(--color-background);
+    text-align: center;
+    font-size: 30px;
+    font-weight: 500;
+    display: inline-block;
+}
+.editbar-main-menu__button:hover {
+    cursor: pointer;
+    box-shadow: 0 0 2px;
+}
+.editbar-main-menu__button:active {
+    background-color: var(--color-additionaly);
+}
+/*.editbar-main-menu__button--disabled {
+    color: var(--color-halftone_text);
+    background-color: var(--color-background);
+}
+.editbar-main-menu__button--disabled:hover {
+    cursor: not-allowed;
+}*/
+
+.editbar-main-menu__button--accept:hover {
+    color: var(--color-special);
+}
+
+.editbar-main-menu__button--clear:hover {
+    color: var(--color-error);
+}
+
+.editbar-main-menu__button--recommendations {
+    z-index: 1;
+    position: relative;
+}
+
+#editbar-main-menu__rec_list {
+    width: calc(100% - 40px);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.editbar-main-menu__rec {
+    width: calc(100% - 40px);
+    min-height: 100px;
+    padding: 20px;
+    margin-bottom: 20px;
+    display: inline-block;
+    background-color: var(--color-light);
+    transition: .5s;
+}
+.editbar-main-menu__rec:hover {
+    cursor: pointer;
+    background-color: var(--color-hover_1);
+}
+.editbar-main-menu__rec:active {
+    background-color: var(--color-hover_1);
+}
+.editbar-main-menu__rec > h1 {
+    margin-bottom: 20px;
+    font-size: 40px;
+    color: var(--color-text);
+    text-align: left;
+}
+.editbar-main-menu__rec > p {
+    font-size: 20px;
+    color: var(--color-halftone_text);
+    text-align: left;
+}
+
+.editbar-main-choice {
+    padding-top: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.editbar-main-choice__item {
+    width: 45%;
+    height: 36px;
+    padding: 0px;
+    margin: 20px 10px;
+    text-align: center;
+    vertical-align: middle;
+    justify-content: space-between;
+    border: 1px solid var(--color-text);
+    background-color: var(--color-additionaly);
+    position: relative;
+    display: inline-block;
+}
+.editbar-main-choice__item:hover {
+    cursor: pointer;
+    box-shadow: 0 0 2px;
+}
+
+.editbar-main-choice__item > select {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    font-size: 34px;
+    width: 36px;
+    height: 36px;
+    margin: 0px;
+    background-color: var(--color-light);
+    color: var(--color-text);
+    align-items: center;
+    text-align: center;
+    vertical-align: middle;
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    -ms-progress-appearance: none;
+}
+
+.editbar-main-choice__item_content {
+    position: absolute;
+    top: 0px;
+    left: 36px;
+    width: calc(100% - 36px);
+    height: 36px;
+    margin: 0px;
+    align-items: center;
+    text-align: center;
+}
+
+.editbar-main-choice__item-name {
+    font-size: 28px;
+    line-height: 36px;
+    color: var(--color-text);
+    overflow-x: hidden;
+}
+
+
+#editbar_welcome {
+    width: 60%;
+    margin: 40px auto;
+    font-size: 40px;
+    text-align: center;
+    vertical-align: middle;
+    color: var(--color-halftone_text);
+}
+
+
+#editbar_wrap {
+    width: calc(100% - 40px);
+    padding: 20px;
+    align-items: center;
+    text-align: center;
+}
+
+.editbar_itembox {
+    height: -moz-fit-content;
+    height: fit-content;
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 1px solid var(--color-text);
+    background-color: var(--color-light);
+}
+
+.editbar_itembox-content {
+    background-color: var(--color-background);
+}
+
+.editbar_itembox-content > p {
+    font-size: 34px;
+}
+
+.editbar_itembox-edit {
+    margin-top: 20px;
+    border: 1px solid var(--color-halftone_text);
+}
+
+.editbar_itembox-edit > table {
+    width: 100%;
+    height: -moz-fit-content;
+    height: fit-content;
+    margin: 10px;
+    text-align: left;
+}
+
+.editbar_itembox-edit > table td {
+    border-left: 5px dotted var(--color-halftone_text);
+}
+
+.editbar_itembox-edit > table th {
+    font-size: 30px;
+    border-left: 5px dotted var(--color-halftone_text);
+}
+
+.editbar_itembox-edit-colour td {
+    width: 33%;
+}
+
+.editbar_itembox-edit-style td {
+    width: 25%;
+}

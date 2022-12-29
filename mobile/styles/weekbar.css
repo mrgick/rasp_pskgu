@@ -1,0 +1,368 @@
+.weekbar {
+    background-color: var(--color-background);
+}
+
+
+#weekbar_header {
+    width: calc(100% - 40px);
+    height: 60px;
+    padding: 20px;
+    margin-bottom: 30px;
+    align-items: flex-end;
+    text-align: right;
+}
+
+#weekbar_header > div:first-child {
+    width: -moz-fit-content;
+    width: fit-content;
+    height: 58px;
+    padding: 0 10px;
+    border: 1px solid var(--color-text);
+    border-radius: 8px;
+    background-color: var(--color-light);
+    display: inline-block;
+    font-size: 40px;
+    line-height: 58px;
+    text-align: center;
+}
+
+#WBH_extra-lessons > div {
+    width: 58px;
+    height: 58px;
+    margin-left: 5px;
+    border: 1px solid var(--color-text);
+    border-radius: 8px;
+    background-color: var(--color-light);
+    display: inline-block;
+    font-size: 40px;
+    line-height: 58px;
+    text-align: center;
+}
+
+.WBH_have_lesson { 
+    background-color: var(--color-special) !important; 
+}
+.WBH_passed_lesson {
+    text-decoration: line-through;
+}
+.WBH_ongoing_lesson {
+    font-weight: bold;
+    border: 3px solid var(--color-text) !important;
+}
+
+#WBH_extra-time_to {
+    font-size: 40px;
+    line-height: 58px;
+    padding: 0 10px;
+    border: 1px solid var(--color-text);
+    border-radius: 8px;
+}
+
+
+.weekbar_switcher {
+    font-size: 40px;
+}
+
+.weekbar_switcher > span {
+    font-style: bold;
+    cursor: pointer;
+}
+
+/*------------------------ week list ------------------------*/
+
+#week_list {
+    margin: 10px;
+    text-align: center;
+}
+
+#week_list > table {
+    margin: auto;
+    margin-top: 30px;
+}
+
+#Weekbar_List {
+    font-size: 40px;
+    line-height: 70px;
+    text-align: left;
+    padding-left: 20px;
+    margin-top: 5px;
+    align-items: center;
+    text-align: center;
+}
+
+#Weekbar_List tr {
+    cursor: pointer;
+    color: var(--color-link);
+}
+
+#Weekbar_List tr:hover {
+    color: var(--color-link_hover);
+}
+
+#Weekbar_List td {
+    color: inherit;
+    padding: 0 20px;
+}
+
+#Weekbar_List td:first-child {
+    color: var(--color-text);
+    padding-right: 8px;
+    text-align: right;
+}
+
+#Weekbar_List td:nth-child(2), 
+#Weekbar_List td:nth-child(5) {
+    font-weight: bold;
+    text-align: right;
+}
+
+/*------------------------ week calendar ------------------------*/
+
+#week_cal {
+    border: 4px solid var(--color-text);
+}
+
+#week_cal > :not(caption) td {
+    width: 80px;
+    height: 80px;
+    font-size: 36px;
+    text-align: center;
+    vertical-align: middle;
+    border: 2px solid var(--color-text);
+    cursor: default;
+}
+
+#week_cal > :not(caption) td:first-child {
+    width: 60px;
+    border-right: 4px solid var(--color-text);
+}
+
+
+#week_cal > thead {
+    background-color: var(--color-special);
+}
+#week_cal > thead label {
+    font-weight: 500;
+    font-size: 44px;
+    color: var(--color-header_text);
+}
+
+
+#week_cal > tbody {
+    border: 4px solid var(--color-text);
+}
+
+#week_cal > tbody tr[this_week] {
+    background-color: var(--color-light);
+}
+#week_cal > tbody td[active] {
+    font-size: 44px;
+    color: var(--color-header_text);
+    background-color: var(--color-special_hover);
+}
+
+#week_cal > tbody td:hover {
+    color: var(--color-header_text);
+    background-color: var(--color-special);
+}
+
+
+#week_cal > tfoot {
+    border: 4px solid var(--color-text);
+}
+
+#week_cal > tfoot tr {
+    height: 30px;
+}
+
+#week_cal > tfoot td {
+    position: relative;
+    height: 30px;
+    font-size: 30px;
+    border: none;
+}
+
+#week_cal > tfoot td:first-child > div {
+    position: absolute;
+    top: 0;
+    width: 50%;
+    cursor: pointer;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 30px;
+}
+
+/*------------------------ monthes of week calendar ------------------------*/
+
+@media (max-width: 700px) {
+    #week_cal-monthes {display: none}
+}
+
+#week_cal-monthes {
+    position: absolute;
+    top: 100%;
+    left: 100%;
+    border: 4px solid transparent;
+    border-left: none;
+}
+
+#week_cal-monthes td {
+    width: -moz-fit-content;
+    width: fit-content;
+    min-width: 120px;
+    height: 80px;
+    border: 2px solid transparent;
+}
+
+
+#week_cal-monthes tbody {
+    border: 4px solid transparent;
+    border-left: none;
+    font-size: 28px;
+}
+
+#week_cal-monthes tbody td[month_top] {
+    border-top: 6px solid var(--color-error);
+    vertical-align: top;
+}
+
+#week_cal-monthes tbody td[month_bottom] {
+    border-bottom: 6px solid var(--color-error);
+    vertical-align: bottom;
+    line-height: 40px;
+}
+#week_cal-monthes tbody td[month_imitate] {
+    border-top: 6px solid transparent;
+}
+
+/*------------------------ arrows of week calendar ------------------------*/
+
+#week_cal-arrows {
+    position: absolute;
+    top: 100%;
+    right: 100%;
+    width: 90px;
+}
+
+#week_cal-arrows > div {
+    display: inline-block;
+    width: 60px;
+    height: 250px;
+    line-height: 250px;
+    margin-right: 30px;
+    margin-bottom: 20px;
+    background-color: var(--color-light);
+    border-radius: 666px;
+    font-size: 100px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+/*------------------------ filters of week calendar ------------------------*/
+
+#WC_filters > label {
+    margin-right: 0px;
+    font-size: 36px;
+    color: var(--color-halftone_text);
+}
+#WC_filters > select {
+    font-size: 36px;
+    color: var(--color-halftone_text);
+    background-color: var(--color-background);
+    border: 0px;
+}
+
+/*------------------------ extra filters of week calendar ------------------------*/
+
+#cal_filter_block {
+    margin: 30px;
+    text-align: center;
+}
+
+#WC_extra_filters {
+    width: 650px;
+    min-height: 60px;
+    margin: auto;
+    margin-top: 30px;
+}
+
+#WC_extra_filters > div {
+    width: 650px;
+    height: 60px;
+    line-height: 60px;
+    padding-right: 10px;
+    margin-bottom: 20px;
+    position: relative;
+    border-radius: 666px;
+    background-color: var(--color-light);
+}
+
+#WC_extra_filters > div > span {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    font-size: 50px;
+    text-align: center;
+    cursor: pointer;
+    transform-origin: center;
+    border-radius: 666px;
+    background-color: var(--color-additionaly);
+    transition: 0.5s;
+}
+
+#WC_extra_filters > div > span[delete] {
+    transform: rotate(0deg);
+    color: var(--color-error);
+}
+
+
+#WC_extra_filters > div > span[new] {
+    transform: rotate(45deg);
+    color: var(--color-link);
+}
+
+
+#WC_extra_filters > div > div {
+    position: absolute;
+    top: 0;
+    left: 70px;
+    width: calc(100% - 80px);
+}
+#WC_extra_filters > div > div > select {
+    width: calc((100% - 80px) / 2);
+    height: 60px;
+    font-size: 36px;
+    color: var(--color-text);
+    background-color: var(--color-light);
+    border: 0px;
+}
+
+/*------------------------ other ------------------------*/
+
+.temporary_highlighted {
+    animation-name: anim_temporary_highlighted;
+    animation-duration: 1.5s;
+    animation-iteration-count: 1;
+}
+
+@keyframes anim_temporary_highlighted {
+    from {background-color: var(--color-special);}
+    25% {background-color: var(--color-special);}
+    to {}
+}
+
+.temporary_highlighted_2 {
+    animation-name: anim_temporary_highlighted_2;
+    animation-duration: 1.5s;
+    animation-iteration-count: 1;
+}
+
+@keyframes anim_temporary_highlighted_2 {
+    from {background-color: var(--color-special);}
+    25% {background-color: var(--color-special);}
+    to {}
+}
