@@ -87,7 +87,7 @@ function insert_date_of_last_update (last_date, last_update) {
         <br>
         <br>
         <br>
-        <a href="${document.location.href.replace('/mobile', '')}">ПК-версия</a>
+        <a onclick="go_to_PC_version()">ПК-версия</a>
         `
     }
 
