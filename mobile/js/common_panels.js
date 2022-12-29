@@ -124,6 +124,7 @@ function expand_bottom_panel () {
 function unexpand_bottom_panel () {
     let panel = document.getElementById('bottom_panel')
     panel.setAttribute('class', 'unexpanded')
+    panel.scrollTo(0, 0)
 
     let bp_expand = panel.children[0].children[0].children[0]
     bp_expand.setAttribute('width' , '48px')
