@@ -666,6 +666,7 @@ class rasp_day {
     }
 
     show_up () {
+        this.recalculate_row_visibility()
         if (this.hidden) {
             this.hidden = false
             this.html.querySelector('thead').classList.remove('hidden')
@@ -681,6 +682,25 @@ class rasp_day {
             this.html.querySelector('tbody').classList.add('hidden')
             this.html.querySelector('tfoot').classList.remove('hidden')
         }
+    }
+
+    recalculate_row_visibility () {
+        let last_visible_tr = null
+
+        for (let day = 1; day <= 7; day++) {
+            let tr = this.lessons[day]
+            tr.classList.add('hidden')
+            tr.classList.remove('last_visible_tr')
+            for (let i = 1; i < tr.childElementCount; i++) {
+                if (tr.children[i].childElementCount != 0) {
+                    tr.classList.remove('hidden')
+                    last_visible_tr = tr
+                    break
+                }
+            }
+        }
+
+        if (last_visible_tr) last_visible_tr.classList.add('last_visible_tr')
     }
 
     insert_column (group) {
@@ -773,6 +793,7 @@ class rasp_day {
             }
         }
 
+        this.recalculate_row_visibility()
         this.check_for_hiding_up()
     }
 
@@ -782,6 +803,7 @@ class rasp_day {
             delete this.lessons_of[group]
         }
         this.remove_column(group)
+        this.recalculate_row_visibility()
         this.check_for_hiding_up()
     }
 
