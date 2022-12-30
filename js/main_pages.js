@@ -173,6 +173,10 @@ function generate_rasp_page(group)
                                     <label>Сообщить об ошибке</label>
                                     <svg xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 0 24 24" width="36px"></svg>
                                 </div>
+                                <div class="switcher-to_mobile_version" onclick="go_to_mobile_version();">
+                                    <label>Мобильная версия</label>
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 0 24 24" width="36px"></svg>
+                                </div>
                                 <div class="switcher-" onclick="" id="rasp_type_switcher">
                                     <label>-</label>
                                     <svg xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 0 24 24" width="36px"></svg>
