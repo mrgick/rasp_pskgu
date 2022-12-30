@@ -111,7 +111,7 @@ async function loadGroup(group_name, compare_to = null, force_rasp_type = null)
     if (compare_to != null) {
         for (let group of compare_to.split(',')) main_rasp.compare_to(group)
         switch_comparing()
-        unexpand_bottom_panel()
+        if (mobile_version) unexpand_bottom_panel()
     }
     
     used_class_names = create_used_class_names()
