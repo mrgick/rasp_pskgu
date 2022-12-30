@@ -273,13 +273,15 @@ function save_mode_to_cookie () {
                          mobile_version.toString(), 180);
 }
 
+let cookies_enabled = true
 window.onload = async function ()
 {
-    let need_up_warning = check_for_cookies();
-    load_mode_from_cookie()
-    save_mode_to_cookie()
-
-    set_right_rasp_version()
+    cookies_enabled = check_for_cookies()
+    if (cookies_enabled) {
+        load_mode_from_cookie()
+        save_mode_to_cookie()
+        set_right_rasp_version()
+    }
 
     let custom_theme = readCookie('custom_theme')
     if (custom_theme) {
@@ -291,10 +293,11 @@ window.onload = async function ()
 
     await parse_params()
     
-    if (need_up_warning) up_warning('Пользуясь данным сайтом, вы автоматически соглашаетесь с ' + 
-                                    'политикой использования Cookie файлов на этом сайте. ' + 
-                                    'Они используются для хранения Ваших персональных настроек.', 
-                                    'Cookies');
+    if (cookies_enabled && is_need_up_warning()) 
+        up_warning( 'Пользуясь данным сайтом, вы автоматически соглашаетесь с ' + 
+                    'политикой использования Cookie файлов на этом сайте. ' + 
+                    'Они используются для хранения Ваших персональных настроек.', 
+                    'Cookies');
 
     if (!readCookie('unique') && collecting_data) 
         up_warning('Для повышения качества сайта ведётся сбор некоторой ' +
@@ -345,6 +348,13 @@ function up_warning (warning_text, warning_header = 'Предупреждени�
 function close_warning (wid) { document.getElementById("aside_warning_" + wid).remove() }
 
 function check_for_cookies () {
+    createCookie('Cookies', 'true', 1)
+    result = readCookie('Cookies')
+    eraseCookie('Cookies')
+    return (result != null)
+}
+
+function is_need_up_warning () {
     if (readCookie('Cookies_enabled')) return false
     else {
         createCookie('Cookies_enabled', 'true', 180)
