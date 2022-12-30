@@ -41,9 +41,6 @@ const using_svg = `
 }
 .switcher-to_mobile_version svg {
 	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='36px' viewBox='0 0 24 24' width='36px' fill='%23000000'%3E%3Cpath d='M13 46q-1.2 0-2.1-.9-.9-.9-.9-2.1V5q0-1.2.9-2.1.9-.9 2.1-.9h22q1.2 0 2.1.9.9.9.9 2.1v38q0 1.2-.9 2.1-.9.9-2.1.9Zm0-7.5V43h22v-4.5Zm11 3.75q.65 0 1.075-.425.425-.425.425-1.075 0-.65-.425-1.075-.425-.425-1.075-.425-.65 0-1.075.425-.425.425-.425 1.075 0 .65.425 1.075.425.425 1.075.425ZM13 35.5h22v-26H13Zm0-29h22V5H13Zm0 32V43Zm0-32V5v1.5Z'/%3E%3C/svg%3E");
-	background-repeat: no-repeat no-repeat;
-	background-position: center center;
-	background-size: cover;
 }
 
 svg[name='special'] {
