@@ -30,7 +30,9 @@ div[id^='theme_div-'] label {
     position: fixed;
     top: 75px;
     left: 15px;
+    width: -moz-fit-content;
     width: fit-content;
+    height: -moz-fit-content;
     height: fit-content;
     background-color: var(--color-background);
     border: 1px solid var(--color-text);
@@ -43,6 +45,7 @@ div[id^='theme_div-'] label {
 
 #TE_header {
     width: 100%;
+    height: -moz-fit-content;
     height: fit-content;
 }
 #TE_header p {
@@ -66,6 +69,7 @@ div[id^='theme_div-'] label {
 }
 
 #TE_set_base {
+    height: -moz-fit-content;
     height: fit-content;
     padding: 5px;
     padding-top: 0px;

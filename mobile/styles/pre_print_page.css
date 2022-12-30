@@ -1,0 +1,198 @@
+#Printable_Group_Rasp {
+    width:  calc(var(--table-inline) * (var(--table-page_width) + 2px));
+    font-size: 0;
+}
+
+.Printable_rasp {
+    width:  calc(var(--table-page_width) - 2 * var(--table-side_padding));
+    height: calc(var(--table-page_height) - var(--table-top_padding) - var(--table-bottom_padding));
+    padding-right: var(--table-side_padding);
+    padding-left: var(--table-side_padding);
+    padding-top: var(--table-top_padding);
+    padding-bottom: var(--table-bottom_padding);
+    border: 1px dashed var(--color-text);
+    display: inline-block;
+    overflow: hidden;
+}
+
+.Printable_rasp .rasp-table-shedule-pair, .rasp-table-day-date {
+    font-size: calc(var(--table-font_size) * 1.7);
+}
+
+.Printable_rasp .rasp-table-shedule-time, .rasp-table-day-weekdate {
+    font-size: calc(var(--table-font_size) * 1.3);
+}
+.Printable_rasp h3 {
+    font-size: calc(var(--table-font_size) * 1.7);
+}
+
+.Printable_rasp .rasp-table-pair {
+    font-size: var(--table-font_size);
+    line-height: 140%;
+}
+
+.Printable_rasp table {
+    width: 100%;
+    height: calc(100% - 30px);
+}
+
+.Printable_rasp tr:first-child {
+    height: 30px;
+}
+
+
+#print_panel {
+    position: fixed;
+    top: 25px;
+    left: 25px;
+    width: 400px;
+    background-color: var(--color-background);
+    border: 2px solid var(--color-text);
+}
+
+#print_switcher {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    width: 72px;
+    height: 72px;
+    text-align: center;
+    line-height: 72px;
+    font-size: 50px;
+    transition: 0.25s;
+}
+
+#print_switcher:hover {
+    background-color: var(--color-hover_2);
+}
+
+#PP_content {
+    padding: 5px;
+}
+
+#PP_content > div {
+    padding: 10px 0;
+}
+
+#PP_content > div > label {
+    font-size: 36px;
+}
+
+#PP_rec {
+    border-top: 1px dashed var(--color-halftone_text);
+    padding-top: 5px;
+    margin: 5px;
+    margin-top: 0px;
+    font-size: 30px;
+    color: var(--color-halftone_text);
+}
+
+.padding_setters {
+    width: 100%;
+}
+
+input[id$='padding_setter-range'] {
+    display: inline-block;
+    width: 75%;
+    height: 40px;
+    vertical-align: bottom;
+    font-size: 40px;
+    accent-color: var(--color-special_hover);
+}
+
+input[id$='padding_setter-input'] {
+    display: inline-block;
+    width: 20%;
+    height: 40px;
+    margin-left: 10px;
+    vertical-align: bottom;
+    font-size: 30px;
+    background-color: var(--color-background);
+}
+
+.PP_subcontent-input {
+    margin-top: 4px;
+    margin-bottom: 10px;
+}
+
+.PP_subcontent-checkbox {
+    margin: 2px 0px;
+}
+.PP_subcontent-checkbox label {
+    line-height: 40px;
+    display: inline-block;
+    vertical-align: bottom;
+}
+.PP_subcontent-checkbox input[type='checkbox'] {
+    width: 40px;
+    height: 40px;
+    margin: 0px;
+    vertical-align: bottom;
+    accent-color: var(--color-special_hover);
+}
+
+#width_of_page, #height_of_page, 
+#count_on_row,
+#size_of_font {
+    width: 30%;
+    background-color: var(--color-light);
+    font-size: 36px;
+}
+#special_WH_of_page {
+    width: 20%;
+    font-size: 36px;
+    background-color: var(--color-background);
+}
+
+.PP_subcontent-days {
+    margin-top: 8px;
+}
+
+#all_days_displaying {
+    padding: 0px;
+    margin: 2px 0px;
+}
+
+.day_displaying {
+    display: inline-block;
+    width: 44px;
+    height: 44px;
+    margin-right: 5px;
+    text-align: center;
+    font-size: 30px;
+    line-height: 47px;
+    background-color: var(--color-hover_1);
+    border: 1px solid var(--color-text);
+    transition: 0.25s;
+    cursor: pointer;
+}
+.day_displaying:hover {
+    background-color: var(--color-hover_2);
+}
+.day_displaying[active] {
+    background-color: var(--color-special_hover);
+    color: var(--color-header_text);
+}
+
+.rasp-group {
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 120%;
+    color: var(--color-text);
+    margin: 0 0 5px;
+    display: block;
+    float: right;
+}
+
+.rasp-group--hidden {
+    display: none;
+}
+
+@media print {
+    #print_panel {
+        display:none;
+    }
+    .Printable_rasp {
+        border: 0px;
+    }
+}

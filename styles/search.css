@@ -65,6 +65,7 @@
     float: right;
     display: block;
     margin-top: 10px;
+    width: -moz-fit-content;
     width: fit-content;
     font-weight: 500;
     font-size: 18px;

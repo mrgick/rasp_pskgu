@@ -2,9 +2,11 @@
     position: fixed;
     bottom: 15px;
     right: 15px;
+    width: -moz-fit-content;
     width: fit-content;
     min-width: 250px;
     max-width: 600px;
+    height: -moz-fit-content;
     height: fit-content;
     background-color: var(--color-background);
     border: 1px solid var(--color-text);
@@ -36,17 +38,23 @@
 #ComparePanel-table tr:hover {
     border-left: 3px solid var(--color-special);
     background-color: var(--color-unchoiced);
+    cursor: default;
 }
 
 #ComparePanel-table td {
     height: 20px;
     font-size: 18px;
     vertical-align: middle;
+    border-bottom: 3px solid var(--color-background);
 }
 
 #ComparePanel-table td:first-child {
     color: var(--color-error);
     cursor: pointer;
+}
+
+#ComparePanel-table td:nth-child(2) {
+    padding: 0 5px;
 }
 
 #ComparePanel-table input[type='color'] {
@@ -68,6 +76,7 @@
 }
 
 #ComparePanel-add input[type='button'] {
+    width: -moz-fit-content;
     width: fit-content;
     height: 20px;
     padding: 0 3px;
@@ -77,6 +86,7 @@
 }
 
 #ComparePanel input[type='button'] {
+    width: -moz-fit-content;
     width: fit-content;
     height: 20px;
     padding: 0 3px;

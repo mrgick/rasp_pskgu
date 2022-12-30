@@ -4,6 +4,7 @@
     font-size: inherit;
     color: var(--color-text);
     margin: 0;
+    scrollbar-color: var(--color-light) var(--color-special);
 }
 
 input[type="search"]::-webkit-search-decoration,
@@ -232,4 +233,24 @@ div[onclick^='close'] svg {
 }
 .AW_OK button:hover {
     background-color: var(--color-hover_2);
+}
+
+
+::-webkit-scrollbar {
+    width: 10px;
+    background-color: var(--color-light);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--color-special);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-button {
+    display: none;
+}
+
+::placeholder, ::-moz-placeholder, ::-webkit-input-placeholder {
+    color: var(--color-halftone_text);
 }

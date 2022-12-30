@@ -1,0 +1,28 @@
+.filterbar-main-choice__item {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.filterbar-main-choice td:first-child {
+    border-left: 3px solid var(--color-background);
+}
+
+.filterbar-main-choice td:first-child:hover {
+    border-left: 3px solid var(--color-special);
+    background-color: var(--color-unchoiced);
+}
+
+#filterbar-table {
+    width: calc(100% - 40px);
+    margin: 20px;
+}
+
+#filterbar-table tr {
+    min-height: 40px;
+}
+
+#filterbar-table p {
+    font-size: 30px;
+    line-height: 40px;
+}

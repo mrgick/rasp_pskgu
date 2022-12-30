@@ -10,7 +10,9 @@
     position: fixed;
     top: 105px;
     left: 15px;
+    width: -moz-fit-content;
     width: fit-content;
+    height: -moz-fit-content;
     height: fit-content;
     background-color: var(--color-background);
     border: 1px solid var(--color-text);
@@ -19,32 +21,82 @@
     z-index: 3;
 }
 
-.weekbar-title {
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 140%;
-    color: var(--color-text);
+#weekbar_header {
+    height: 30px;
+    padding: 10px;
+    align-items: flex-end;
+    text-align: right;
     cursor: default;
 }
-.weekbar-list__item {
-    display: block;
-    margin: 5px 10px;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 120%;
-    color: var(--color-link);
-}
-.weekbar-list__item:hover {
-    color: var(--color-link_hover);
+
+#weekbar_header > div:first-child {
+    width: -moz-fit-content;
+    width: fit-content;
+    height: 24px;
+    line-height: 24px;
+    padding: 0 10px;
+    margin-right: 10px;
+    border: 1px solid var(--color-text);
+    border-radius: 8px;
+    background-color: var(--color-light);
+    display: inline-block;
+    text-align: center;
     cursor: pointer;
-    text-decoration: underline;
+}
+
+#weekbar_header > div:last-child {
+    cursor: pointer;
+}
+
+#WBH_extra-lessons > div {
+    width: 24px;
+    height: 24px;
+    margin-left: 5px;
+    border: 1px solid var(--color-text);
+    border-radius: 8px;
+    background-color: var(--color-light);
+    display: inline-block;
+    line-height: 24px;
+    text-align: center;
+}
+
+.WBH_have_lesson { 
+    background-color: var(--color-special) !important; 
+}
+.WBH_passed_lesson {
+    text-decoration: line-through;
+}
+.WBH_ongoing_lesson {
+    font-weight: bold;
+    border: 2px solid var(--color-text) !important;
+}
+
+#WBH_extra-time_to {
+    line-height: 24px;
+    padding: 0 10px;
+    border: 1px solid var(--color-text);
+    border-radius: 8px;
+}
+
+.weekbar_switcher {
+    margin-bottom: 5px;
+}
+
+.weekbar_switcher > span {
+    font-style: bold;
+    cursor: pointer;
 }
 
 /*------------------------ week list ------------------------*/
 
 #week_list {
+    display: flex;
     margin: 10px;
+    flex-direction: column;
     text-align: center;
+    align-content: center;
+    max-height: 500px;
+    overflow-y: auto;
 }
 
 #week_list > label > span {
@@ -62,7 +114,6 @@
     text-align: left;
     padding-left: 20px;
     margin-top: 5px;
-    list-style-type: decimal;
 }
 
 #Weekbar_List tr {
@@ -94,109 +145,108 @@
 /*------------------------ week calendar ------------------------*/
 
 #week_cal {
-    margin: 10px;
-    margin-right: 0px;
     border: 2px solid var(--color-text);
-    float: left;
+    margin-right: 100px;
 }
 
-#week_cal caption {
-    margin-bottom: 10px;
-    cursor: default;
-}
-#week_cal caption span {
-    font-style: bold;
-    cursor: pointer;
-}
-
-#week_cal td {
+#week_cal > :not(caption) td {
     width: 40px;
     height: 40px;
     text-align: center;
     vertical-align: middle;
     border: 1px solid var(--color-text);
-    transition: 0.25s;
     cursor: default;
 }
 
-#week_cal td:first-child {
+#week_cal > :not(caption) td:first-child {
     width: 30px;
     border-right: 2px solid var(--color-text);
 }
 
 
-#week_cal thead {
+#week_cal > thead {
     background-color: var(--color-special);
 }
-#week_cal thead label {
+#week_cal > thead label {
     font-weight: 500;
-    font-size: 130%;
+    font-size: 110%;
     color: var(--color-header_text);
 }
 
 
-#week_cal tbody {
+#week_cal > tbody {
     border: 2px solid var(--color-text);
 }
 
-#week_cal tbody tr[this_week] {
+#week_cal > tbody tr[this_week] {
     background-color: var(--color-light);
 }
-#week_cal tbody td[active] {
-    font-size: 130%;
+#week_cal > tbody td[active] {
+    font-size: 110%;
     color: var(--color-header_text);
     background-color: var(--color-special_hover);
 }
 
-#week_cal tbody td:hover {
+#week_cal > tbody td:hover {
     color: var(--color-header_text);
     background-color: var(--color-special);
 }
 
 
-#week_cal tfoot td {
+#week_cal > tfoot {
+    border: 2px solid var(--color-text);
+}
+
+#week_cal > tfoot tr {
+    height: 15px;
+}
+
+#week_cal > tfoot td {
     position: relative;
     height: 15px;
     font-size: 15px;
+    line-height: 15px;
     border: none;
+}
+
+#week_cal > tfoot td:first-child > div {
+    position: absolute;
+    top: 0;
+    width: 50%;
+    cursor: pointer;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 15px;
 }
 
 /*------------------------ monthes of week calendar ------------------------*/
 
-@media (max-width: 450px) {
-    #week_cal-monthes {display: none}
-    #week_cal {margin-right: 10px}
+@media (max-width: 650px) {
+    #week_cal-monthes { display: none }
+    #week_cal { margin-right: 0 }
 }
 
 #week_cal-monthes {
-    margin: 10px;
-    margin-left: 0px;
-    border: 2px solid var(--color-background);
-}
-
-#week_cal-monthes caption {
-    color: var(--color-background);
-    margin-bottom: 10px;
+    position: absolute;
+    top: 100%;
+    left: 100%;
+    border: 2px solid transparent;
+    border-left: none;
 }
 
 #week_cal-monthes td {
+    width: -moz-fit-content;
     width: fit-content;
-    min-width: 70px;
+    min-width: 80px;
     height: 40px;
-    border: 1px solid var(--color-background);
-}
-
-
-#week_cal-monthes thead label {
-    font-weight: 500;
-    font-size: 130%;
-    color: var(--color-background);
+    border: 1px solid transparent;
 }
 
 
 #week_cal-monthes tbody {
-    border: 2px solid var(--color-background);
-    font-size: 14px;
+    border: 2px solid transparent;
+    border-left: none;
+    cursor: default;
 }
 
 #week_cal-monthes tbody td[month_top] {
@@ -207,15 +257,28 @@
 #week_cal-monthes tbody td[month_bottom] {
     border-bottom: 3px solid var(--color-error);
     vertical-align: bottom;
+    line-height: 20px;
 }
 #week_cal-monthes tbody td[month_imitate] {
-    border-top: 3px solid var(--color-background);
+    border-top: 3px solid transparent;
 }
 
+/*------------------------ arrows of week calendar ------------------------*/
 
-#week_cal-monthes tfoot td {
-    height: 15px;
-    border: none;
+#week_cal-arrows {
+    display: none;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    opacity: 0;
+}
+
+#week_cal-arrows > div {
+    display: none;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    opacity: 0;
 }
 
 /*------------------------ filters of week calendar ------------------------*/
@@ -233,6 +296,11 @@
 }
 
 /*------------------------ extra filters of week calendar ------------------------*/
+
+#cal_filter_block {
+    margin: 10px 0;
+    text-align: left;
+}
 
 #WC_extra_filters {
     min-height: 20px;
@@ -287,12 +355,24 @@
 
 .temporary_highlighted {
     animation-name: anim_temporary_highlighted;
-    animation-duration: 1s;
+    animation-duration: 1.5s;
     animation-iteration-count: 1;
 }
 
 @keyframes anim_temporary_highlighted {
     from {background-color: var(--color-special);}
     25% {background-color: var(--color-special);}
-    to {background-color: var(--color-background);}
+    to {}
+}
+
+.temporary_highlighted_2 {
+    animation-name: anim_temporary_highlighted_2;
+    animation-duration: 1.5s;
+    animation-iteration-count: 1;
+}
+
+@keyframes anim_temporary_highlighted_2 {
+    from {background-color: var(--color-special);}
+    25% {background-color: var(--color-special);}
+    to {}
 }

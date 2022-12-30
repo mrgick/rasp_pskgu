@@ -1,0 +1,150 @@
+#left_shifting_panel {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 50%;
+    height: 100%;
+    padding-bottom: 20%;
+    background-color: var(--color-background);
+    border-right: 2px solid var(--color-text);
+    transition: .25s;
+    display: flex;
+    flex-flow: column;
+    z-index: 300;
+}
+
+.shifted_left {
+    transform: translateX(-110%);
+}
+
+#lsp_header {
+    position: relative;
+    width: 100%;
+    height: 72px;
+    min-height: 72px;
+    border-bottom: 3px solid var(--color-additionaly);
+    flex: 0 1 auto;
+}
+
+#lsp_header > svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#lsp_header > label {
+    position: absolute;
+    top: 0;
+    left: 80px;
+    height: 72px;
+    line-height: 72px;
+    font-size: 40px;
+}
+
+#lsp_list {
+    flex: 1 1 auto;
+    overflow-y: auto;
+}
+
+
+#popup_panel {
+    position: fixed;
+    top: 5%;
+    left: 10%;
+    width: 80%;
+    height: 80%;
+    background-color: var(--color-background);
+    border: 2px solid var(--color-text);
+    z-index: 400;
+    display: flex;
+    flex-flow: column;
+}
+
+#pu_header {
+    position: relative;
+    width: 100%;
+    height: 72px;
+    border-bottom: 3px solid var(--color-additionaly);
+    align-items: center;
+    text-align: center;
+    flex: 0 1 auto;
+}
+
+#pu_header > label:first-child {
+    height: 72px;
+    line-height: 72px;
+    font-size: 40px;
+}
+
+.large_exit_x {
+    position: absolute;
+    top: 6px;
+    right: 12px;
+    font-size: 60px;
+    color: var(--color-text);
+}
+
+#pu_list {
+    flex: 1 1 auto;
+    overflow-y: auto;
+}
+
+
+#bottom_panel {
+    position: fixed;
+    top: 30%;
+    width: 100%;
+    height: 70%;
+    padding-bottom: 200px;
+    background-color: var(--color-background);
+    border-top: 5px solid var(--color-text);
+    z-index: 200;
+    display: flex;
+    flex-flow: column;
+    overflow: auto;
+    transition: 0.25s;
+}
+
+.unexpanded {
+    top: calc(100% - 150px) !important;
+}
+
+.shifted_bottom {
+    top: 100% !important;
+}
+
+#bp_header {
+    width: 100%;
+    min-height: 48px;
+    border-bottom: 1px solid var(--color-halftone_text);
+    background-color: var(--color-background);
+    position: sticky;
+    top: 0;
+    left: 0;
+    z-index: 10;
+}
+
+#bp_expand {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#bp_close {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+#bp_expand svg, #bp_close svg {
+    transition: .25s;
+}
+
+#bp_header > label {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    line-height: 48px;
+    font-size: 40px;
+    transition: .25s;
+}

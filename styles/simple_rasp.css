@@ -1,38 +1,170 @@
-#Pre_Simple_Group_Rasp {
+#Simple_Group_Rasp {
     width: 96%;
+    max-width: 1200px;
     margin: auto;
 }
 
+.simple_rasp-day_table {
+    width: 100%;
+    margin-bottom: 20px;
+    background-color: var(--color-light);
+    border-radius: 20px; /*0 50px 50px 0*/
+    border-collapse: collapse;
+    border-style: hidden;
+    box-shadow: -5px 0 0 0 var(--color-special);
+}
+
 .simple_rasp-pair td {
+    width: -moz-fit-content;
     width: fit-content;
+    height: -moz-fit-content;
     height: fit-content;
 }
 
 .simple_rasp-day_start {
-    border-bottom: 3px solid var(--color-text);
+    height: 40px;
     color: var(--color-text);
-    font-size: 26px;
+    text-align: left;
 }
 
-.simple_rasp-day_start td {
-    color: inherit;
-    font-size: inherit;
+.simple_rasp-day_start th {
+    height: 40px;
+    padding: 3px;
+    text-align: left;
+}
+
+.simple_rasp-day_start th > div {
+    position: relative;
+    width: calc(100% - 6px);
+    height: 32px;
+    border: 2px solid var(--color-halftone_text);
+    border-radius: 666px; /*0 666px 666px 0*/
+    background-color: var(--color-additionaly);
+    text-align: left;
+}
+
+.simple_rasp-day_start th > div > p {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 24px;
+    height: 24px;
+    line-height: 22px;
+    margin: auto;
+    display: inline-block;
+    border: 2px solid var(--color-header_text);
+    border-radius: 666px; /*0 666px 666px 0*/
+    background-color: var(--color-special);
+    color: var(--color-header_text);
+    vertical-align: middle;
+    text-align: center;
+}
+
+.simple_rasp-day_start th > div > h1 {
+    position: absolute;
+    top: 0;
+    left: 30px;
+    height: 30px;
+    line-height: 30px;
+    padding-left: 5px;
+    font-size: 140%;
+    display: inline-block;
 }
 
 .simple_rasp-pair td {
     vertical-align: top;
+    padding-bottom: 8px;
+}
+
+.simple_rasp-pair .block_1, .block_2 {
+    border-top: 1px dashed var(--color-additionaly);
 }
 
 .simple_rasp-pair td:first-child {
+    position: relative;
+    width: 44px;
+    min-width: 44px;
     height: 100%;
+    padding: 0 5px 10px 5px;
+    vertical-align: top;
+    text-align: center;
+    border-bottom: 2px solid var(--color-additionaly);
+    border-radius: 10px;
+    cursor: default;
 }
 
-.simple_rasp-pair td:first-child p {
-    width: fit-content;
-    height: fit-content;
-    padding: 5px;
-    margin: 0;
-    border: 1px solid var(--color-halftone_text);
-    writing-mode: vertical-lr;
+.simple_rasp-pair td:first-child > h2 {
+    font-size: 110%;
+    line-height: 26px;
+    position: absolute;
+    top: 4px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: transparent;
+}
+
+.simple_rasp-pair td:first-child > h3 {
+    font-size: 100%;
+    line-height: 22px;
     color: var(--color-halftone_text);
+    position: absolute;
+    bottom: 4px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: transparent;
+}
+
+.simple_rasp-pair td:first-child > div {
+    position: absolute;
+    top: 32px;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 1px dashed var(--color-halftone_text);
+    background-color: transparent;
+}
+
+.simple_rasp-pair td:first-child > p {
+    height: 40px;
+    padding: 0;
+    margin: 0;
+    border: none;
+    background-color: var(--color-light);
+    opacity: 0;
+    z-index: -1;
+}
+
+
+.last_visible_tr > td:first-child {
+    border-bottom-left-radius: 20px !important;
+}
+.last_visible_tr > td:last-child {
+    border-bottom-right-radius: 20px !important;
+}
+
+
+.simple_rasp-pair td[class^='group'] {
+    position: relative;
+    padding: 4px;
+    font-size: 110%;
+}
+
+.simple_rasp-pair .base {
+    width: -moz-fit-content;
+    width: fit-content;
+    padding: 3px 6px;
+    border-radius: 20px;
+}
+
+.simple_rasp-day_table tfoot {
+    height: 40px;
+    cursor: default;
+}
+
+.simple_rasp-day_table tfoot td {
+    height: 30px;
+    padding: 5px 20px;
+    line-height: 30px;
+    font-size: 140%;
+    color: var(--color-halftone_text)
 }

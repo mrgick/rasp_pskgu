@@ -4,6 +4,7 @@
     left: 25px;
     max-width: 600px;
     width: 90%;
+    height: -moz-fit-content;
     height: fit-content;
     background-color: var(--color-background);
     border: 1px solid var(--color-special);
@@ -15,6 +16,7 @@
 
 .AF_header {
     width: 100%;
+    height: -moz-fit-content;
     height: fit-content;
     background-color: var(--color-special);
     margin: 0px;
@@ -45,6 +47,7 @@
 
 .AF_content {
     width: calc(100% - 10px);
+    height: -moz-fit-content;
     height: fit-content;
     min-height: 200px;
     background-color: var(--color-background);
@@ -85,6 +88,7 @@
 div[id^='AF_this_input_'] {
     max-width: 420px;
     width: 100%;
+    height: -moz-fit-content;
     height: fit-content;
     min-height: 30px;
     margin: 0px;
@@ -137,6 +141,7 @@ input[id^='AF_this_chbx_'] {
 
 .AF_navigation {
     width: calc(100% - 20px);
+    height: -moz-fit-content;
     height: fit-content;
     background-color: var(--color-light);
     margin: 0px;

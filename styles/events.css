@@ -26,6 +26,7 @@
 .new_event_panel {
     position: relative !important;
     top: auto !important;
+    height: -moz-fit-content !important;
     height: fit-content !important;
 }
 .new_event_title {
@@ -145,6 +146,7 @@
 }
 .block_event > div {
     border-top: 1px solid var(--color-text);
+    cursor: pointer;
 }
 
 #invitation_editor ul {
