@@ -378,7 +378,6 @@ class full_rasp {
     }
 
     get_table_contains (day) {
-        console.log(this.tables)
         for (let table of this.tables) {
             if (table.contains(day)) return table
         }
