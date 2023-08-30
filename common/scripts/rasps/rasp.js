@@ -378,6 +378,7 @@ class full_rasp {
     }
 
     get_table_contains (day) {
+        console.log(this.tables)
         for (let table of this.tables) {
             if (table.contains(day)) return table
         }
@@ -385,7 +386,7 @@ class full_rasp {
     }
 
     get_table_now () { return this.get_table_contains(Rasptime.date_now()) }
-    get_week_now () { return this.get_table_now().week }
+    get_week_now () { return this.get_table_now()?.week }
 
     set_week_cascadely (from, number) {
         let i = this.tables.indexOf(from)

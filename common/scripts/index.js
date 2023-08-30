@@ -140,7 +140,7 @@ async function loadGroup(group_name, compare_to = null, force_rasp_type = null)
     if (document.location.hash != '')
         main_rasp.go_to(document.location.hash.split('#')[1])
     else {
-        main_rasp.get_table_now().html.scrollIntoView()
+        main_rasp.get_table_now()?.html?.scrollIntoView()
         document.children[0].scrollBy(0, -160)
     }
 }
