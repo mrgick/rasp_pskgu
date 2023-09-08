@@ -1577,7 +1577,7 @@ const all_REs =     {'lesson_type': ['Тип занятия', {//VVV subtype VVV
                                       'Л2'               :['!Slice1'        , [/Л2-(СЗ|цифровой парк( \d уровень)?)/i                         ]],
                                       'С'                :['!Slice1'        , [/(С|К)-СЗ/i                                                    ]],
                                       '!result|i2'       :['Яндекс-телемост', [/О-Яндекс\.Телемост\d*/i                                       ]],
-                                      '!result|i3'       :['Pruffme'        , [/О-Pruffme\d*/i                                                ]],
+                                      '!result|i3'       :['Pruffme'        , [/Pruffme\d*/i                                                ]],
                                       '!result|i4'       :['!result', [/ПОКБ\d?/i                         , // debug
                                                                        /Я\.Фабрициуса,\s?\d-\d+/i         ,
                                                                        /О-BigBlueButton\d*/i              ,
@@ -1603,6 +1603,7 @@ const all_REs =     {'lesson_type': ['Тип занятия', {//VVV subtype VVV
                                                                        /Ф-\d*-\d*(a|а)?/i                 ,
                                                                        /Ф-СЗ/i                            ,
                                                                        /LMS Moodle/i                      ,
+                                                                       /\d-ПИШ\d*/i                       ,
                                                                        /Медико-реабилитационный центр ПсковГУ, ул. Розы Люксембург, д.6б/i]],
                                     }],
                            'group': ['Группа', {
