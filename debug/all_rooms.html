@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+
+<html lang="ru"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>Занятость помещений в расписании ПсковГУ</title>
+
+    <script type="text/javascript">
+        const weekNames = [
+            "Воскресенье", "Понедельник", "Вторник",
+            "Среда", "Четверг", "Пятница", "Суббота"
+        ]
+
+        const eng_weekNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+
+        function date_to_str(date) {
+            return date.toISOString().split('T')[0];
+        }
+
+        function get_monday(date) {
+            date = new Date(date);
+            let day = date.getDay();
+            let diff = date.getDate() - day + (day == 0 ? -6 : 1);
+            date = new Date(date.setDate(diff))
+            return date_to_str(date);
+        }
+
+        function get_next_day(date, n = 1) {
+            date = new Date(date);
+            let diff = date.getDate() + n;
+            date = new Date(date.setDate(diff))
+            return date_to_str(date);
+        }
+
+        function days_between (day_1, day_2) {
+            return Math.floor(Math.abs(new Date(day_2) - new Date(day_1))/1000/60/60/24)
+        }
+
+        async function get_all_groups_info() {
+            let response = await fetch('https://pskgu-api.onrender.com/groups?name=all');
+            let data = await response.json();
+            return data;
+        }
+
+        async function load_rooms () {
+            let header = document.getElementById('rooms_header')
+            let body   = document.getElementById('rooms_body'  )
+
+            let data = await get_all_groups_info()
+
+            let date_now = date_to_str(new Date())
+            let sdate = get_monday(date_to_str(new Date()))
+            let days_present = 14
+
+            for (let i = 0; i < days_present; i++) {
+                let day = get_next_day(sdate, i)
+                let th = document.createElement('th')
+                if (day < date_now) th.style.opacity = '0.2'
+
+                let day_of_week = weekNames[(i + 1)%7]
+                let end_day_of_week = eng_weekNames[(i + 1)%7]
+
+                th.classList.add(end_day_of_week)
+                th.setAttribute('onclick', `rooms_hightlight_day_of_week("${end_day_of_week}")`)
+                th.innerHTML = `
+                <div>${day}</div>
+                <div>${day_of_week}</div>
+                `
+                header.appendChild(th)
+            }
+
+            let rooms = {}
+
+            let name_print = 0
+            let name_i = 0
+            let start = 0
+            let end = 2000
+
+            for (let name in data) {
+                if (name_print == 100) {
+                    console.log(name_i, name)
+                    name_print = 0
+                }
+                name_print++
+                name_i++
+                if (name_i > end) break
+                if (name_i < start) continue
+
+                for (let day in data[name]['days']) {
+                    if (day < sdate || days_between(sdate, day) >= days_present) continue
+
+                    for (let pair in data[name]['days'][day]) {
+                        for (let block in data[name]['days'][day][pair]) {
+
+                            let room = data[name]['days'][day][pair][block].at(-1)
+
+                            if (rooms[room] == null) {
+                                let tr = document.createElement('tr')
+                                tr.innerHTML = `<td>${room}</td>`
+                                tr.setAttribute('onclick', 'this.classList.toggle("room_highlighted")')
+
+                                for (let i = 0; i < days_present; i++) {
+                                    let day = get_next_day(sdate, i)
+                                    tr.innerHTML += `
+                                    <td ${day < date_now? 'style="opacity: .2"' : ''} class="td_of_day ${eng_weekNames[(i + 1)%7]}">
+                                        <div></div>
+                                        <div></div>
+                                        <div></div>
+                                        <div></div>
+                                        <div></div>
+                                        <div></div>
+                                        <div></div>
+                                    </td>
+                                    `
+                                }
+
+                                body.appendChild(tr)
+                                rooms[room] = tr
+                            }
+
+                            let div = rooms[room].children[1 + days_between(sdate, day)].children[pair-1]
+
+                            div.style.backgroundColor = 'var(--color-non_empty)'
+                        }
+                    }
+                }
+            }
+        }
+
+        function rooms_hightlight_day_of_week (day_of_week) {
+            for (let elem of document.getElementsByClassName(day_of_week)) elem.classList.toggle('day_highlighted')
+        }
+
+        window.onload = load_rooms
+    </script>
+
+    <style type="text/css">
+        * {
+            --color-background: #FFFFFF;
+            --color-additionaly: #DDDDDD;
+            --color-halftone_text: #888888;
+            --color-non_empty: #BB5555;
+            --color-text: #000000;
+
+            margin: 0;
+            padding: 0;
+        }
+
+        #rooms_table {
+            vertical-align: middle;
+            text-align: center;
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+
+        #rooms_header th {
+            min-width: 100px;
+            padding: 5px;
+            border: 1px solid var(--color-additionaly);
+            border-bottom: 2px solid var(--color-text);
+        }
+
+        #rooms_header th:first-child {
+            border-right: 2px solid var(--color-text);
+        }
+
+        #rooms_table > tbody > tr > td:first-child {
+            border: 1px solid var(--color-additionaly);
+            border-right: 2px solid var(--color-text);
+            width: 120px;
+            height: 27px;
+            overflow: hidden;
+            text-align: left;
+        }
+
+        .td_of_day {
+            height: 10px;
+            padding: 5px;
+            border: 1px solid var(--color-additionaly);
+        }
+
+        .td_of_day > div {
+            width: 8px;
+            height: 8px;
+            border: 1px solid var(--color-text);
+            display: inline-block;
+            /*opacity: 0.1;*/
+        }
+
+        /*.td_of_day > div:nth-child(1) {
+            opacity: 1 !important;
+        }*/
+
+        .room_highlighted {
+            background-color: var(--color-halftone_text) !important;
+        }
+
+        .day_highlighted {
+            background-color: var(--color-halftone_text) !important;
+        }
+
+        .Sun {
+            border-right: 2px solid var(--color-text) !important;
+        }
+    </style>
+</head>
+
+<body>
+    <table id="rooms_table">
+        <thead>
+            <tr id="rooms_header">
+                <th>Кабинет</th>
+            </tr>
+        </thead>
+        <tbody id="rooms_body">
+        </tbody>
+    </table>
+
+
+
+</body></html>
