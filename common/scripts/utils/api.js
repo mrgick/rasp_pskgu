@@ -35,5 +35,5 @@ async function get_all_groups_info() {
 
 async function get_last_update() {
     res = await get_json(API_URL + "update?last=true")
-    return res
+    return Object.keys(res)[0]
 }

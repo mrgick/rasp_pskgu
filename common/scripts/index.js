@@ -143,6 +143,12 @@ async function loadGroup(group_name, compare_to = null, force_rasp_type = null)
         main_rasp.get_table_now()?.html?.scrollIntoView()
         document.children[0].scrollBy(0, -160)
     }
+
+    let last_updated = new Date(await get_last_update())
+    console.log(last_updated)
+    if (new Date() - last_updated > 1000 * 60 * 60 * 24 * 3) {
+        up_warning('Последняя проверка на изменения в расписании проводилась более 3-х дней назад. Пока проблема не будет устранена, рекомендуем сверяться с официальным сайтом ПсковГУ по адресу <a href="http://rasp.pskgu.ru/">http://rasp.pskgu.ru</a>.')
+    }
 }
 
 async function loadList()
