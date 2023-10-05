@@ -4,13 +4,13 @@ let group_rasp_id_table = 'rasp'
 async function parse_params () {
     let params = new URLSearchParams(window.location.search)
 
-    switch (params.get("from")) {
-        case "vk.com":
-            window.location.search
-            window.location = decode_win1251(window.location.toString().replace('from=vk.com', ''))
-            params = new URLSearchParams(window.location.search)
-            break
-    }
+    // switch (params.get("from")) {
+    //     case "vk.com":
+    //         window.location.search
+    //         window.location = decode_win1251(window.location.toString().replace('from=vk.com', ''))
+    //         params = new URLSearchParams(window.location.search)
+    //         break
+    // }
 
     switch ('string') {
         case typeof params.get('list'             ): load = 'list'  ; break
